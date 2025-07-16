@@ -16,7 +16,6 @@ class ChecklistController extends Controller
         return view('checklist.index', compact('checklists', 'staffList'));
     }
 
-
     public function updateStatus(Request $request, $id)
     {
         $checklist = Checklist::findOrFail($id);
