@@ -46,6 +46,12 @@
                     <li class="nav-item">
                         <a class="nav-link {{ request()->is('checklist') ? 'fw-bold' : '' }}" href="{{ route('checklist.index') }}">Checklist</a>
                     </li>
+                    <li class="nav-item">
+    <a href="{{ route('checklists.riwayat') }}" class="nav-link">
+        <i class="bi bi-clock-history me-1"></i> Riwayat Checklist
+    </a>
+</li>
+
                 </ul>
             </div>
         </div>

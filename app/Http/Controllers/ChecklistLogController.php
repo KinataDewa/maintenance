@@ -2,50 +2,46 @@
 
 namespace App\Http\Controllers;
 
-// app/Http/Controllers/ChecklistLogController.php
-
+use Illuminate\Http\Request;
 use App\Models\Checklist;
 use App\Models\ChecklistLog;
-use App\Models\User;
-use Illuminate\Http\Request;
 use Carbon\Carbon;
 
 class ChecklistLogController extends Controller
 {
-    public function index()
-{
-    $logs = ChecklistLog::with(['checklist', 'staff1', 'staff2'])
-                ->orderBy('tanggal', 'desc')
-                ->get();
-
-    return view('checklist-logs.index', compact('logs'));
-}
-    public function create()
-    {
-        $checklists = Checklist::orderBy('jam_mulai')->get();
-        $staffList = User::orderBy('name')->get(); // atau model Staff jika ada
-
-        return view('checklist-harian.create', compact('checklists', 'staffList'));
-    }
-
     public function store(Request $request)
     {
-        $tanggal = Carbon::today()->toDateString();
+        $tanggal = Carbon::today('Asia/Jakarta')->toDateString();
+        $checklists = Checklist::with('staff')->get();
 
-        foreach ($request->input('checklist_logs') as $log) {
-            ChecklistLog::updateOrCreate(
-                [
-                    'checklist_id' => $log['checklist_id'],
-                    'tanggal' => $tanggal
-                ],
-                [
-                    'staff_1_id' => $log['staff_1_id'] ?? null,
-                    'staff_2_id' => $log['staff_2_id'] ?? null,
-                    'status' => $log['status'] ?? 'belum',
-                ]
-            );
+        foreach ($checklists as $item) {
+            // Skip jika belum dipilih status atau staff
+            if (empty($item->status) || $item->staff->isEmpty()) {
+                continue;
+            }
+
+            // Simpan ke checklist_logs
+            $log = ChecklistLog::create([
+                'checklist_id' => $item->id,
+                'status' => $item->status,
+                'tanggal' => $tanggal
+            ]);
+
+            // Simpan staff ke pivot log
+            $staffIds = $item->staff->pluck('id')->toArray();
+            $log->staff()->sync($staffIds);
         }
 
-        return redirect()->route('checklist-harian.create')->with('success', 'Checklist harian berhasil dikirim.');
+        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan.');
     }
+    public function riwayat()
+{
+    // Ambil data log, dikelompokkan per tanggal
+    $riwayat = ChecklistLog::with(['checklist', 'staff'])
+        ->orderBy('tanggal', 'desc')
+        ->get()
+        ->groupBy('tanggal');
+
+    return view('checklist.riwayat', compact('riwayat'));
+}
 }

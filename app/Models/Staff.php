@@ -13,4 +13,9 @@ class Staff extends Model
 {
     return $this->belongsToMany(Checklist::class, 'checklist_staff');
 }
+public function checklistLogs()
+{
+    return $this->belongsToMany(ChecklistLog::class, 'checklist_log_staff');
+}
+
 }

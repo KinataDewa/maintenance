@@ -16,26 +16,23 @@ class ChecklistController extends Controller
         return view('checklist.index', compact('checklists', 'staffList'));
     }
 
-    public function updateStatus(Request $request, $id)
-    {
-        $checklist = Checklist::findOrFail($id);
-        $checklist->status = $request->status;
-        $checklist->save();
-        return back();
-    }
+    public function update(Request $request, $id)
+{
+    $checklist = Checklist::findOrFail($id);
 
-    public function updateStaff(Request $request, $id)
-    {
-        $checklist = Checklist::findOrFail($id);
+    // Validasi
+    $request->validate([
+        'status' => 'required|in:belum,progres,selesai',
+        'staff_ids.*' => 'nullable|exists:staff,id|distinct'
+    ]);
 
-        // Pastikan hanya maksimal 2 staff dan tidak boleh sama
-        $staffIds = array_filter($request->staff_ids ?? []);
-        if (count($staffIds) !== count(array_unique($staffIds))) {
-            return back()->with('error', 'Staff 1 dan Staff 2 tidak boleh sama.');
-        }
+    $checklist->status = $request->status;
+    $checklist->save();
 
-        $checklist->staff()->sync($staffIds);
+    $staffIds = array_filter($request->staff_ids ?? []);
+    $checklist->staff()->sync($staffIds);
 
-        return back()->with('success', 'Staff berhasil diperbarui.');
-    }
+    return back()->with('success', 'Checklist berhasil diperbarui.');
+}
+
 }
