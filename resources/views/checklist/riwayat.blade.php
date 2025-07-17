@@ -89,3 +89,44 @@
     });
 </script>
 @endsection
+
+@push('styles')
+<style>
+    .btn-delete {
+        background-color: #fff;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        font-weight: 500;
+        transition: all 0.2s ease-in-out;
+    }
+    .btn-delete:hover {
+        background-color: #dc3545;
+        color: white;
+    }
+</style>
+@endpush
+
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.querySelectorAll('.delete-aktivitas-form').forEach(form => {
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            Swal.fire({
+                title: 'Yakin ingin menghapus?',
+                text: "Aktivitas ini akan dihapus dari riwayat!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#dc3545',
+                cancelButtonColor: '#6c757d',
+                confirmButtonText: 'Ya, hapus',
+                cancelButtonText: 'Batal'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit();
+                }
+            });
+        });
+    });
+</script>
+@endpush
