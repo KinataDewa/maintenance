@@ -60,4 +60,14 @@ class ChecklistLogController extends Controller
 
         return view('checklist.riwayat', compact('riwayat'));
     }
+
+    public function destroy($id)
+{
+    $log = ChecklistLog::findOrFail($id);
+    $log->staff()->detach(); // Hapus relasi staff
+    $log->delete(); // Hapus log
+
+    return back()->with('success', 'Log berhasil dihapus.');
+}
+
 }

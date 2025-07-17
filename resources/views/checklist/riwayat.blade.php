@@ -21,10 +21,11 @@
                                 <th>Aktivitas</th>
                                 <th style="width:20%;">Status</th>
                                 <th>Staff</th>
+                                <th style="width:10%;">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach($logs->sortBy('checklist_id') as $index => $log)
+                            @foreach($logs->sortBy('checklist_id') as $index => $log)
                                 <tr>
                                     <td class="text-center">{{ $index + 1 }}</td>
                                     <td>{{ $log->checklist->aktivitas }}</td>
@@ -41,6 +42,15 @@
                                             <span class="badge bg-dark me-1">{{ $staff->name }}</span>
                                         @endforeach
                                     </td>
+                                    <td class="text-center">
+                                        <form id="form-hapus-{{ $log->id }}" action="{{ route('checklist-log.destroy', $log->id) }}" method="POST" style="display: inline;">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="button" class="btn btn-sm d-flex align-items-center gap-1 text-white btn-hapus-checklist" data-id="{{ $log->id }}" style="background-color: #d33;">
+                                                <i class="bi bi-trash"></i> Hapus
+                                            </button>
+                                        </form>
+                                    </td>
                                 </tr>
                             @endforeach
                         </tbody>
@@ -52,4 +62,30 @@
         <div class="alert alert-info">Belum ada riwayat checklist harian.</div>
     @endforelse
 </div>
+
+{{-- SweetAlert2 --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('.btn-hapus-checklist').forEach(function (button) {
+            button.addEventListener('click', function () {
+                const id = this.getAttribute('data-id');
+                Swal.fire({
+                    title: "Yakin ingin menghapus?",
+                    text: "Data ini tidak dapat dikembalikan!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#FFBD38",
+                    cancelButtonColor: "#000000",
+                    confirmButtonText: "Ya, hapus!",
+                    cancelButtonText: "Batal"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        document.getElementById('form-hapus-' + id).submit();
+                    }
+                });
+            });
+        });
+    });
+</script>
 @endsection
