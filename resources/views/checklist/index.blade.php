@@ -24,6 +24,7 @@
 </style>
 
 @section('content')
+
 <div class="container">
     <h1 class="mb-4">Checklist Harian</h1>
 
@@ -155,16 +156,80 @@
     </div>
     {{-- TOMBOL SIMPAN SEMUA --}}
 <div class="text-end mt-4">
-<form action="{{ route('checklists.log.store') }}" method="POST" onsubmit="return confirm('Simpan semua checklist hari ini?')">
-    @csrf
-    <button type="submit" class="btn btn-success shadow-sm px-4">
-        <i class="bi bi-save me-1"></i> Simpan Semua Checklist Hari Ini
-    </button>
-</form>
+    <form id="simpan-semua-form" action="{{ route('checklists.log.store') }}" method="POST">
+        @csrf
+        <button type="button" class="btn btn-success shadow-sm px-4" id="btn-simpan-semua">
+            <i class="bi bi-save me-1"></i> Simpan Semua Checklist Hari Ini
+        </button>
+    </form>
 </div>
+
 
 </div>
 @endsection
+@push('scripts')
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+document.getElementById('btn-simpan-semua').addEventListener('click', function () {
+    Swal.fire({
+        title: "Simpan semua checklist hari ini?",
+        text: "Pastikan semua data sudah terisi dengan benar.",
+        icon: "question",
+        width: '24em', // ✅ Ukuran popup lebih kecil (default 32em)
+        showDenyButton: true,
+        showCancelButton: false,
+        confirmButtonText: "Simpan",
+        denyButtonText: "Jangan Simpan",
+        customClass: {
+            confirmButton: 'btn-confirm',
+            denyButton: 'btn-deny',
+            popup: 'swal-small'
+        },
+        buttonsStyling: false
+    }).then((result) => {
+        if (result.isConfirmed) {
+            document.getElementById('simpan-semua-form').submit();
+        } else if (result.isDenied) {
+            Swal.fire({
+                title: "Perubahan tidak disimpan",
+                icon: "info",
+                width: '24em',
+                confirmButtonText: "OK",
+                customClass: {
+                    confirmButton: 'btn-confirm',
+                    popup: 'swal-small'
+                },
+                buttonsStyling: false
+            });
+        }
+    });
+});
+</script>
+
+<style>
+    .swal-small {
+        font-size: 0.9rem !important;
+    }
+    .btn-confirm {
+        background-color: #FFBD38 !important;
+        color: black !important;
+        border: none;
+        padding: 0.4rem 1.1rem;
+        border-radius: 0.3rem;
+        font-weight: 600;
+    }
+    .btn-deny {
+        background-color: #000 !important;
+        color: white !important;
+        border: none;
+        padding: 0.4rem 1.1rem;
+        border-radius: 0.3rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+</style>
+@endpush
+
 
 @push('styles')
 <style>

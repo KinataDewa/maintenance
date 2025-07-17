@@ -14,7 +14,15 @@ class ChecklistLogController extends Controller
         $tanggal = Carbon::today('Asia/Jakarta')->toDateString();
         $checklists = Checklist::with('staff')->get();
 
+        // Ambil checklist_id yang sudah pernah disimpan hari ini
+        $existingLogs = ChecklistLog::where('tanggal', $tanggal)->pluck('checklist_id')->toArray();
+
         foreach ($checklists as $item) {
+            // Skip jika sudah pernah disimpan hari ini
+            if (in_array($item->id, $existingLogs)) {
+                continue;
+            }
+
             // Skip jika belum dipilih status atau staff
             if (empty($item->status) || $item->staff->isEmpty()) {
                 continue;
@@ -38,17 +46,18 @@ class ChecklistLogController extends Controller
             $checklist->staff()->detach();
         }
 
-        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan dan data direset.');
+        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan (jika belum ada sebelumnya) dan data direset.');
     }
 
     public function riwayat()
     {
         // Ambil data log, dikelompokkan per tanggal
         $riwayat = ChecklistLog::with(['checklist', 'staff'])
-    ->orderBy('tanggal', 'desc')
-    ->orderBy('checklist_id') // Tambahkan ini
-    ->get()
-    ->groupBy('tanggal');
+            ->orderBy('tanggal', 'desc')
+            ->orderBy('checklist_id')
+            ->get()
+            ->groupBy('tanggal');
+
         return view('checklist.riwayat', compact('riwayat'));
     }
 }
