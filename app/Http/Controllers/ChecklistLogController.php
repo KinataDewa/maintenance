@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Checklist;
 use App\Models\ChecklistLog;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class ChecklistLogController extends Controller
 {
@@ -60,4 +61,14 @@ class ChecklistLogController extends Controller
 
         return view('checklist.riwayat', compact('riwayat'));
     }
+
+    public function hapusAktivitas($id)
+{
+    $log = ChecklistLog::findOrFail($id);
+    $log->staff()->detach(); // hapus relasi pivot
+    $log->delete();          // hapus log utamanya
+
+    return redirect()->back()->with('success', 'Aktivitas checklist berhasil dihapus.');
+}
+
 }

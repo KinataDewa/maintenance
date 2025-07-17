@@ -18,3 +18,6 @@ Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('
 
 // Menampilkan riwayat log
 Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
+
+//Hapus riwayat
+Route::delete('/checklist/log/{id}', [ChecklistLogController::class, 'hapusAktivitas'])->name('checklist.log.hapus');
