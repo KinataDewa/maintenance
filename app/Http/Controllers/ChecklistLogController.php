@@ -32,16 +32,23 @@ class ChecklistLogController extends Controller
             $log->staff()->sync($staffIds);
         }
 
-        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan.');
-    }
-    public function riwayat()
-{
-    // Ambil data log, dikelompokkan per tanggal
-    $riwayat = ChecklistLog::with(['checklist', 'staff'])
-        ->orderBy('tanggal', 'desc')
-        ->get()
-        ->groupBy('tanggal');
+        // ✅ Reset semua checklist setelah disimpan
+        Checklist::query()->update(['status' => 'belum']);
+        foreach (Checklist::all() as $checklist) {
+            $checklist->staff()->detach();
+        }
 
-    return view('checklist.riwayat', compact('riwayat'));
-}
+        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan dan data direset.');
+    }
+
+    public function riwayat()
+    {
+        // Ambil data log, dikelompokkan per tanggal
+        $riwayat = ChecklistLog::with(['checklist', 'staff'])
+    ->orderBy('tanggal', 'desc')
+    ->orderBy('checklist_id') // Tambahkan ini
+    ->get()
+    ->groupBy('tanggal');
+        return view('checklist.riwayat', compact('riwayat'));
+    }
 }

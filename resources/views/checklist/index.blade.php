@@ -155,12 +155,12 @@
     </div>
     {{-- TOMBOL SIMPAN SEMUA --}}
 <div class="text-end mt-4">
-    <form action="{{ route('checklists.save-all') }}" method="POST" onsubmit="return confirm('Simpan semua checklist hari ini?')">
-        @csrf
-        <button type="submit" class="btn btn-success shadow-sm px-4">
-            <i class="bi bi-save me-1"></i> Simpan Semua Checklist Hari Ini
-        </button>
-    </form>
+<form action="{{ route('checklists.log.store') }}" method="POST" onsubmit="return confirm('Simpan semua checklist hari ini?')">
+    @csrf
+    <button type="submit" class="btn btn-success shadow-sm px-4">
+        <i class="bi bi-save me-1"></i> Simpan Semua Checklist Hari Ini
+    </button>
+</form>
 </div>
 
 </div>

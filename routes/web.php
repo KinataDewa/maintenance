@@ -4,17 +4,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\ChecklistLogController;
 
+// Halaman dashboard utama
 Route::get('/', function () {
     return view('dashboard');
 });
 
+// Halaman checklist
 Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
 Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklists.update');
-Route::post('/checklist/save-all', [ChecklistLogController::class, 'store'])->name('checklists.save-all');
-Route::get('/checklist/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
 
-// // Update status checklist
-// Route::put('/checklist/{id}/status', [ChecklistController::class, 'updateStatus'])->name('checklists.update-status');
+// Tombol Simpan Semua → simpan ke log + reset
+Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('checklists.log.store');
 
-// // Update staff checklist
-// Route::put('/checklist/{id}/staff', [ChecklistController::class, 'updateStaff'])->name('checklists.update-staff');
+// Menampilkan riwayat log
+Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');

@@ -24,7 +24,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($logs as $index => $log)
+                           @foreach($logs->sortBy('checklist_id') as $index => $log)
                                 <tr>
                                     <td class="text-center">{{ $index + 1 }}</td>
                                     <td>{{ $log->checklist->aktivitas }}</td>
