@@ -6,15 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class ChecklistLog extends Model
 {
-    protected $fillable = ['checklist_id', 'status', 'tanggal'];
+    protected $fillable = ['checklist_id', 'status', 'tanggal', 'user_id'];
 
     public function checklist()
     {
         return $this->belongsTo(Checklist::class);
     }
 
-    public function staff()
+    public function user()
     {
-        return $this->belongsToMany(Staff::class, 'checklist_log_staff');
+        return $this->belongsTo(User::class)->withDefault();
     }
+    
 }
+

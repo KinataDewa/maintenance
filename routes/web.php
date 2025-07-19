@@ -19,4 +19,5 @@ Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('
 // Menampilkan riwayat log
 Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
 
-Route::delete('/checklist-log/{id}', [ChecklistLogController::class, 'destroy'])->name('checklist-log.destroy');
+Route::delete('/checklists/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
+Route::delete('/checklists/log/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');

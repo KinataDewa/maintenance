@@ -9,65 +9,54 @@ use Carbon\Carbon;
 
 class ChecklistLogController extends Controller
 {
-    public function store(Request $request)
-    {
-        $tanggal = Carbon::today('Asia/Jakarta')->toDateString();
-        $checklists = Checklist::with('staff')->get();
+public function store(Request $request)
+{
+    $tanggal = Carbon::today('Asia/Jakarta')->toDateString();
+    $checklists = Checklist::all();
+    $existingLogs = ChecklistLog::where('tanggal', $tanggal)->pluck('checklist_id')->toArray();
 
-        // Ambil checklist_id yang sudah pernah disimpan hari ini
-        $existingLogs = ChecklistLog::where('tanggal', $tanggal)->pluck('checklist_id')->toArray();
-
-        foreach ($checklists as $item) {
-            // Skip jika sudah pernah disimpan hari ini
-            if (in_array($item->id, $existingLogs)) {
-                continue;
-            }
-
-            // Skip jika belum dipilih status atau staff
-            if (empty($item->status) || $item->staff->isEmpty()) {
-                continue;
-            }
-
-            // Simpan ke checklist_logs
-            $log = ChecklistLog::create([
-                'checklist_id' => $item->id,
-                'status' => $item->status,
-                'tanggal' => $tanggal
-            ]);
-
-            // Simpan staff ke pivot log
-            $staffIds = $item->staff->pluck('id')->toArray();
-            $log->staff()->sync($staffIds);
+    foreach ($checklists as $item) {
+        if (in_array($item->id, $existingLogs)) {
+            continue;
         }
 
-        // ✅ Reset semua checklist setelah disimpan
-        Checklist::query()->update(['status' => 'belum']);
-        foreach (Checklist::all() as $checklist) {
-            $checklist->staff()->detach();
+        if (empty($item->status)) {
+            continue;
         }
 
-        return redirect()->back()->with('success', 'Checklist harian berhasil disimpan (jika belum ada sebelumnya) dan data direset.');
+        ChecklistLog::create([
+            'checklist_id' => $item->id,
+            'status' => $item->status,
+            'tanggal' => $tanggal,
+            'user_id' => null // karena login belum aktif
+        ]);
     }
+
+    Checklist::query()->update(['status' => 'belum']);
+
+    return redirect()->back()->with('success', 'Checklist disimpan dan direset.');
+}
+
 
     public function riwayat()
-    {
-        // Ambil data log, dikelompokkan per tanggal
-        $riwayat = ChecklistLog::with(['checklist', 'staff'])
-            ->orderBy('tanggal', 'desc')
-            ->orderBy('checklist_id')
-            ->get()
-            ->groupBy('tanggal');
+{
+    $riwayat = ChecklistLog::with(['checklist'])
+        ->orderBy('tanggal', 'desc')
+        ->orderBy('checklist_id')
+        ->get()
+        ->groupBy('tanggal');
 
-        return view('checklist.riwayat', compact('riwayat'));
-    }
+    return view('checklist.riwayat', compact('riwayat'));
+}
+
 
     public function destroy($id)
 {
     $log = ChecklistLog::findOrFail($id);
-    $log->staff()->detach(); // Hapus relasi staff
-    $log->delete(); // Hapus log
+    $log->delete();
 
-    return back()->with('success', 'Log berhasil dihapus.');
+    return redirect()->back()->with('success', 'Checklist berhasil dihapus.');
 }
+
 
 }

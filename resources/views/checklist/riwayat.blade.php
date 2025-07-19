@@ -6,64 +6,55 @@
 <div class="container">
     <h1 class="mb-4">Riwayat Checklist Harian</h1>
 
-    @forelse($riwayat as $tanggal => $logs)
+    @foreach ($riwayat as $tanggal => $logs)
         <div class="card mb-4 shadow-sm">
             <div class="card-header bg-dark text-white d-flex justify-content-between">
                 <strong>{{ \Carbon\Carbon::parse($tanggal)->format('d M Y') }}</strong>
                 <span>{{ $logs->count() }} Aktivitas</span>
             </div>
             <div class="card-body p-0">
-                <div class="table-responsive">
-                    <table class="table mb-0 table-bordered align-middle">
-                        <thead class="table-light">
+                <table class="table table-bordered table-striped table-sm mb-0 text-dark" style="background-color: #fff;">
+                    <thead class="bg-dark text-white">
+                        <tr>
+                            <th>No</th>
+                            <th>Aktivitas</th>
+                            <th>Waktu</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($logs as $i => $log)
                             <tr>
-                                <th style="width:5%;">No</th>
-                                <th>Aktivitas</th>
-                                <th style="width:20%;">Status</th>
-                                <th>Staff</th>
-                                <th style="width:10%;">Aksi</th>
+                                <td>{{ $i + 1 }}</td>
+                                <td>{{ $log->checklist->aktivitas }}</td>
+                                <td>{{ $log->checklist->jam_mulai }} - {{ $log->checklist->jam_selesai }}</td>
+                                <td>
+                                    <span class="badge
+                                    @if($log->status == 'belum') bg-secondary
+                                    @elseif($log->status == 'progres') bg-warning text-dark
+                                    @else bg-success @endif">
+                                    {{ ucfirst($log->status) }}
+                                    </span>                                </td>
+                                <td>
+                                    <form id="form-hapus-{{ $log->id }}" action="{{ route('checklists.destroy', $log->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="button" class="btn btn-sm btn-danger btn-hapus-checklist" data-id="{{ $log->id }}">Hapus</button>
+                                    </form>
+                                </td>
                             </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($logs->sortBy('checklist_id') as $index => $log)
-                                <tr>
-                                    <td class="text-center">{{ $index + 1 }}</td>
-                                    <td>{{ $log->checklist->aktivitas }}</td>
-                                    <td>
-                                        <span class="badge
-                                            @if($log->status == 'belum') bg-secondary
-                                            @elseif($log->status == 'progres') bg-warning text-dark
-                                            @else bg-success @endif">
-                                            {{ ucfirst($log->status) }}
-                                        </span>
-                                    </td>
-                                    <td>
-                                        @foreach($log->staff as $staff)
-                                            <span class="badge bg-dark me-1">{{ $staff->name }}</span>
-                                        @endforeach
-                                    </td>
-                                    <td class="text-center">
-                                        <form id="form-hapus-{{ $log->id }}" action="{{ route('checklist-log.destroy', $log->id) }}" method="POST" style="display: inline;">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="button" class="btn btn-sm d-flex align-items-center gap-1 text-white btn-hapus-checklist" data-id="{{ $log->id }}" style="background-color: #d33;">
-                                                <i class="bi bi-trash"></i> Hapus
-                                            </button>
-                                        </form>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
+                        @endforeach
+                    </tbody>
+                </table>
             </div>
         </div>
-    @empty
-        <div class="alert alert-info">Belum ada riwayat checklist harian.</div>
-    @endforelse
+    @endforeach
 </div>
+@endsection
 
-{{-- SweetAlert2 --}}
+{{-- SweetAlert2 dan Script Hapus --}}
+@push('scripts')
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -88,7 +79,7 @@
         });
     });
 </script>
-@endsection
+@endpush
 
 @push('styles')
 <style>
@@ -105,4 +96,3 @@
     }
 </style>
 @endpush
-

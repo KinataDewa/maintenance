@@ -15,9 +15,6 @@
 .card-status-belum::before {
     background-color: #dee2e6;
 }
-.card-status-progres::before {
-    background-color: #FFBD38;
-}
 .card-status-selesai::before {
     background-color: #198754;
 }
@@ -43,8 +40,7 @@
             <tbody>
                 @forelse($checklists as $index => $item)
                 <tr style="border-left: 4px solid 
-                    @if($item->status == 'progres') #FFBD38
-                    @elseif($item->status == 'selesai') #198754
+                    @if($item->status == 'selesai') #198754
                     @else #dee2e6 @endif;">
                     <td class="text-center">{{ $index + 1 }}</td>
                     <td>{{ $item->aktivitas }}</td>
@@ -56,30 +52,9 @@
                         <form action="{{ route('checklists.update', $item->id) }}" method="POST">
                             @csrf
                             @method('PUT')
-                            {{-- Staff --}}
-                            @foreach($item->staff as $existing)
-                                <select name="staff_ids[]" class="form-select form-select-sm mb-1">
-                                    <option value="">-- Pilih Staff --</option>
-                                    @foreach($staffList as $staff)
-                                        <option value="{{ $staff->id }}" {{ $staff->id == $existing->id ? 'selected' : '' }}>
-                                            {{ $staff->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                            @endforeach
-                            @for($i = count($item->staff); $i < 2; $i++)
-                                <select name="staff_ids[]" class="form-select form-select-sm mb-1">
-                                    <option value="">-- Pilih Staff --</option>
-                                    @foreach($staffList as $staff)
-                                        <option value="{{ $staff->id }}">{{ $staff->name }}</option>
-                                    @endforeach
-                                </select>
-                            @endfor
-
                             {{-- Status --}}
                             <select name="status" class="form-select form-select-sm mt-1">
                                 <option value="belum" {{ $item->status == 'belum' ? 'selected' : '' }}>Belum</option>
-                                <option value="progres" {{ $item->status == 'progres' ? 'selected' : '' }}>Progres</option>
                                 <option value="selesai" {{ $item->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
                             </select>
                     </td>
@@ -105,8 +80,7 @@
                 <div class="d-flex justify-content-between align-items-start mb-2">
                     <div class="fw-semibold text-dark">{{ $index + 1 }}. {{ $item->aktivitas }}</div>
                     <span class="badge 
-                        @if($item->status == 'progres') bg-warning text-dark
-                        @elseif($item->status == 'selesai') bg-success
+                        @if($item->status == 'selesai') bg-success
                         @else bg-secondary @endif">
                         {{ ucfirst($item->status) }}
                     </span>
@@ -120,31 +94,10 @@
                 <form action="{{ route('checklists.update', $item->id) }}" method="POST">
                     @csrf
                     @method('PUT')
-
-                    {{-- Staff --}}
-                    @foreach($item->staff as $existing)
-                        <select name="staff_ids[]" class="form-select form-select-sm mb-1">
-                            <option value="">-- Pilih Staff --</option>
-                            @foreach($staffList as $staff)
-                                <option value="{{ $staff->id }}" {{ $staff->id == $existing->id ? 'selected' : '' }}>
-                                    {{ $staff->name }}
-                                </option>
-                            @endforeach
-                        </select>
-                    @endforeach
-                    @for($i = count($item->staff); $i < 2; $i++)
-                        <select name="staff_ids[]" class="form-select form-select-sm mb-1">
-                            <option value="">-- Pilih Staff --</option>
-                            @foreach($staffList as $staff)
-                                <option value="{{ $staff->id }}">{{ $staff->name }}</option>
-                            @endforeach
-                        </select>
-                    @endfor
-
                     {{-- Status --}}
                     <select name="status" class="form-select form-select-sm mb-2">
                         <option value="belum" {{ $item->status == 'belum' ? 'selected' : '' }}>Belum</option>
-                        <option value="progres" {{ $item->status == 'progres' ? 'selected' : '' }}>Progres</option>
+                        {{-- <option value="progres" {{ $item->status == 'progres' ? 'selected' : '' }}>Progres</option> --}}
                         <option value="selesai" {{ $item->status == 'selesai' ? 'selected' : '' }}>Selesai</option>
                     </select>
 
