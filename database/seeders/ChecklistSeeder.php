@@ -10,7 +10,7 @@ class ChecklistSeeder extends Seeder
     public function run(): void
     {
         $data = [
-            ['Hidupkan Chiller dan AHU & Pengecekan lampu PJU dipastikan off', '07:00', '07:15'],
+            ['Hidupkan Chiller, AHU & Pengecekan lampu PJU mati', '07:00', '07:15'],
             ['Hidupkan AC kantin', '11:00', '11:10'],
             ['Hidupkan AC Musholla', '11:30', '11:40'],
             ['Mematikan AC kantin dan Musholla', '13:00', '13:15'],
