@@ -56,10 +56,11 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link {{ request()->is('checklists/riwayat') ? 'fw-bold' : '' }}" href="{{ route('checklists.riwayat') }}">
-                            <i class="bi bi-clock-history me-1"></i> Riwayat Checklist
-                        </a>
-                    </li>
+    <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
+        <i class="bi bi-clock-history me-1"></i> Riwayat
+    </a>
+</li>
+
                 </ul>
             </div>
         </div>
