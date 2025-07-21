@@ -43,3 +43,4 @@ Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->n
 Route::get('/meteran-listrik/create', [MeteranListrikController::class, 'create'])->name('meteran.create');
 Route::post('/meteran-listrik', [MeteranListrikController::class, 'store'])->name('meteran.store');
 Route::get('/meteran/riwayat', [MeteranListrikController::class, 'riwayat'])->name('meteran.riwayat');
+Route::get('/meteran/export', [MeteranListrikController::class, 'export'])->name('meteran.export');

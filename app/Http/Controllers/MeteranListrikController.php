@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\MeteranListrik;
 use App\Models\Tenant;
 use Carbon\Carbon;
+use App\Exports\MeteranExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MeteranListrikController extends Controller
 {
@@ -40,10 +42,28 @@ class MeteranListrikController extends Controller
         return redirect()->route('meteran.create')->with('success', 'Data meteran berhasil disimpan!');
     }
 
-    public function riwayat()
-{
-    $riwayat = MeteranListrik::with('tenant')->latest()->get();
-    return view('meteran.riwayat', compact('riwayat'));
-}
+    public function riwayat(Request $request)
+    {
+        $query = MeteranListrik::with('tenant')->latest();
 
+        if ($request->filled('tenant_id')) {
+            $query->where('tenant_id', $request->tenant_id);
+        }
+
+        if ($request->filled('tanggal')) {
+            $query->whereDate('waktu_input', $request->tanggal);
+        }
+
+        $riwayat = $query->get();
+        $tenants = Tenant::all();
+
+        return view('meteran.riwayat', compact('riwayat', 'tenants'));
+    }
+    public function export(Request $request)
+{
+    $tenant_id = $request->tenant_id;
+    $tanggal = $request->tanggal;
+
+    return Excel::download(new MeteranExport($tenant_id, $tanggal), 'meteran_listrik.xlsx');
+}
 }
