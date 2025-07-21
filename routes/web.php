@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\ChecklistLogController;
 use App\Http\Controllers\RiwayatController;
+use App\Http\Controllers\MeteranListrikController;
+
+
 // Halaman dashboard utama
 Route::get('/', function () {
     return view('dashboard');
@@ -34,3 +37,9 @@ Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index
 Route::get('/riwayat/checklist', [App\Http\Controllers\RiwayatController::class, 'checklist'])->name('riwayat.checklist');
 Route::get('/riwayat/meteran', [App\Http\Controllers\RiwayatController::class, 'meteran'])->name('riwayat.meteran');
 Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
+
+
+// Meteran Listrik
+Route::get('/meteran-listrik/create', [MeteranListrikController::class, 'create'])->name('meteran.create');
+Route::post('/meteran-listrik', [MeteranListrikController::class, 'store'])->name('meteran.store');
+Route::get('/meteran/riwayat', [MeteranListrikController::class, 'riwayat'])->name('meteran.riwayat');
