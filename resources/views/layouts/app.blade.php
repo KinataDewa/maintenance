@@ -56,11 +56,10 @@
                         </a>
                     </li>
                     <li class="nav-item">
-    <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
-        <i class="bi bi-clock-history me-1"></i> Riwayat
-    </a>
-</li>
-
+                        <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
+                            <i class="bi bi-clock-history me-1"></i> Riwayat
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -74,5 +73,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     @stack('scripts')
+    @stack('scripts')
+    @yield('scripts')
+
 </body>
 </html>

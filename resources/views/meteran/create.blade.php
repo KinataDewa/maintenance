@@ -32,9 +32,12 @@
 
         <div class="mb-3">
             <label for="foto" class="form-label">Foto Meteran</label>
-            <input type="file" name="foto" class="form-control"
-            accept="image/*" capture="environment" required>
+            <input type="file" name="foto" id="foto" class="form-control" accept="image/*" required>
             @error('foto') <div class="text-danger small">{{ $message }}</div> @enderror
+
+            <div class="mt-2">
+                <img id="preview-image" src="#" alt="Preview Foto" class="img-fluid rounded" style="display: none; max-height: 300px;">
+            </div>
         </div>
 
         <div class="mb-3">
@@ -46,4 +49,20 @@
         <button type="submit" class="btn btn-warning text-white">Simpan</button>
     </form>
 </div>
+
+{{-- Preview Foto Script --}}
+<script>
+    document.getElementById('foto').addEventListener('change', function (event) {
+        const file = event.target.files[0];
+        const preview = document.getElementById('preview-image');
+
+        if (file && file.type.startsWith('image/')) {
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = 'block';
+        } else {
+            preview.src = '#';
+            preview.style.display = 'none';
+        }
+    });
+</script>
 @endsection

@@ -20,7 +20,7 @@ class MeteranListrikController extends Controller
         $request->validate([
             'tenant_id' => 'required|exists:tenants,id',
             'kwh' => 'required|numeric|min:0',
-            'foto' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'foto' => 'required|image|mimes:jpeg,png,jpg|max:5120',
             'deskripsi' => 'nullable|string|max:255',
         ]);
 
