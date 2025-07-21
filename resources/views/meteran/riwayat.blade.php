@@ -56,7 +56,7 @@
                         <button class="accordion-button collapsed bg-dark text-white fw-bold" type="button"
                             data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false"
                             aria-controls="{{ $accordionId }}">
-                            📅 {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }} ({{ $logs->count() }} data)
+                            {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }}
                         </button>
                     </h2>
                     <div id="{{ $accordionId }}" class="accordion-collapse collapse"

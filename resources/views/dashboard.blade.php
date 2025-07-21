@@ -45,9 +45,9 @@
                 <div>
                     <div class="d-flex align-items-center mb-2">
                         <i class="bi bi-clock-history text-secondary me-2 fs-4"></i>
-                        <h6 class="mb-0 fw-semibold text-dark">Riwayat Checklist</h6>
+                        <h6 class="mb-0 fw-semibold text-dark">Riwayat</h6>
                     </div>
-                    <small class="text-muted">Lihat data checklist sebelumnya.</small>
+                    <small class="text-muted">Lihat data semua pekerjaan Anda.</small>
                 </div>
                 <a href="{{ route('riwayat.index') }}" class="btn btn-sm mt-3 btn-outline-secondary">
                     <i class="bi bi-journal-text me-1"></i> Lihat Riwayat
