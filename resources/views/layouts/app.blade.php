@@ -42,7 +42,7 @@
         .btn-warning {
             background-color: #FFBD38;
             border: none;
-            color: #000;
+            color: white;
         }
     </style>
     @stack('styles')
@@ -50,7 +50,11 @@
 <body>
     <nav class="navbar navbar-expand-lg navbar-custom shadow-sm sticky-top">
         <div class="container">
-            <a class="navbar-brand" href="{{ url('/') }}">Maintenance App</a>
+            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url('/') }}">
+                <img src="{{ asset('images/logo2.png') }}" alt="Logo" height="25">
+                <span class="fw-semibold fs-5 text-dark mb-0" style="letter-spacing: 0.5px;">Maintenance</span>
+            </a>
+
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -88,5 +92,5 @@
     @stack('scripts')
     @yield('scripts')
 
-</body>
+    </body>
 </html>

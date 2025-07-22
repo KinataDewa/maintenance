@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title">Form Pompa Air Bersih</h1>
+<h1 class="page-title">Form Pompa Air Bersih</h1>
 
     {{-- Informasi Alat --}}
     <div class="card mb-4">
