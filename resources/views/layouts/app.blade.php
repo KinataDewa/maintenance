@@ -27,6 +27,18 @@
         .nav-link.fw-bold {
             color: #FFBD38 !important;
         }
+        
+        .page-title {
+            font-weight: 700;
+            font-size: 1.75rem;
+            color: #343a40;
+            margin-bottom: 1.5rem;
+            border-left: 5px solid #ffbd38;
+            padding-left: 1rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); /* Lebih dalam, masih halus */
+        }
+
+
         .btn-warning {
             background-color: #FFBD38;
             border: none;

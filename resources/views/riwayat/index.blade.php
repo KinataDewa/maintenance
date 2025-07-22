@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="mb-4 fw-bold text-dark fs-4">Riwayat Aktivitas</h1>
+    <h1 class="page-title">Riwayat Aktivitas</h1>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {{-- Riwayat Checklist Harian --}}

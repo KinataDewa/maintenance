@@ -1,0 +1,8 @@
+.page-title {
+    font-weight: 700;
+    font-size: 1.75rem; /* fs-4 to fs-2 tergantung preferensi */
+    color: #343a40; /* Bootstrap dark */
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #ffbd38;
+    padding-left: 1rem;
+}

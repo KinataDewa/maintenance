@@ -59,11 +59,12 @@ class MeteranListrikController extends Controller
 
         return view('meteran.riwayat', compact('riwayat', 'tenants'));
     }
-    public function export(Request $request)
-{
-    $tenant_id = $request->tenant_id;
-    $tanggal = $request->tanggal;
 
-    return Excel::download(new MeteranExport($tenant_id, $tanggal), 'meteran_listrik.xlsx');
-}
+    public function export(Request $request)
+    {
+        $tenant_id = $request->tenant_id;
+        $tanggal = $request->tanggal;
+
+        return Excel::download(new MeteranExport($tenant_id, $tanggal), 'meteran_listrik.xlsx');
+    }
 }

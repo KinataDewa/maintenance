@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Riwayat Checklist Harian</h1>
+    <h1 class="page-title">Riwayat Checklist Harian</h1>
 
     <div class="accordion" id="riwayatAccordion">
         @foreach ($riwayat as $tanggal => $logs)

@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="h4 mb-4 fw-bold text-dark">Form Pompa Air</h1>
+    <h1 class="page-title">Form Pompa Air</h1>
 
     <div class="row g-4">
         <div class="col-md-4">

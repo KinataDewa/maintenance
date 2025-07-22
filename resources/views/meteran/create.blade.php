@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="h4 mb-4">Input Meteran Listrik</h1>
+    <h1 class="page-title">Input Meteran Listrik</h1>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>

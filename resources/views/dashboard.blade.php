@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="mb-4 fw-bold text-dark fs-4">Dashboard Staff Maintenance</h1>
+    <h1 class="page-title">Dashboard</h1>
 
     <div class="row g-4">
         {{-- Card Component --}}

@@ -23,7 +23,7 @@
 @section('content')
 
 <div class="container">
-    <h1 class="mb-4">Checklist Harian</h1>
+    <h1 class="page-title">Checklist Harian</h1>
 
     {{-- TABEL DESKTOP --}}
     <div class="table-responsive shadow-sm rounded d-none d-md-block">

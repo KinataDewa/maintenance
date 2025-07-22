@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container">
-    <h1 class="mb-4">Riwayat Meteran Listrik</h1>
+    <h1 class="page-title">Riwayat Meteran Listrik</h1>
 
     <!-- Filter Form -->
     <form method="GET" action="{{ route('meteran.riwayat') }}" class="row g-2 mb-4">
