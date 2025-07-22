@@ -41,6 +41,16 @@
                     'btn_icon' => 'droplet',
                 ],
                 [
+                    'title' => 'Pompa Air Bersih',
+                    'icon' => 'droplet',
+                    'desc' => 'Isi form pompa air bersih khusus.',
+                    'route' => route('pompa-air.bersih'),
+                    'btn_text' => 'Isi Form Bersih',
+                    'btn_color' => '#6610f2',
+                    'icon_color' => 'text-purple',
+                    'btn_icon' => 'pencil-fill',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat data semua pekerjaan Anda.',
@@ -53,6 +63,7 @@
                 ],
             ];
         @endphp
+
 
         @foreach ($cards as $card)
         <div class="col-md-6 col-xl-4">
