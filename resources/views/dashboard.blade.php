@@ -16,11 +16,10 @@
                     'desc' => 'Isi laporan kerja hari ini.',
                     'route' => route('checklist.index'),
                     'btn_text' => 'Mulai Checklist',
-                    'btn_color' => '#6c757d', // ← warna abu-abu gelap
-                    'icon_color' => 'text-secondary', // ← sesuaikan warna ikon
+                    'btn_color' => '#198754',
+                    'icon_color' => 'text-success',
                     'btn_icon' => 'pencil-square',
                 ],
-
                 [
                     'title' => 'Meteran Listrik',
                     'icon' => 'lightning-charge',
