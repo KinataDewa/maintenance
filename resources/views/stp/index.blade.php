@@ -2,16 +2,7 @@
 
 @section('content')
 <div class="container my-4" style="font-family: 'Poppins', sans-serif;">
-
-    <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap">
-        <div>
-            <h3 class="fw-bold text-dark mb-1">
-                <i class="bi bi-water me-2 text-info"></i> Checklist STP
-            </h3>
-            <small class="text-muted">Lakukan pengecekan semua bagian STP setiap hari.</small>
-        </div>
-    </div>
+ <h1 class="page-title">STP</h1>
 
     <!-- Accordion STP -->
     <div class="accordion mb-5" id="accordionSTP">
