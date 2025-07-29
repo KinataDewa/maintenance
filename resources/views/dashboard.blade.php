@@ -50,6 +50,26 @@
                     'icon_color' => 'text-purple',
                     'btn_icon' => 'pencil-fill',
                 ],
+                 [
+                    'title' => 'Cek Suhu Ruangan',
+                    'icon' => 'thermometer-half',
+                    'desc' => 'Catat suhu & kelembapan setiap ruangan.',
+                    'route' => route('suhu.index'),
+                    'btn_text' => 'Cek Suhu',
+                    'btn_color' => '#dc3545', // Merah Bootstrap (danger)
+                    'icon_color' => 'text-danger',
+                    'btn_icon' => 'thermometer-half',
+                ],
+               [
+                    'title' => 'Checklist STP',
+                    'icon' => 'water',
+                    'desc' => 'Isi laporan harian STP.',
+                    'route' => route('stp.index'),
+                    'btn_text' => 'Isi STP',
+                    'btn_color' => '#fd7e14', // warna oranye
+                    'icon_color' => 'text-warning',
+                    'btn_icon' => 'clipboard-check',
+                ],
                 [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',

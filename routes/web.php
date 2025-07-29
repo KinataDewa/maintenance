@@ -6,7 +6,8 @@ use App\Http\Controllers\ChecklistLogController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\MeteranListrikController;
 use App\Http\Controllers\PompaAirController;
-
+use App\Http\Controllers\SuhuRuanganController;
+use App\Http\Controllers\StpController;
 
 // Halaman dashboard utama
 Route::get('/', function () {
@@ -47,3 +48,10 @@ Route::get('/pompa-air', [PompaAirController::class, 'index'])->name('pompa-air.
 Route::get('/pompa-air/bersih', [PompaAirController::class, 'bersih'])->name('pompa-air.bersih');
 Route::get('/pompa-air/diesel', [PompaAirController::class, 'diesel'])->name('pompa-air.diesel');
 Route::get('/pompa-air/hydrant', [PompaAirController::class, 'hydrant'])->name('pompa-air.hydrant');
+
+// Suhu Ruangan
+Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');
+
+// Stp
+Route::get('/stp', [StpController::class, 'index'])->name('stp.index');
+Route::post('/stp', [StpController::class, 'store'])->name('stp.store');
