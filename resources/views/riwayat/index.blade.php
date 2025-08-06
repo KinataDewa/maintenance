@@ -36,6 +36,20 @@
                 </div>
             </a>
         </div>
+        {{-- Riwayat Induk PLN --}}
+<div class="col">
+    <a href="{{ route('meteran-induk.riwayat') }}" class="text-decoration-none">
+        <div class="card border-danger shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-plug fs-4 me-2 text-danger"></i>
+                    <h6 class="mb-0 fw-semibold text-dark">Riwayat Induk PLN</h6>
+                </div>
+                <small class="text-muted">Lihat data catatan kWh, kVar, dan cos φ dari meter induk PLN.</small>
+            </div>
+        </div>
+    </a>
+</div>
 
         {{-- Riwayat Pompa Air --}}
         <div class="col">

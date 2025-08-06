@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\MeteranListrik;
 use App\Models\Tenant;
-use Carbon\Carbon;
 use App\Exports\MeteranExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class MeteranListrikController extends Controller
 {
@@ -35,8 +35,8 @@ class MeteranListrikController extends Controller
             'kwh' => $request->kwh,
             'foto' => $fotoPath,
             'deskripsi' => $request->deskripsi,
-            'tanggal' => Carbon::now('Asia/Jakarta')->toDateString(),
-            'jam' => Carbon::now('Asia/Jakarta')->format('H:i:s'),
+            'user_id' => Auth::id(), // simpan staff yang login
+            // waktu_input otomatis oleh database
         ]);
 
         return redirect()->route('meteran.create')->with('success', 'Data meteran berhasil disimpan!');
@@ -44,7 +44,7 @@ class MeteranListrikController extends Controller
 
     public function riwayat(Request $request)
     {
-        $query = MeteranListrik::with('tenant')->latest();
+        $query = MeteranListrik::with(['tenant', 'user'])->latest(); // tambahkan relasi user
 
         if ($request->filled('tenant_id')) {
             $query->where('tenant_id', $request->tenant_id);
@@ -62,9 +62,9 @@ class MeteranListrikController extends Controller
 
     public function export(Request $request)
     {
-        $tenant_id = $request->tenant_id;
-        $tanggal = $request->tanggal;
-
-        return Excel::download(new MeteranExport($tenant_id, $tanggal), 'meteran_listrik.xlsx');
+        return Excel::download(
+            new MeteranExport($request->tenant_id, $request->tanggal),
+            'meteran_listrik.xlsx'
+        );
     }
 }

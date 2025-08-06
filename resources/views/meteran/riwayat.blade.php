@@ -62,41 +62,45 @@
                     <div id="{{ $accordionId }}" class="accordion-collapse collapse"
                          aria-labelledby="heading-{{ $loop->index }}" data-bs-parent="#riwayatAccordion">
                         <div class="accordion-body p-0">
-                            <table class="table table-bordered table-striped table-sm mb-0 text-dark">
-                                <thead class="bg-dark text-white">
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Tenant</th>
-                                        <th>Kwh</th>
-                                        <th>Jam</th>
-                                        <th>Deskripsi</th>
-                                        <th>Foto</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($logs as $i => $data)
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-striped table-sm mb-0 text-dark">
+                                    <thead class="bg-dark text-white">
                                         <tr>
-                                            <td>{{ $i + 1 }}</td>
-                                            <td>{{ $data->tenant->nama }}</td>
-                                            <td>{{ $data->kwh }}</td>
-                                            <td>{{ \Carbon\Carbon::parse($data->waktu_input)->format('H:i') }}</td>
-                                            <td>{{ $data->deskripsi ?? '-' }}</td>
-                                            <td>
-                                                @if($data->foto && file_exists(public_path('storage/' . $data->foto)))
-                                                    <button class="btn btn-sm btn-outline-primary" onclick="showFoto('{{ asset('storage/' . $data->foto) }}')">
-                                                        <i class="bi bi-image"></i>
-                                                    </button>
-                                                    <a href="{{ asset('storage/' . $data->foto) }}" class="btn btn-sm btn-outline-success" download>
-                                                        <i class="bi bi-download"></i>
-                                                    </a>
-                                                @else
-                                                    <span class="text-muted">-</span>
-                                                @endif
-                                            </td>
+                                            <th>No</th>
+                                            <th>Tenant</th>
+                                            <th>Kwh</th>
+                                            <th>Jam</th>
+                                            <th>Deskripsi</th>
+                                            <th>Foto</th>
+                                            <th>Staff</th>
                                         </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($logs as $i => $data)
+                                            <tr>
+                                                <td>{{ $i + 1 }}</td>
+                                                <td>{{ $data->tenant->nama }}</td>
+                                                <td>{{ $data->kwh }}</td>
+                                                <td>{{ \Carbon\Carbon::parse($data->waktu_input)->format('H:i') }}</td>
+                                                <td>{{ $data->deskripsi ?? '-' }}</td>
+                                                <td>
+                                                    @if($data->foto && file_exists(public_path('storage/' . $data->foto)))
+                                                        <button class="btn btn-sm btn-outline-primary" onclick="showFoto('{{ asset('storage/' . $data->foto) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                        <a href="{{ asset('storage/' . $data->foto) }}" class="btn btn-sm btn-outline-success" download>
+                                                            <i class="bi bi-download"></i>
+                                                        </a>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+                                                <td>{{ $data->user->name ?? '-' }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -107,20 +111,20 @@
 
 <!-- Modal Foto -->
 <div class="modal fade" id="fotoModal" tabindex="-1" aria-labelledby="fotoModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title">Foto Meteran</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body text-center">
-                <img id="previewFoto" src="" class="img-fluid rounded" alt="Foto Meteran">
+                <img id="previewFoto" src="" class="img-fluid rounded" alt="Foto Meteran" style="max-height: 400px; object-fit: contain;">
             </div>
         </div>
     </div>
 </div>
-@endsection
 
+@endsection
 @section('scripts')
 <script>
     function showFoto(url) {

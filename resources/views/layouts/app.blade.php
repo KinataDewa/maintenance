@@ -59,24 +59,67 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-                <ul class="navbar-nav gap-2">
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('/') ? 'fw-bold' : '' }}" href="{{ url('/') }}">
-                            <i class="bi bi-house-door me-1"></i> Dashboard
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('checklist') ? 'fw-bold' : '' }}" href="{{ route('checklist.index') }}">
-                            <i class="bi bi-list-check me-1"></i> Checklist
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
-                            <i class="bi bi-clock-history me-1"></i> Riwayat
-                        </a>
-                    </li>
-                </ul>
+            <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-2 align-items-start align-items-lg-center">
+
+
+    @auth
+        {{-- Link Dashboard --}}
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('dashboard') ? 'fw-bold' : '' }}" href="{{ route('dashboard') }}">
+                <i class="bi bi-house-door me-1"></i> Dashboard
+            </a>
+        </li>
+
+        {{-- Link Checklist --}}
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('checklist') ? 'fw-bold' : '' }}" href="{{ route('checklist.index') }}">
+                <i class="bi bi-list-check me-1"></i> Checklist
+            </a>
+        </li>
+
+        {{-- Link Riwayat --}}
+        <li class="nav-item">
+            <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
+                <i class="bi bi-clock-history me-1"></i> Riwayat
+            </a>
+        </li>
+
+        {{-- Dropdown User --}}
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle me-1"></i>
+                {{ Auth::user()->name }}
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end">
+                <li>
+                    <a class="dropdown-item" href="#">
+                        <i class="bi bi-person-lines-fill me-1"></i> Profil
+                    </a>
+                </li>
+                <li>
+                    <hr class="dropdown-divider">
+                </li>
+                <li>
+                    <form method="POST" action="{{ route('logout') }}">
+                        @csrf
+                        <button class="dropdown-item" type="submit">
+                            <i class="bi bi-box-arrow-right me-1"></i> Logout
+                        </button>
+                    </form>
+                </li>
+            </ul>
+        </li>
+    @else
+        {{-- Jika belum login --}}
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right me-1"></i> Login
+            </a>
+        </li>
+    @endauth
+</ul>
+
             </div>
         </div>
     </nav>
