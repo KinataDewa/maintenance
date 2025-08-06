@@ -8,7 +8,8 @@ use App\Http\Controllers\ChecklistLogController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\MeteranListrikController;
 use App\Http\Controllers\MeteranIndukController;
-use App\Http\Controllers\PompaAirController;
+use App\Http\Controllers\PompaLogController;
+use App\Http\Controllers\PompaUnitController;
 use App\Http\Controllers\SuhuRuanganController;
 use App\Http\Controllers\StpController;
 
@@ -54,11 +55,18 @@ Route::post('/logout', function () {
     Route::get('/meteran-induk/riwayat', [MeteranIndukController::class, 'riwayat'])->name('meteran-induk.riwayat');
     Route::get('/induk/export', [MeteranIndukController::class, 'export'])->name('meteran-induk.export');
 
-    // Pompa Air
-    Route::get('/pompa-air', [PompaAirController::class, 'index'])->name('pompa-air.index');
-    Route::get('/pompa-air/bersih', [PompaAirController::class, 'bersih'])->name('pompa-air.bersih');
-    Route::get('/pompa-air/diesel', [PompaAirController::class, 'diesel'])->name('pompa-air.diesel');
-    Route::get('/pompa-air/hydrant', [PompaAirController::class, 'hydrant'])->name('pompa-air.hydrant');
+    // ✅ CRUD untuk master jenis pompa (tanpa show)
+    Route::resource('pompa', PompaUnitController::class)->only([
+        'index', 'create', 'store', 'edit', 'update', 'destroy'
+    ]);
+
+    // ✅ Input log pompa harian dan riwayat
+    Route::prefix('pompa')->name('pompa.')->group(function () {
+        Route::get('form', [PompaLogController::class, 'create'])->name('logs.create');         // Ubah dari 'log' ke 'form'
+        Route::post('form', [PompaLogController::class, 'store'])->name('logs.store');          // Ubah dari 'log' ke 'form'
+        Route::get('riwayat', [PompaLogController::class, 'history'])->name('logs.history');
+    });
+
 
     // Suhu Ruangan
     Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');

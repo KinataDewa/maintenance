@@ -30,15 +30,14 @@
                     'btn_icon' => 'lightning-charge',
                 ],
                 [
-                    'title' => 'Pompa Air',
-                    'icon' => 'droplet-half',
-                    'desc' => 'Isi laporan untuk pompa air bersih, diesel, dan hydrant.',
-                    'route' => route('pompa-air.index'),
-                    'btn_text' => 'Isi Form Pompa Air',
-                    'btn_color' => '#0d6efd',
-                    'icon_color' => 'text-primary',
-                    'btn_icon' => 'droplet',
-                ],
+    'title' => 'Pompa Air',
+    'icon' => 'droplet-half',
+    'desc' => 'Isi laporan untuk pompa air bersih, diesel, dan hydrant.',
+    'is_pompa' => true,
+    'btn_color' => '#0d6efd',
+    'icon_color' => 'text-primary',
+],
+
                 [
                     'title' => 'Cek Suhu Ruangan',
                     'icon' => 'thermometer-half',
@@ -84,23 +83,34 @@
                         <small class="text-muted">{{ $card['desc'] }}</small>
                     </div>
 
-                    @if(isset($card['is_listrik']))
-                        <div class="d-flex gap-2 mt-3">
-                            <a href="{{ route('meteran.create') }}" class="btn btn-warning btn-sm w-50 text-white">
-                                <i class="bi bi-plug"></i> Tenant
-                            </a>
-                            <a href="{{ route('induk.create') }}" class="btn btn-warning btn-sm w-50 text-white">
-                                <i class="bi bi-building"></i> PLN
-                            </a>
-                        </div>
-                    @else
-                        <a href="{{ $card['route'] ?? '#' }}"
-                           class="btn btn-sm mt-3 {{ $card['btn_outline'] ?? false ? 'btn-outline-secondary' : 'text-white' }}"
-                           style="{{ $card['btn_outline'] ?? false ? '' : 'background-color: ' . ($card['btn_color'] ?? '#6c757d') }}">
-                            <i class="bi bi-{{ $card['btn_icon'] ?? 'arrow-right' }} me-1"></i>
-                            {{ $card['btn_text'] ?? 'Lanjut' }}
-                        </a>
-                    @endif
+                   @if(isset($card['is_listrik']))
+    <div class="d-flex gap-2 mt-3">
+        <a href="{{ route('meteran.create') }}" class="btn btn-warning btn-sm w-50 text-white">
+            <i class="bi bi-plug"></i> Tenant
+        </a>
+        <a href="{{ route('induk.create') }}" class="btn btn-warning btn-sm w-50 text-white">
+            <i class="bi bi-building"></i> PLN
+        </a>
+    </div>
+@elseif(isset($card['is_pompa']))
+    <div class="d-flex gap-2 mt-3">
+        <a href="{{ route('pompa.index') }}" class="btn btn-primary btn-sm w-50 text-white">
+            <i class="bi bi-list-ul"></i> Daftar
+        </a>
+        {{-- <a href="{{ route('pompa.logs.create') }}" class="btn btn-primary btn-sm w-50 text-white">
+            <i class="bi bi-pencil-square"></i> Log
+        </a> --}}
+    </div>
+
+@else
+    <a href="{{ $card['route'] ?? '#' }}"
+       class="btn btn-sm mt-3 {{ $card['btn_outline'] ?? false ? 'btn-outline-secondary' : 'text-white' }}"
+       style="{{ $card['btn_outline'] ?? false ? '' : 'background-color: ' . ($card['btn_color'] ?? '#6c757d') }}">
+        <i class="bi bi-{{ $card['btn_icon'] ?? 'arrow-right' }} me-1"></i>
+        {{ $card['btn_text'] ?? 'Lanjut' }}
+    </a>
+@endif
+
                 </div>
             </div>
         @endforeach
