@@ -31,12 +31,16 @@ Route::post('/logout', function () {
 })->name('logout');
 
     // Checklist
+    // Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
+    // Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklists.update');
+    // Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('checklists.log.store');
+    // Route::delete('/checklists/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
+    // Route::delete('/checklists/log/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
+    // Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
+
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
-    Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklists.update');
-    Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('checklists.log.store');
-    Route::delete('/checklists/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
-    Route::delete('/checklists/log/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
-    Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
+    Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
+    Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
 
     // Riwayat
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');

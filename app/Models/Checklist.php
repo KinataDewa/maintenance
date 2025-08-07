@@ -3,13 +3,29 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Checklist extends Model
 {
-    protected $fillable = ['aktivitas', 'jam_mulai', 'jam_selesai', 'status'];
+    use HasFactory;
 
-    public function logs()
+    protected $table = 'checklist';
+
+    protected $fillable = [
+        'perangkat_id',
+        'user_id',
+        'aksi',
+        'tanggal',
+        'jam',
+    ];
+
+    public function perangkat()
     {
-        return $this->hasMany(ChecklistLog::class);
+        return $this->belongsTo(Perangkat::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
     }
 }

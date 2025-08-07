@@ -2,51 +2,48 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Checklist;
-use App\Models\Staff;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use App\Models\ChecklistLog;
+use App\Models\Checklist;
+use App\Models\Perangkat;
+use Illuminate\Support\Facades\Auth;
 
 class ChecklistController extends Controller
 {
-public function index()
-{
-    $checklists = Checklist::all(); // tidak perlu with('staff')
-    $tanggal = Carbon::now()->translatedFormat('l, d F Y');
-
-    return view('checklist.index', compact('checklists', 'tanggal'));
-}
-
-public function update(Request $request, $id)
-{
-    $checklist = Checklist::findOrFail($id);
-
-    $request->validate([
-        'status' => 'required|in:belum,progres,selesai'
-    ]);
-
-    $checklist->status = $request->status;
-    $checklist->save();
-
-    return back()->with('success', 'Checklist berhasil diperbarui.');
-}
-
-
-    // ✅ Method untuk reset semua checklist
-    public function resetAll(Request $request)
+    public function index()
     {
-        $checklists = Checklist::all();
+        $perangkat = Perangkat::with(['checklists' => function ($query) {
+            $query->latest();
+        }])->get();
 
-        foreach ($checklists as $checklist) {
-            // Reset status ke 'belum'
-            $checklist->status = 'belum';
-            $checklist->save();
-
-            // Kosongkan relasi staff
-            $checklist->staff()->detach();
-        }
-
-        return redirect()->route('checklist.index')->with('success', 'Semua checklist berhasil di-reset.');
+        return view('checklist.index', compact('perangkat'));
     }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'perangkat_id' => 'required|exists:perangkat,id',
+            'aksi' => 'required|in:on,off',
+        ]);
+
+        Checklist::create([
+    'perangkat_id' => $request->perangkat_id,
+    'user_id' => Auth::id(),
+    'aksi' => $request->aksi,
+    'tanggal' => now()->toDateString(),
+    'jam' => now()->toTimeString(), 
+]);
+
+        return redirect()->route('checklist.index');
+    }
+
+    public function riwayat()
+{
+    $groupedChecklists = Checklist::with(['perangkat', 'user'])
+        ->orderBy('tanggal', 'desc')
+        ->orderBy('jam', 'asc')
+        ->get()
+        ->groupBy('tanggal');
+
+    return view('checklist.riwayat', compact('groupedChecklists'));
+}
 }

@@ -9,7 +9,7 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
         {{-- Riwayat Checklist Harian --}}
         <div class="col">
-            <a href="{{ route('checklists.riwayat') }}" class="text-decoration-none">
+            <a href="{{ route('checklist.riwayat') }}" class="text-decoration-none">
                 <div class="card border-success shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
