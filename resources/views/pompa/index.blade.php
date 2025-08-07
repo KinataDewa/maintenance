@@ -13,8 +13,8 @@
     <a href="{{ route('pompa.create') }}" class="btn btn-warning mb-3 rounded-3">+ Tambah Pompa</a>
 
     <div class="table-responsive">
-        <table class="table table-bordered align-middle rounded-4">
-            <thead class="table-light">
+        <table class="table table-bordered text-center">
+            <thead class="table-dark">
                 <tr>
                     <th>No</th>
                     <th>Nama Pompa</th>
@@ -35,14 +35,26 @@
                     <td>{{ $pompa->kapasitas ?? '-' }}</td>
                     <td>{{ $pompa->tekanan ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('pompa.edit', $pompa->id) }}" class="btn btn-sm btn-primary">Edit</a>
-                        <form action="{{ route('pompa.destroy', $pompa->id) }}" method="POST" class="d-inline"
-                              onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger">Hapus</button>
-                        </form>
-                    </td>
+    <div class="d-grid d-md-flex justify-content-center gap-2">
+        <a href="{{ route('pompa.edit', $pompa->id) }}" 
+           class="btn btn-outline-primary rounded-2 text-center"
+           style="min-width: 120px; width: 120px; height: 38px;">
+            Edit
+        </a>
+
+        <form action="{{ route('pompa.destroy', $pompa->id) }}" method="POST" 
+              onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+            @csrf
+            @method('DELETE')
+            <button type="submit" 
+                    class="btn btn-outline-danger rounded-2 text-center"
+                    style="min-width: 120px; width: 120px; height: 38px;">
+                Hapus
+            </button>
+        </form>
+    </div>
+</td>
+
                 </tr>
                 @empty
                 <tr>

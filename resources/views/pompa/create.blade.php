@@ -35,7 +35,7 @@
             <input type="text" class="form-control" id="tekanan" name="tekanan">
         </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-warning text-white">Simpan</button>
         <a href="{{ route('pompa.index') }}" class="btn btn-secondary">Kembali</a>
     </form>
 </div>
