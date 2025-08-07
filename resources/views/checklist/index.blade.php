@@ -4,25 +4,66 @@
 
 @push('styles')
     <style>
-        .form-switch .form-check-input {
-            width: 3rem;
-            height: 1.5rem;
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 32px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
             cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: 0.4s;
+            border-radius: 34px;
         }
 
-        .form-switch .form-check-input:checked {
-            background-color: #28a745; /* green */
-            border-color: #28a745;
+        .slider::before {
+            position: absolute;
+            content: "";
+            height: 24px;
+            width: 24px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
         }
 
-        .form-switch .form-check-input:focus {
-            box-shadow: none;
+        input:checked + .slider {
+            background-color: #28a745;
         }
 
-        .form-check-label {
+        input:checked + .slider::before {
+            transform: translateX(28px);
+        }
+
+        .switch-label {
             font-weight: 600;
             font-size: 1rem;
+            margin-left: 12px;
             min-width: 40px;
+            color: #6c757d;
+        }
+
+        .switch-label.on {
+            color: #28a745;
+        }
+
+        .switch-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 @endpush
@@ -53,14 +94,19 @@
                                 @csrf
                                 <input type="hidden" name="perangkat_id" value="{{ $item->id }}">
                                 <input type="hidden" name="aksi" id="aksi{{ $item->id }}">
-                                <div class="form-check form-switch d-flex justify-content-center align-items-center">
-                                    <input class="form-check-input" type="checkbox" role="switch"
-                                        id="switch{{ $item->id }}" onchange="submitToggle(this)"
-                                        {{ $isOn ? 'checked' : '' }}>
-                                    <label class="form-check-label ms-2 text-{{ $isOn ? 'success' : 'secondary' }}"
-                                        for="switch{{ $item->id }}">
-                                        {{ $isOn ? 'ON' : 'OFF' }}
+
+                                <div class="switch-wrapper">
+                                    <label class="toggle-switch">
+                                        <input type="checkbox"
+                                               id="switch{{ $item->id }}"
+                                               onchange="submitToggle(this)"
+                                               {{ $isOn ? 'checked' : '' }}>
+                                        <span class="slider"></span>
                                     </label>
+                                    <span class="switch-label {{ $isOn ? 'on' : '' }}"
+                                          id="label{{ $item->id }}">
+                                        {{ $isOn ? 'ON' : 'OFF' }}
+                                    </span>
                                 </div>
                             </form>
                         </td>
@@ -76,7 +122,13 @@
         function submitToggle(checkbox) {
             const form = checkbox.closest('form');
             const aksiInput = form.querySelector('input[name="aksi"]');
-            aksiInput.value = checkbox.checked ? 'on' : 'off';
+            const label = form.querySelector('.switch-label');
+            const isOn = checkbox.checked;
+
+            aksiInput.value = isOn ? 'on' : 'off';
+            label.textContent = isOn ? 'ON' : 'OFF';
+            label.classList.toggle('on', isOn);
+
             form.submit();
         }
     </script>

@@ -59,18 +59,16 @@ Route::post('/logout', function () {
     Route::get('/meteran-induk/riwayat', [MeteranIndukController::class, 'riwayat'])->name('meteran-induk.riwayat');
     Route::get('/induk/export', [MeteranIndukController::class, 'export'])->name('meteran-induk.export');
 
-    // ✅ CRUD untuk master jenis pompa (tanpa show)
+    // Pompa Unit
     Route::resource('pompa', PompaUnitController::class)->only([
         'index', 'create', 'store', 'edit', 'update', 'destroy'
     ]);
 
-    // ✅ Input log pompa harian dan riwayat
+    // Pompa Log
     Route::prefix('pompa')->name('pompa.')->group(function () {
-        Route::get('form', [PompaLogController::class, 'create'])->name('logs.create');         // Ubah dari 'log' ke 'form'
-        Route::post('form', [PompaLogController::class, 'store'])->name('logs.store');          // Ubah dari 'log' ke 'form'
-        Route::get('riwayat', [PompaLogController::class, 'history'])->name('logs.history');
-    });
-
+    Route::get('log', [PompaLogController::class, 'create'])->name('logs.create');
+    Route::post('log', [PompaLogController::class, 'store'])->name('logs.store');});
+    Route::get('/pompa/logs/riwayat', [PompaLogController::class, 'riwayat'])->name('pompa.logs.riwayat');
 
     // Suhu Ruangan
     Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');
