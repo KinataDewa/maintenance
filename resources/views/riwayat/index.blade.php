@@ -10,7 +10,7 @@
         {{-- Riwayat Checklist Harian --}}
         <div class="col">
             <a href="{{ route('checklist.riwayat') }}" class="text-decoration-none">
-                <div class="card border-success shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
+                <div class="card border-success shadow-sm h-100 bg-white transition">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-list-check fs-4 me-2 text-success"></i>
@@ -25,7 +25,7 @@
         {{-- Riwayat Meteran Listrik --}}
         <div class="col">
             <a href="{{ route('meteran.riwayat') }}" class="text-decoration-none">
-                <div class="card border-warning shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
+                <div class="card border-warning shadow-sm h-100 bg-white transition">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-lightning-charge fs-4 me-2 text-warning"></i>
@@ -36,35 +36,51 @@
                 </div>
             </a>
         </div>
+
         {{-- Riwayat Induk PLN --}}
-<div class="col">
-    <a href="{{ route('meteran-induk.riwayat') }}" class="text-decoration-none">
-        <div class="card border-danger shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-plug fs-4 me-2 text-danger"></i>
-                    <h6 class="mb-0 fw-semibold text-dark">Riwayat Induk PLN</h6>
+        <div class="col">
+            <a href="{{ route('meteran-induk.riwayat') }}" class="text-decoration-none">
+                <div class="card border-danger shadow-sm h-100 bg-white transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-plug fs-4 me-2 text-danger"></i>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Induk PLN</h6>
+                        </div>
+                        <small class="text-muted">Lihat data catatan kWh, kVar, dan cos φ dari meter induk PLN.</small>
+                    </div>
                 </div>
-                <small class="text-muted">Lihat data catatan kWh, kVar, dan cos φ dari meter induk PLN.</small>
-            </div>
+            </a>
         </div>
-    </a>
-</div>
 
         {{-- Riwayat Pompa Air --}}
-<div class="col">
-    <a href="{{ route('pompa.logs.riwayat') }}" class="text-decoration-none">
-        <div class="card border-primary shadow-sm h-100 bg-white transition" style="transition: box-shadow 0.3s;">
-            <div class="card-body">
-                <div class="d-flex align-items-center mb-2">
-                    <i class="bi bi-droplet-half fs-4 me-2 text-primary"></i>
-                    <h6 class="mb-0 fw-semibold text-dark">Riwayat Pompa Air</h6>
+        <div class="col">
+            <a href="{{ route('pompa.logs.riwayat') }}" class="text-decoration-none">
+                <div class="card border-primary shadow-sm h-100 bg-white transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-droplet-half fs-4 me-2 text-primary"></i>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Pompa Air</h6>
+                        </div>
+                        <small class="text-muted">Lihat data riwayat pompa air bersih, diesel, dan hydrant.</small>
+                    </div>
                 </div>
-                <small class="text-muted">Lihat data riwayat pompa air bersih, diesel, dan hydrant.</small>
-            </div>
+            </a>
         </div>
-    </a>
-</div>
+
+        {{-- ✅ Riwayat Suhu Ruangan --}}
+        <div class="col">
+            <a href="{{ route('room-temperature-logs.riwayat') }}" class="text-decoration-none">
+                <div class="card border-danger shadow-sm h-100 bg-white transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-thermometer-half fs-4 me-2 text-danger"></i>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Suhu Ruangan</h6>
+                        </div>
+                        <small class="text-muted">Lihat pencatatan suhu & dokumentasi setiap ruangan.</small>
+                    </div>
+                </div>
+            </a>
+        </div>
 
     </div>
 </div>

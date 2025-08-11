@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h3 class="mb-4">Form Log Harian Pompa</h3>
+    <h3 class="page-title">Form Log Harian Pompa</h3>
 
     @if(session('success'))
         <div class="alert alert-success">{{ session('success') }}</div>
@@ -43,7 +43,7 @@
             <textarea name="deskripsi" class="form-control" rows="3"></textarea>
         </div>
 
-        <button type="submit" class="btn btn-warning">Simpan Log</button>
+        <button type="submit" class="btn btn-warning">Simpan</button>
     </form>
 </div>
 @endsection

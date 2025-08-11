@@ -38,15 +38,15 @@
                     'icon_color' => 'text-primary',
                 ],
                 [
-                    'title' => 'Cek Suhu Ruangan',
-                    'icon' => 'thermometer-half',
-                    'desc' => 'Catat suhu & kelembapan setiap ruangan.',
-                    'route' => route('suhu.index'),
-                    'btn_text' => 'Cek Suhu',
-                    'btn_color' => '#dc3545',
-                    'icon_color' => 'text-danger',
-                    'btn_icon' => 'thermometer-half',
-                ],
+    'title' => 'Suhu Ruangan',
+    'icon' => 'thermometer-half',
+    'desc' => 'Lihat dan catat suhu & kelembapan ruangan.',
+    'is_temperature' => true,
+    'btn_color' => '#dc3545',
+    'icon_color' => 'text-danger',
+],
+
+
                 [
                     'title' => 'Checklist STP',
                     'icon' => 'water',
@@ -98,6 +98,15 @@
                             </a>
                             <a href="{{ route('pompa.logs.create') }}" class="btn btn-primary btn-sm w-50 text-white">
                                 <i class="bi bi-list-ul"></i> Isi Log Pompa</a>
+                        </div>
+                    @elseif(isset($card['is_temperature']))
+                        <div class="d-flex gap-2 mt-3">
+                            <a href="{{ route('rooms.index') }}" class="btn btn-danger btn-sm w-50 text-white">
+                                <i class="bi bi-list-ul"></i> Ruangan
+                            </a>
+                            <a href="{{ route('temperature.create') }}" class="btn btn-danger btn-sm w-50 text-white">
+                                <i class="bi bi-thermometer-half"></i> Isi Suhu
+                            </a>
                         </div>
 
                     @else

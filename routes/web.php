@@ -10,25 +10,26 @@ use App\Http\Controllers\MeteranListrikController;
 use App\Http\Controllers\MeteranIndukController;
 use App\Http\Controllers\PompaLogController;
 use App\Http\Controllers\PompaUnitController;
-use App\Http\Controllers\SuhuRuanganController;
+use App\Http\Controllers\RoomController;
+use App\Http\Controllers\RoomTemperatureLogController;
 use App\Http\Controllers\StpController;
 
-// Halaman landing bebas login (opsional)
-Route::get('/', function () {
-    return redirect()->route('login');
-});
+    // Halaman landing bebas login (opsional)
+    Route::get('/', function () {
+        return redirect()->route('login');
+    });
 
-// Arahkan ke dashboard setelah login
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->middleware(['auth'])
-    ->name('dashboard');
+    // Arahkan ke dashboard setelah login
+    Route::get('/dashboard', [DashboardController::class, 'index'])
+        ->middleware(['auth'])
+        ->name('dashboard');
 
-// Semua fitur hanya bisa diakses setelah login
-Route::middleware(['auth'])->group(function () {
-Route::post('/logout', function () {
-    Auth::logout();
-    return redirect('/');
-})->name('logout');
+    // Semua fitur hanya bisa diakses setelah login
+    Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', function () {
+        Auth::logout();
+        return redirect('/');
+    })->name('logout');
 
     // Checklist
     // Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
@@ -72,10 +73,16 @@ Route::post('/logout', function () {
 
     // Suhu Ruangan
     Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');
+    Route::resource('rooms', RoomController::class);
+
+    // Route untuk log suhu ruangan
+    Route::get('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'create'])->name('temperature.create');
+    Route::post('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'store'])->name('temperature.store');
+    Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwayat'])->name('room-temperature-logs.riwayat');
 
     // STP
     Route::get('/stp', [StpController::class, 'index'])->name('stp.index');
     Route::post('/stp', [StpController::class, 'store'])->name('stp.store');
-});
+    });
 
 require __DIR__.'/auth.php';
