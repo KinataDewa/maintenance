@@ -43,7 +43,7 @@
             <label for="role" class="form-label">Role</label>
             <select id="role" name="role" class="form-select" required>
                 <option value="staff">Staff</option>
-                <option value="admin">Admin</option>
+                <option value="admin">admin</option>
             </select>
         </div>
 
