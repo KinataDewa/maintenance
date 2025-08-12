@@ -14,7 +14,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-list-check fs-4 me-2 text-success"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Checklist Harian</h6>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Checklist On/Off</h6>
                         </div>
                         <small class="text-muted">Lihat semua riwayat checklist kerja harian staff maintenance.</small>
                     </div>
@@ -29,7 +29,7 @@
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-lightning-charge fs-4 me-2 text-warning"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Meteran Listrik</h6>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Listrik Tenant</h6>
                         </div>
                         <small class="text-muted">Lihat data penggunaan KWh dan dokumentasi meteran listrik.</small>
                     </div>

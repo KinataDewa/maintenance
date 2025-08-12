@@ -9,7 +9,7 @@ class Tenant extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['nama'];
+    protected $fillable = ['nama', 'lantaiTenant', 'ruanganTenant'];
 
     public function meteranListriks()
     {

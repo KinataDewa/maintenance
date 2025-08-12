@@ -20,6 +20,8 @@
                 <tr>
                     <th>No</th>
                     <th>Nama Tenant</th>
+                    <th>Lantai</th>
+                    <th>Ruangan</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -28,6 +30,8 @@
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $tenant->nama }}</td>
+                    <td>{{ $tenant->lantaiTenant ?? '-' }}</td>
+                    <td>{{ $tenant->ruanganTenant ?? '-' }}</td>
                     <td>
                         <div class="d-grid d-md-flex justify-content-center gap-2">
                             <a href="{{ route('tenants.edit', $tenant->id) }}" 
@@ -51,7 +55,7 @@
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="3" class="text-center text-muted">Belum ada tenant</td>
+                    <td colspan="5" class="text-center text-muted">Belum ada tenant</td>
                 </tr>
                 @endforelse
             </tbody>

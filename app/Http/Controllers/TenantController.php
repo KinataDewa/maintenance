@@ -19,17 +19,21 @@ class TenantController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-        ]);
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'lantaiTenant' => 'nullable|string|max:255',
+        'ruanganTenant' => 'nullable|string|max:255',
+    ]);
 
-        Tenant::create([
-            'nama' => $request->nama,
-        ]);
+    Tenant::create([
+        'nama' => $request->nama,
+        'lantaiTenant' => $request->lantaiTenant,
+        'ruanganTenant' => $request->ruanganTenant,
+    ]);
 
-        return redirect()->route('tenants.index')->with('success', 'Tenant berhasil ditambahkan.');
-    }
+    return redirect()->route('tenants.index')->with('success', 'Tenant berhasil ditambahkan');
+}
 
     public function edit($id)
     {
@@ -37,19 +41,22 @@ class TenantController extends Controller
         return view('tenants.edit', compact('tenant'));
     }
 
-    public function update(Request $request, $id)
-    {
-        $request->validate([
-            'nama' => 'required|string|max:255',
-        ]);
+    public function update(Request $request, Tenant $tenant)
+{
+    $request->validate([
+        'nama' => 'required|string|max:255',
+        'lantaiTenant' => 'nullable|string|max:255',
+        'ruanganTenant' => 'nullable|string|max:255',
+    ]);
 
-        $tenant = Tenant::findOrFail($id);
-        $tenant->update([
-            'nama' => $request->nama,
-        ]);
+    $tenant->update([
+        'nama' => $request->nama,
+        'lantaiTenant' => $request->lantaiTenant,
+        'ruanganTenant' => $request->ruanganTenant,
+    ]);
 
-        return redirect()->route('tenants.index')->with('success', 'Tenant berhasil diperbarui.');
-    }
+    return redirect()->route('tenants.index')->with('success', 'Tenant berhasil diperbarui');
+}
 
     public function destroy($id)
     {

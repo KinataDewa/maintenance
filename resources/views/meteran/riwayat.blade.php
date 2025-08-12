@@ -69,6 +69,7 @@
                                             <th>No</th>
                                             <th>Tenant</th>
                                             <th>Kwh</th>
+                                            <th>Batasan</th>
                                             <th>Jam</th>
                                             <th>Deskripsi</th>
                                             <th>Foto</th>
@@ -81,6 +82,7 @@
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $data->tenant->nama }}</td>
                                                 <td>{{ $data->kwh }}</td>
+                                                <td>{{ $data->batasan }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($data->waktu_input)->format('H:i') }}</td>
                                                 <td>{{ $data->deskripsi ?? '-' }}</td>
                                                 <td>

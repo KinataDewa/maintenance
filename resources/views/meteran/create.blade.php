@@ -31,6 +31,12 @@
         </div>
 
         <div class="mb-3">
+            <label for="batasan" class="form-label">Batasan</label>
+            <input type="number" step="0.01" name="batasan" class="form-control" required>
+            @error('batasan') <div class="text-danger small">{{ $message }}</div> @enderror
+        </div>
+
+        <div class="mb-3">
             <label for="foto" class="form-label">Foto Meteran</label>
             <input type="file" name="foto" id="foto" class="form-control" accept="image/*" capture="environment" required>
             @error('foto') <div class="text-danger small">{{ $message }}</div> @enderror

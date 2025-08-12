@@ -14,6 +14,7 @@ class MeteranListrik extends Model
         'kwh',
         'foto',
         'deskripsi',
+        'batasan',
         'waktu_input',
         'tanggal',
         'jam',

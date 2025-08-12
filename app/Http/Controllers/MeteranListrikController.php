@@ -24,6 +24,7 @@ class MeteranListrikController extends Controller
             'kwh' => 'required|numeric|min:0',
             'foto' => 'required|image|mimes:jpeg,png,jpg|max:5120',
             'deskripsi' => 'nullable|string|max:255',
+            'batasan' => 'nullable|numeric'
         ]);
 
         // Simpan foto
@@ -35,6 +36,7 @@ class MeteranListrikController extends Controller
             'kwh' => $request->kwh,
             'foto' => $fotoPath,
             'deskripsi' => $request->deskripsi,
+            'batasan' => $request->batasan,
             'user_id' => Auth::id(), // simpan staff yang login
             // waktu_input otomatis oleh database
         ]);
