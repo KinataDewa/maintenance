@@ -70,7 +70,7 @@
 
 @section('content')
     <div class="container py-4">
-        <h1 class="page-title mb-4">Checklist Hari Ini</h1>
+        <h1 class="page-title mb-4">Checklist On/Off</h1>
 
         <table class="table table-bordered text-center">
             <thead class="table-dark">

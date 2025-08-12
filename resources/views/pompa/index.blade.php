@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h3 class="page-title">Daftar Pompa Air</h3>
+    <h3 class="page-title">Daftar Pompa</h3>
 
     @if (session('success'))
         <div class="alert alert-success rounded-4">

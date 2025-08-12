@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h3 class="page-title">Tambah Pompa Air</h3>
+    <h3 class="page-title">Tambah Pompa</h3>
 
     <form action="{{ route('pompa.store') }}" method="POST">
         @csrf

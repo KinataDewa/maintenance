@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\ChecklistLogController;
+use App\Http\Controllers\PerangkatController;
 use App\Http\Controllers\RiwayatController;
 use App\Http\Controllers\MeteranListrikController;
 use App\Http\Controllers\MeteranIndukController;
@@ -43,6 +44,9 @@ use App\Http\Controllers\StpController;
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
     Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
+
+    //Perangkat 
+    Route::resource('perangkat', PerangkatController::class);
 
     // Riwayat
     Route::get('/riwayat', [RiwayatController::class, 'index'])->name('riwayat.index');

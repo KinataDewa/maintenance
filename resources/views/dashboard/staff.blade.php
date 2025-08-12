@@ -11,7 +11,7 @@
         @php
             $cards = [
                 [
-                    'title' => 'Checklist Harian',
+                    'title' => 'Checklist On/Off Harian',
                     'icon' => 'clipboard-check-fill',
                     'desc' => 'Isi laporan kerja rutin setiap hari.',
                     'route' => route('checklist.index'),
@@ -42,7 +42,7 @@
                     'btn_icon' => 'plug-fill',
                 ],
                 [
-                    'title' => 'Pompa Air',
+                    'title' => 'Pompa',
                     'icon' => 'droplet-fill',
                     'desc' => 'Isi laporan untuk pompa air bersih, diesel, dan hydrant.',
                     'route' => route('pompa.logs.create'),

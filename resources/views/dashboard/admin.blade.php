@@ -11,14 +11,14 @@
         @php
             $cards = [
                 [
-                    'title' => 'Checklist Harian',
-                    'icon' => 'check2-square',
-                    'desc' => 'Isi laporan kerja hari ini.',
-                    'route' => route('checklist.index'),
-                    'btn_text' => 'Mulai Checklist',
-                    'btn_color' => '#198754', // hijau
+                    'title' => 'Daftar Perangkat',
+                    'icon' => 'cpu',
+                    'desc' => 'Lihat dan kelola daftar perangkat.',
+                    'route' => route('perangkat.index'),
+                    'btn_text' => 'Daftar Perangkat',
+                    'btn_color' => '#198754', // teal
                     'icon_color' => 'text-success',
-                    'btn_icon' => 'play-fill',
+                    'btn_icon' => 'list-ul',
                 ],
                 [
                     'title' => 'Daftar Tenant',
@@ -31,11 +31,11 @@
                     'btn_icon' => 'people-fill',
                 ],
                 [
-                    'title' => 'Daftar Pompa Air',
+                    'title' => 'Daftar Pompa',
                     'icon' => 'water',
-                    'desc' => 'Lihat daftar pompa air dan kelola data.',
+                    'desc' => 'Lihat daftar pompa dan kelola data.',
                     'route' => route('pompa.index'),
-                    'btn_text' => 'Daftar Pompa Air',
+                    'btn_text' => 'Daftar Pompa',
                     'btn_color' => '#0d6efd', // biru
                     'icon_color' => 'text-primary',
                     'btn_icon' => 'list-ul',
