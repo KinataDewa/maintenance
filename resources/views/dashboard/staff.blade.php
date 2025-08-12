@@ -52,7 +52,7 @@
                     'btn_icon' => 'droplet-fill',
                 ],
                 [
-                    'title' => 'Suhu & Kelembapan',
+                    'title' => 'Suhu Ruangan',
                     'icon' => 'thermometer-half',
                     'desc' => 'Lihat dan catat suhu serta kelembapan ruangan.',
                     'route' => route('temperature.create'),
