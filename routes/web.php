@@ -14,6 +14,7 @@ use App\Http\Controllers\PompaUnitController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTemperatureLogController;
 use App\Http\Controllers\TenantController;
+use App\Http\Controllers\ExhaustFanController;
 use App\Http\Controllers\StpController;
 
     // Halaman landing bebas login (opsional)
@@ -90,6 +91,9 @@ use App\Http\Controllers\StpController;
     Route::get('/tenants/create', [\App\Http\Controllers\TenantController::class, 'create'])->name('tenants.create');
     Route::post('/tenants', [\App\Http\Controllers\TenantController::class, 'store'])->name('tenants.store');
     Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
+
+    //Exhaust Fan
+    Route::resource('exhaustfan', ExhaustFanController::class)->middleware('auth'); 
 
     // STP
     Route::get('/stp', [StpController::class, 'index'])->name('stp.index');

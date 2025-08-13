@@ -50,8 +50,19 @@
                     'icon_color' => 'text-warning',
                     'btn_icon' => 'list-ul',
                 ],
+                // Tambahan menu Exhaust Fan
                 [
-                    'title' => 'Riwayat',
+                    'title' => 'Daftar Exhaust Fan',
+                    'icon' => 'fan', // icon Bootstrap icons (gunakan icon yang mendekati jika tidak ada fan)
+                    'desc' => 'Kelola daftar exhaust fan di gedung.',
+                    'route' => route('exhaustfan.index'),
+                    'btn_text' => 'Daftar Exhaust Fan',
+                    'btn_color' => '#20c997', // hijau muda
+                    'icon_color' => 'text-success',
+                    'btn_icon' => 'list-ul',
+                ],
+                [
+                    'title' => 'Riwayat Pekerjaan Staff',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat data semua pekerjaan Anda.',
                     'route' => route('riwayat.index'),
@@ -63,7 +74,6 @@
                 ],
             ];
         @endphp
-
 
         @foreach ($cards as $card)
             <div class="col-md-6 col-xl-4">
