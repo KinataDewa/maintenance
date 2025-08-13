@@ -15,9 +15,17 @@ class MeteranListrikInduk extends Model
         'kwh',
         'kvar',
         'cosphi',
-        'foto',
+        'wbp',
+        'lwbp',
+        'total',
+        'foto_kwh',
+        'foto_cosphi',
+        'foto_kvar',
+        'foto_wbp',
+        'foto_lwbp',
+        'foto_total',
         'keterangan',
-        'user_id', // ← Pastikan ini juga ditambahkan
+        'user_id',
     ];
 
     public function user()

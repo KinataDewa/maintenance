@@ -27,7 +27,6 @@
         </button>
     </form>
 
-
     @if($data->isEmpty())
         <div class="alert alert-info">Belum ada data meteran induk.</div>
     @else
@@ -58,8 +57,10 @@
                                             <th>Kwh</th>
                                             <th>Kvar</th>
                                             <th>Cos φ</th>
+                                            <th>WBP</th>
+                                            <th>LWBP</th>
+                                            <th>Total</th>
                                             <th>Deskripsi</th>
-                                            <th>Foto</th>
                                             <th>Staff</th>
                                         </tr>
                                     </thead>
@@ -68,22 +69,80 @@
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $data->jam }}</td>
-                                                <td>{{ $data->kwh ?? '-' }}</td>
-                                                <td>{{ $data->kvar ?? '-' }}</td>
-                                                <td>{{ $data->cosphi ?? '-' }}</td>
-                                                <td>{{ $data->keterangan ?? '-' }}</td>
+
+                                                {{-- Kwh --}}
                                                 <td>
-                                                    @if($data->foto && file_exists(public_path('storage/' . $data->foto)))
-                                                        <button class="btn btn-sm btn-outline-primary" onclick="showFoto('{{ asset('storage/' . $data->foto) }}')">
+                                                    {{ $data->kwh ?? '-' }}<br>
+                                                    @if($data->foto_kwh && file_exists(public_path('storage/' . $data->foto_kwh)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_kwh) }}')">
                                                             <i class="bi bi-image"></i>
                                                         </button>
-                                                        <a href="{{ asset('storage/' . $data->foto) }}" class="btn btn-sm btn-outline-success" download>
-                                                            <i class="bi bi-download"></i>
-                                                        </a>
                                                     @else
                                                         <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
+
+                                                {{-- Kvar --}}
+                                                <td>
+                                                    {{ $data->kvar ?? '-' }}<br>
+                                                    @if($data->foto_kvar && file_exists(public_path('storage/' . $data->foto_kvar)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_kvar) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- Cos φ --}}
+                                                <td>
+                                                    {{ $data->cosphi ?? '-' }}<br>
+                                                    @if($data->foto_cosphi && file_exists(public_path('storage/' . $data->foto_cosphi)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_cosphi) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- WBP --}}
+                                                <td>
+                                                    {{ $data->wbp ?? '-' }}<br>
+                                                    @if($data->foto_wbp && file_exists(public_path('storage/' . $data->foto_wbp)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_wbp) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- LWBP --}}
+                                                <td>
+                                                    {{ $data->lwbp ?? '-' }}<br>
+                                                    @if($data->foto_lwbp && file_exists(public_path('storage/' . $data->foto_lwbp)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_lwbp) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+
+                                                {{-- Total --}}
+                                                <td>
+                                                    {{ $data->total ?? '-' }}<br>
+                                                    @if($data->foto_total && file_exists(public_path('storage/' . $data->foto_total)))
+                                                        <button class="btn btn-sm btn-outline-primary mt-1" onclick="showFoto('{{ asset('storage/' . $data->foto_total) }}')">
+                                                            <i class="bi bi-image"></i>
+                                                        </button>
+                                                    @else
+                                                        <span class="text-muted">-</span>
+                                                    @endif
+                                                </td>
+
+                                                <td>{{ $data->keterangan ?? '-' }}</td>
                                                 <td>{{ $data->user->name ?? '-' }}</td>
                                             </tr>
                                         @endforeach

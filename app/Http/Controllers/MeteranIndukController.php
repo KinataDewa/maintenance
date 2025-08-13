@@ -18,25 +18,47 @@ class MeteranIndukController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kwh' => 'nullable|numeric',
-            'kvar' => 'nullable|numeric',
-            'cosphi' => 'nullable|numeric',
-            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'kwh' => 'required|string',
+            'cosphi' => 'required|string',
+            'kvar' => 'required|string',
+            'wbp' => 'required|string',
+            'lwbp' => 'required|string',
+            'total' => 'required|string',
+
+            'foto_kwh' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_cosphi' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_kvar' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_wbp' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_lwbp' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            'foto_total' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+
             'keterangan' => 'nullable|string',
         ]);
 
-        $fotoPath = null;
-        if ($request->hasFile('foto')) {
-            $fotoPath = $request->file('foto')->store('foto_induk', 'public');
-        }
+        $foto_kwh = $request->file('foto_kwh')->store('foto_induk', 'public');
+        $foto_cosphi = $request->file('foto_cosphi')->store('foto_induk', 'public');
+        $foto_kvar = $request->file('foto_kvar')->store('foto_induk', 'public');
+        $foto_wbp = $request->file('foto_wbp')->store('foto_induk', 'public');
+        $foto_lwbp = $request->file('foto_lwbp')->store('foto_induk', 'public');
+        $foto_total = $request->file('foto_total')->store('foto_induk', 'public');
 
         MeteranListrikInduk::create([
             'tanggal' => now()->format('Y-m-d'),
             'jam' => now()->format('H:i:s'),
             'kwh' => $request->kwh,
-            'kvar' => $request->kvar,
             'cosphi' => $request->cosphi,
-            'foto' => $fotoPath,
+            'kvar' => $request->kvar,
+            'wbp' => $request->wbp,
+            'lwbp' => $request->lwbp,
+            'total' => $request->total,
+
+            'foto_kwh' => $foto_kwh,
+            'foto_cosphi' => $foto_cosphi,
+            'foto_kvar' => $foto_kvar,
+            'foto_wbp' => $foto_wbp,
+            'foto_lwbp' => $foto_lwbp,
+            'foto_total' => $foto_total,
+
             'keterangan' => $request->keterangan,
             'user_id' => auth()->id(),
         ]);
