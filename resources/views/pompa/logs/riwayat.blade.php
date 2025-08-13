@@ -36,9 +36,10 @@
                                     <thead class="bg-dark text-white">
                                         <tr>
                                             <th>No</th>
-                                            <th>Jam</th>
                                             <th>Jenis Pompa</th>
+                                            <th>Meteran</th>
                                             <th>Status</th>
+                                            <th>Jam</th>
                                             <th>Deskripsi</th>
                                             <th>Foto</th>
                                             <th>User</th>
@@ -48,8 +49,8 @@
                                         @foreach ($logGroup as $i => $log)
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($log->created_at)->format('H:i') }}</td>
                                                 <td>{{ $log->pompaUnit->nama_pompa ?? '-' }}</td>
+                                                <td>{{ $log->meteran ?? '-' }}</td>
                                                 <td>
                                                     @php
                                                         $statusColor = match($log->status) {
@@ -62,7 +63,8 @@
                                                     <span class="badge bg-{{ $statusColor }}">
                                                         {{ ucfirst($log->status) }}
                                                     </span>
-                                                </td>
+                                                </td>                    
+                                                <td>{{ \Carbon\Carbon::parse($log->created_at)->format('H:i') }}</td>
                                                 <td>{{ $log->deskripsi ?? '-' }}</td>
                                                 <td>
                                                     @if($log->foto && file_exists(public_path('storage/' . $log->foto)))

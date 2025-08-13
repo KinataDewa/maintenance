@@ -20,6 +20,7 @@ class PompaLogController extends Controller
     {
         $request->validate([
             'pompa_unit_id' => 'required|exists:pompa_units,id',
+            'meteran' => 'nullable|string|max:255',
             'status' => 'required|in:Baik,Perbaikan,Rusak',
             'foto' => 'nullable|image|max:2048',
             'deskripsi' => 'nullable|string',
@@ -32,6 +33,7 @@ class PompaLogController extends Controller
 
         PompaLog::create([
             'pompa_unit_id' => $request->pompa_unit_id,
+            'meteran' => $request->meteran,
             'status' => $request->status,
             'deskripsi' => $request->deskripsi,
             'foto' => $path,
