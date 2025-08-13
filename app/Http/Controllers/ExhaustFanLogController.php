@@ -44,15 +44,23 @@ class ExhaustFanLogController extends Controller
     }
 
     public function riwayat(Request $request)
-    {
-        $query = ExhaustFanLog::with('exhaustFan', 'user')->orderBy('created_at', 'desc');
+{
+    $exhaustFans = \App\Models\ExhaustFan::all();
 
-        if ($request->filled('tanggal')) {
-            $query->whereDate('created_at', $request->tanggal);
-        }
+    $query = ExhaustFanLog::with('exhaustFan', 'user')
+        ->orderBy('created_at', 'desc');
 
-        $logs = $query->paginate(15);
-
-        return view('exhaustfanlogs.riwayat', compact('logs'));
+    if ($request->filled('tanggal')) {
+        $query->whereDate('created_at', $request->tanggal);
     }
+
+    if ($request->filled('exhaust_fan_id')) {
+        $query->where('exhaust_fan_id', $request->exhaust_fan_id);
+    }
+
+    $logs = $query->paginate(15);
+
+    return view('exhaustfanlogs.riwayat', compact('logs', 'exhaustFans'));
+}
+
 }

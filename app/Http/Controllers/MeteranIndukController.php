@@ -66,9 +66,19 @@ class MeteranIndukController extends Controller
         return redirect()->back()->with('success', 'Data berhasil disimpan!');
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
-        $data = MeteranListrikInduk::orderByDesc('tanggal')->orderByDesc('jam')->get();
+        $query = MeteranListrikInduk::query();
+
+        // Filter berdasarkan tanggal
+        if ($request->filled('tanggal')) {
+            $query->whereDate('tanggal', $request->tanggal);
+        }
+
+        $data = $query->orderByDesc('tanggal')
+                    ->orderByDesc('jam')
+                    ->get();
+
         return view('induk.riwayat', compact('data'));
     }
 

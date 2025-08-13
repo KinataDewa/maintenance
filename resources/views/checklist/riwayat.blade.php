@@ -4,13 +4,39 @@
 
 @section('content')
 <div class="container">
-    <h1 class="page-title">Riwayat Checklist</h1>
+    <h1 class="page-title">Riwayat On/Off Perangkat</h1>
     
     @if($groupedChecklists->isEmpty())
         <div class="alert alert-info text-center">
             Belum ada riwayat checklist.
         </div>
     @else
+
+    {{-- Filter Form --}}
+    <form method="GET" action="{{ route('checklist.riwayat') }}" class="row g-2 mb-4">
+        <div class="col-md-4">
+            <label for="perangkat_id" class="form-label">Filter Perangkat</label>
+            <select name="perangkat_id" id="perangkat_id" class="form-select">
+                <option value="">Semua Perangkat</option>
+                @foreach($perangkatList as $p)
+                    <option value="{{ $p->id }}" {{ request('perangkat_id') == $p->id ? 'selected' : '' }}>
+                        {{ $p->nama }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="tanggal" class="form-label">Tanggal</label>
+            <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
+        </div>
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-warning me-2">
+                <i class="bi bi-filter-circle me-1"></i> Filter
+            </button>
+            <a href="{{ route('checklist.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
+        </div>
+    </form>
+
         <div class="accordion" id="checklistAccordion">
             @foreach ($groupedChecklists as $tanggal => $checklists)
                 @php

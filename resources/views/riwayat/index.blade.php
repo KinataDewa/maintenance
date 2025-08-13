@@ -52,14 +52,14 @@
             </a>
         </div>
 
-        {{-- Riwayat Pompa Air --}}
+        {{-- Riwayat Pompa --}}
         <div class="col">
             <a href="{{ route('pompa.logs.riwayat') }}" class="text-decoration-none">
                 <div class="card border-primary shadow-sm h-100 bg-white transition">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
                             <i class="bi bi-droplet-half fs-4 me-2 text-primary"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Pompa Air</h6>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Pompa</h6>
                         </div>
                         <small class="text-muted">Lihat data riwayat pompa air bersih, diesel, dan hydrant.</small>
                     </div>

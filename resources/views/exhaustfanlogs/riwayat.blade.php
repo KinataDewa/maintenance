@@ -8,25 +8,32 @@
 
     <!-- Filter Form -->
     <form method="GET" action="{{ route('exhaustfanlogs.riwayat') }}" class="row g-2 mb-4">
-        <div class="col-md-4">
-            <label for="tanggal" class="form-label">Filter Tanggal</label>
-            <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
-        </div>
-        <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-warning me-2">
-                <i class="bi bi-filter-circle me-1"></i> Filter
-            </button>
-            <a href="{{ route('exhaustfanlogs.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
-        </div>
-    </form>
+    <div class="col-md-4">
+        <label for="tanggal" class="form-label">Filter Tanggal</label>
+        <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
+    </div>
 
-    <!-- Export Button (sesuaikan route & fungsi export jika ada) -->
-    {{-- <form method="GET" action="{{ route('exhaustfanlogs.export') ?? '#' }}" class="mb-4">
-        <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-        <button class="btn btn-success">
-            <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+    <div class="col-md-4">
+        <label for="exhaust_fan_id" class="form-label">Filter Exhaust Fan</label>
+        <select name="exhaust_fan_id" id="exhaust_fan_id" class="form-select">
+            <option value="">-- Semua --</option>
+            @foreach($exhaustFans as $fan)
+                <option value="{{ $fan->id }}" {{ request('exhaust_fan_id') == $fan->id ? 'selected' : '' }}>
+                    {{ $fan->nama }}
+                </option>
+            @endforeach
+        </select>
+    </div>
+
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-warning me-2">
+            <i class="bi bi-filter-circle me-1"></i> Filter
         </button>
-    </form> --}}
+        <a href="{{ route('exhaustfanlogs.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
+    </div>
+</form>
+
+
 
     @if($logs->isEmpty())
         <div class="alert alert-info">Belum ada data riwayat exhaust fan.</div>

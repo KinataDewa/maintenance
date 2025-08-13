@@ -6,7 +6,37 @@
 <div class="container">
     <h1 class="page-title">Riwayat Log Harian Pompa</h1>
 
-    
+    <form method="GET" action="{{ route('pompa.logs.riwayat') }}" class="row g-2 mb-4">
+        <div class="col-md-4">
+            <label for="pompa_unit_id" class="form-label">Filter Jenis Pompa</label>
+            <select name="status" id="status" class="form-select">
+                <option value="">Semua Status</option>
+                <option value="Baik" {{ request('status') == 'Baik' ? 'selected' : '' }}>Baik</option>
+                <option value="Perbaikan" {{ request('status') == 'Perbaikan' ? 'selected' : '' }}>Perbaikan</option>
+                <option value="Rusak" {{ request('status') == 'Rusak' ? 'selected' : '' }}>Rusak</option>
+            </select>
+        </div>
+
+        <div class="col-md-4">
+            <label for="tanggal" class="form-label">Tanggal</label>
+            <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
+        </div>
+
+        <div class="col-md-4 d-flex align-items-end">
+            <button type="submit" class="btn btn-warning me-2">
+                <i class="bi bi-filter-circle me-1"></i> Filter
+            </button>
+            <a href="{{ route('pompa.logs.riwayat') }}" class="btn btn-outline-secondary">
+                Reset
+            </a>
+        </div>
+    </form>
+
+
+    <a href="{{ route('pompa.logs.export') }}" class="btn btn-success mb-3">
+        <i class="bi bi-file-earmark-excel"></i> Export Excel
+    </a>
+
     <!-- Data -->
     @if($logs->isEmpty())
         <div class="alert alert-info">Belum ada data log pompa.</div>

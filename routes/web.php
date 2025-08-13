@@ -46,6 +46,7 @@ use App\Http\Controllers\StpController;
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
     Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
+    Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
 
     //Perangkat 
     Route::resource('perangkat', PerangkatController::class);
@@ -75,17 +76,22 @@ use App\Http\Controllers\StpController;
     // Pompa Log
     Route::prefix('pompa')->name('pompa.')->group(function () {
     Route::get('log', [PompaLogController::class, 'create'])->name('logs.create');
-    Route::post('log', [PompaLogController::class, 'store'])->name('logs.store');});
-    Route::get('/pompa/logs/riwayat', [PompaLogController::class, 'riwayat'])->name('pompa.logs.riwayat');
+    Route::post('log', [PompaLogController::class, 'store'])->name('logs.store');
+    Route::get('logs/riwayat', [PompaLogController::class, 'riwayat'])->name('logs.riwayat');
 
-    // Suhu Ruangan
+    // Export Excel
+    Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
+});
+
     Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');
     Route::resource('rooms', RoomController::class);
 
     // Route untuk log suhu ruangan
     Route::get('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'create'])->name('temperature.create');
     Route::post('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'store'])->name('temperature.store');
-    Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwayat'])->name('room-temperature-logs.riwayat');
+    // Riwayat suhu ruangan
+Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwayat'])
+    ->name('room-temperature-logs.riwayat');
 
     // Tenant
     Route::resource('tenants', TenantController::class);

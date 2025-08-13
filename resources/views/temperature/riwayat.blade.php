@@ -14,6 +14,31 @@
                 return \Carbon\Carbon::parse($item->waktu_cek)->format('Y-m-d');
             });
         @endphp
+
+         {{-- Filter Form --}}
+        <form method="GET" action="{{ route('room-temperature-logs.riwayat') }}" class="row g-2 mb-4">
+            <div class="col-md-4">
+                <label for="room_id" class="form-label">Filter Ruangan</label>
+                <select name="room_id" id="room_id" class="form-select">
+                    <option value="">Semua Ruangan</option>
+                    @foreach($rooms as $room)
+                        <option value="{{ $room->id }}" {{ request('room_id') == $room->id ? 'selected' : '' }}>
+                            {{ $room->nama }}
+                        </option>
+                    @endforeach
+                </select>
+            </div>
+            <div class="col-md-4">
+                <label for="tanggal" class="form-label">Tanggal</label>
+                <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
+            </div>
+            <div class="col-md-4 d-flex align-items-end">
+                <button type="submit" class="btn btn-warning me-2">
+                    <i class="bi bi-filter-circle me-1"></i> Filter
+                </button>
+                <a href="{{ route('room-temperature-logs.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
+            </div>
+        </form>
         
         <div class="accordion" id="suhuRuanganAccordion">
             @foreach ($grouped as $tanggal => $logGroup)

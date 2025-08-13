@@ -38,10 +38,21 @@ class RoomTemperatureLogController extends Controller
         return redirect()->route('temperature.create')->with('success', 'Data suhu berhasil disimpan.');
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
-        $logs = RoomTemperatureLog::with('room', 'user')->latest()->get();
-        return view('temperature.riwayat', compact('logs'));
+        $rooms = Room::all();
+
+        $logs = RoomTemperatureLog::with('room', 'user')
+            ->when($request->room_id, function($query) use ($request) {
+                $query->where('room_id', $request->room_id);
+            })
+            ->when($request->tanggal, function($query) use ($request) {
+                $query->whereDate('waktu_cek', $request->tanggal);
+            })
+            ->latest()
+            ->get();
+
+        return view('temperature.riwayat', compact('logs', 'rooms'));
     }
 }
 

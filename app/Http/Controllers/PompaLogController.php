@@ -7,6 +7,8 @@ use App\Models\PompaUnit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Exports\PompaLogsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PompaLogController extends Controller
 {
@@ -43,10 +45,28 @@ class PompaLogController extends Controller
         return redirect()->route('pompa.logs.create')->with('success', 'Log pompa berhasil disimpan.');
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
-        $logs = PompaLog::with(['pompaUnit', 'user'])->latest()->get();
+        $query = PompaLog::with('pompaUnit', 'user')
+            ->orderBy('created_at', 'desc');
+
+        // Filter tanggal
+        if ($request->filled('tanggal')) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        // Filter status
+        if ($request->filled('status')) {
+            $query->where('status', $request->status);
+        }
+
+        $logs = $query->get(); // atau paginate kalau mau paging
 
         return view('pompa.logs.riwayat', compact('logs'));
+    }
+
+    public function exportExcel()
+    {
+        return Excel::download(new PompaLogsExport, 'pompa_logs.xlsx');
     }
 }
