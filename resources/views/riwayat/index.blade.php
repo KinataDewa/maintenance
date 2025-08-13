@@ -81,7 +81,21 @@
                 </div>
             </a>
         </div>
-
+        
+        {{-- Riwayat Exhaust Fan --}}
+        <div class="col">
+            <a href="{{ route('exhaustfanlogs.riwayat') }}" class="text-decoration-none">
+                <div class="card border-info shadow-sm h-100 bg-white transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-fan fs-4 me-2 text-info"></i>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Exhaust Fan</h6>
+                        </div>
+                        <small class="text-muted">Lihat semua riwayat perawatan exhaust fan oleh staff.</small>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

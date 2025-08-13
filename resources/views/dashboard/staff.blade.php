@@ -62,6 +62,16 @@
                     'btn_icon' => 'thermometer-half',
                 ],
                 [
+                    'title' => 'Exhaust Fan',
+                    'icon' => 'fan',
+                    'desc' => 'Input laporan perawatan exhaust fan.',
+                    'route' => route('exhaustfanlogs.create'),
+                    'btn_text' => 'Input Exhaust Fan',
+                    'btn_color' => '#6610f2', // ungu
+                    'icon_color' => 'text-purple',
+                    'btn_icon' => 'fan',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',

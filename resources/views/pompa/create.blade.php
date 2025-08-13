@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Tambah Pompa')
+
 @section('content')
 <div class="container py-4">
     <h3 class="page-title">Tambah Pompa</h3>

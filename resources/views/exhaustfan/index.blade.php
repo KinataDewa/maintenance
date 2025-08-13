@@ -3,49 +3,63 @@
 @section('title', 'Daftar Exhaust Fan')
 
 @section('content')
-<div class="container">
-    <h1 class="mb-4">Daftar Exhaust Fan</h1>
+<div class="container py-4">
+    <h3 class="page-title">Daftar Exhaust Fan</h3>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    @if (session('success'))
+        <div class="alert alert-success rounded-4">
+            {{ session('success') }}
+        </div>
     @endif
 
-    <a href="{{ route('exhaustfan.create') }}" class="btn btn-primary mb-3">Tambah Exhaust Fan Baru</a>
+    <a href="{{ route('exhaustfan.create') }}" class="btn btn-warning mb-3 rounded-3">+ Tambah Exhaust Fan</a>
 
-    @if($fans->isEmpty())
-        <div class="alert alert-info">Belum ada data exhaust fan.</div>
-    @else
-        <table class="table table-bordered table-striped">
-            <thead>
+    <div class="table-responsive">
+        <table class="table table-bordered text-center">
+            <thead class="table-dark">
                 <tr>
                     <th>No</th>
-                    <th>Nama</th>
+                    <th>Nama Exhaust Fan</th>
                     <th>Ruangan</th>
                     <th>Merk</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach ($fans as $index => $fan)
+                @forelse ($fans as $fan)
                 <tr>
-                    <td>{{ $fans->firstItem() + $index }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $fan->nama }}</td>
-                    <td>{{ $fan->ruangan }}</td>
-                    <td>{{ $fan->merk }}</td>
+                    <td>{{ $fan->ruangan ?? '-' }}</td>
+                    <td>{{ $fan->merk ?? '-' }}</td>
                     <td>
-                        <a href="{{ route('exhaustfan.edit', $fan->id) }}" class="btn btn-sm btn-warning">Edit</a>
-                        <form action="{{ route('exhaustfan.destroy', $fan->id) }}" method="POST" class="d-inline" onsubmit="return confirm('Yakin ingin menghapus?')">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-sm btn-danger" type="submit">Hapus</button>
-                        </form>
+                        <div class="d-grid d-md-flex justify-content-center gap-2">
+                            <a href="{{ route('exhaustfan.edit', $fan->id) }}" 
+                                class="btn btn-outline-primary rounded-2 text-center"
+                                style="min-width: 120px; width: 120px; height: 38px;">
+                                Edit
+                            </a>
+
+                            <form action="{{ route('exhaustfan.destroy', $fan->id) }}" method="POST" 
+                                  onsubmit="return confirm('Yakin ingin menghapus exhaust fan ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="btn btn-outline-danger rounded-2 text-center"
+                                        style="min-width: 120px; width: 120px; height: 38px;">
+                                    Hapus
+                                </button>
+                            </form>
+                        </div>
                     </td>
                 </tr>
-                @endforeach
+                @empty
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Belum ada data exhaust fan.</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
-
-        {{ $fans->links() }}
-    @endif
+    </div>
 </div>
 @endsection

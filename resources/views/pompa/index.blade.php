@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', 'Daftar Pompa')
+
 @section('content')
 <div class="container py-4">
     <h3 class="page-title">Daftar Pompa</h3>
@@ -35,25 +37,25 @@
                     <td>{{ $pompa->kapasitas ?? '-' }}</td>
                     <td>{{ $pompa->tekanan ?? '-' }}</td>
                     <td>
-                    <div class="d-grid d-md-flex justify-content-center gap-2">
-                        <a href="{{ route('pompa.edit', $pompa->id) }}" 
-                        class="btn btn-outline-primary rounded-2 text-center"
-                        style="min-width: 120px; width: 120px; height: 38px;">
-                            Edit
-                        </a>
+                        <div class="d-grid d-md-flex justify-content-center gap-2">
+                            <a href="{{ route('pompa.edit', $pompa->id) }}" 
+                               class="btn btn-outline-primary rounded-2 text-center"
+                               style="min-width: 120px; width: 120px; height: 38px;">
+                                Edit
+                            </a>
 
-                        <form action="{{ route('pompa.destroy', $pompa->id) }}" method="POST" 
-                            onsubmit="return confirm('Yakin ingin menghapus data ini?')">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" 
-                                    class="btn btn-outline-danger rounded-2 text-center"
-                                    style="min-width: 120px; width: 120px; height: 38px;">
-                                Hapus
-                            </button>
-                        </form>
-                    </div>
-                </td>
+                            <form action="{{ route('pompa.destroy', $pompa->id) }}" method="POST" 
+                                  onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" 
+                                        class="btn btn-outline-danger rounded-2 text-center"
+                                        style="min-width: 120px; width: 120px; height: 38px;">
+                                    Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </td>
                 </tr>
                 @empty
                 <tr>

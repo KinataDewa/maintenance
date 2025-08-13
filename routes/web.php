@@ -15,6 +15,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTemperatureLogController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ExhaustFanController;
+use App\Http\Controllers\ExhaustFanLogController;
 use App\Http\Controllers\StpController;
 
     // Halaman landing bebas login (opsional)
@@ -92,8 +93,15 @@ use App\Http\Controllers\StpController;
     Route::post('/tenants', [\App\Http\Controllers\TenantController::class, 'store'])->name('tenants.store');
     Route::get('/tenants', [TenantController::class, 'index'])->name('tenants.index');
 
-    //Exhaust Fan
+    // Exhaust Fan
     Route::resource('exhaustfan', ExhaustFanController::class)->middleware('auth'); 
+
+    // Exhaust Fan Log
+    Route::middleware(['auth'])->group(function () {
+    Route::get('/exhaustfanlogs/create', [ExhaustFanLogController::class, 'create'])->name('exhaustfanlogs.create');
+    Route::post('/exhaustfanlogs', [ExhaustFanLogController::class, 'store'])->name('exhaustfanlogs.store');});
+    Route::get('/exhaustfanlogs/riwayat', [ExhaustFanLogController::class, 'riwayat'])->name('exhaustfanlogs.riwayat');
+
 
     // STP
     Route::get('/stp', [StpController::class, 'index'])->name('stp.index');
