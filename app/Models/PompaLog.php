@@ -9,7 +9,7 @@ use App\Models\PompaUnit;
 class PompaLog extends Model
 {
     protected $fillable = [
-        'pompa_unit_id', 'meteran', 'status', 'deskripsi', 'foto', 'user_id'
+        'pompa_unit_id', 'meteran', 'deskripsi', 'foto', 'user_id'
     ];
 
     public function pompa()

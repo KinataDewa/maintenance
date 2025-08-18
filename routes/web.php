@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\DashboardStaffController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\ChecklistLogController;
 use App\Http\Controllers\PerangkatController;
@@ -35,13 +36,9 @@ use App\Http\Controllers\StpController;
         return redirect('/');
     })->name('logout');
 
-    // Checklist
-    // Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
-    // Route::put('/checklist/{id}', [ChecklistController::class, 'update'])->name('checklists.update');
-    // Route::post('/checklists/log', [ChecklistLogController::class, 'store'])->name('checklists.log.store');
-    // Route::delete('/checklists/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
-    // Route::delete('/checklists/log/{id}', [ChecklistLogController::class, 'destroy'])->name('checklists.destroy');
-    // Route::get('/checklists/riwayat', [ChecklistLogController::class, 'riwayat'])->name('checklists.riwayat');
+    // Dashboard Staff
+    Route::get('/dashboard-staff/form-harian', [DashboardStaffController::class, 'formHarian'])->name('dashboard.staff.formharian');
+
 
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');

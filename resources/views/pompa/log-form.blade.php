@@ -126,16 +126,6 @@
         </div>
 
         <div class="mb-3">
-            <label class="form-label">Status</label>
-            <select name="status" class="form-select" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="Baik">Baik</option>
-                <option value="Perbaikan">Perbaikan</option>
-                <option value="Rusak">Rusak</option>
-            </select>
-        </div>
-
-        <div class="mb-3">
             <label class="form-label">Upload Foto</label>
             <input type="file" name="foto" class="form-control" accept="image/*">
         </div>

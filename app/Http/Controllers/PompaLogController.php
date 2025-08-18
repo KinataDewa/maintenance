@@ -23,7 +23,6 @@ class PompaLogController extends Controller
         $request->validate([
             'pompa_unit_id' => 'required|exists:pompa_units,id',
             'meteran' => 'nullable|string|max:255',
-            'status' => 'required|in:Baik,Perbaikan,Rusak',
             'foto' => 'nullable|image|max:2048',
             'deskripsi' => 'nullable|string',
         ]);
@@ -36,7 +35,6 @@ class PompaLogController extends Controller
         PompaLog::create([
             'pompa_unit_id' => $request->pompa_unit_id,
             'meteran' => $request->meteran,
-            'status' => $request->status,
             'deskripsi' => $request->deskripsi,
             'foto' => $path,
             'user_id' => Auth::id(),
@@ -53,11 +51,6 @@ class PompaLogController extends Controller
         // Filter tanggal
         if ($request->filled('tanggal')) {
             $query->whereDate('created_at', $request->tanggal);
-        }
-
-        // Filter status
-        if ($request->filled('status')) {
-            $query->where('status', $request->status);
         }
 
         $logs = $query->get(); // atau paginate kalau mau paging

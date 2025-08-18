@@ -7,15 +7,6 @@
     <h1 class="page-title">Riwayat Log Harian Pompa</h1>
 
     <form method="GET" action="{{ route('pompa.logs.riwayat') }}" class="row g-2 mb-4">
-        <div class="col-md-4">
-            <label for="pompa_unit_id" class="form-label">Filter Jenis Pompa</label>
-            <select name="status" id="status" class="form-select">
-                <option value="">Semua Status</option>
-                <option value="Baik" {{ request('status') == 'Baik' ? 'selected' : '' }}>Baik</option>
-                <option value="Perbaikan" {{ request('status') == 'Perbaikan' ? 'selected' : '' }}>Perbaikan</option>
-                <option value="Rusak" {{ request('status') == 'Rusak' ? 'selected' : '' }}>Rusak</option>
-            </select>
-        </div>
 
         <div class="col-md-4">
             <label for="tanggal" class="form-label">Tanggal</label>
@@ -68,7 +59,6 @@
                                             <th>No</th>
                                             <th>Jenis Pompa</th>
                                             <th>Meteran</th>
-                                            <th>Status</th>
                                             <th>Jam</th>
                                             <th>Deskripsi</th>
                                             <th>Foto</th>
@@ -80,20 +70,7 @@
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $log->pompaUnit->nama_pompa ?? '-' }}</td>
-                                                <td>{{ $log->meteran ?? '-' }}</td>
-                                                <td>
-                                                    @php
-                                                        $statusColor = match($log->status) {
-                                                            'Baik' => 'success',
-                                                            'Perbaikan' => 'warning',
-                                                            'Rusak' => 'danger',
-                                                            default => 'secondary',
-                                                        };
-                                                    @endphp
-                                                    <span class="badge bg-{{ $statusColor }}">
-                                                        {{ ucfirst($log->status) }}
-                                                    </span>
-                                                </td>                    
+                                                <td>{{ $log->meteran ?? '-' }}</td>                 
                                                 <td>{{ \Carbon\Carbon::parse($log->created_at)->format('H:i') }}</td>
                                                 <td>{{ $log->deskripsi ?? '-' }}</td>
                                                 <td>

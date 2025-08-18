@@ -71,8 +71,9 @@
 
         {{-- Link Checklist --}}
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('checklist') ? 'fw-bold' : '' }}" href="{{ route('checklist.index') }}">
-                <i class="bi bi-list-check me-1"></i> Checklist
+            <a class="nav-link {{ request()->is('dashboard-staff/form-harian') ? 'fw-bold' : '' }}" 
+            href="{{ route('dashboard.staff.formharian') }}">
+                <i class="bi bi-list-check me-1"></i> Daily
             </a>
         </li>
 
