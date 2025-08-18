@@ -24,7 +24,7 @@ use App\Http\Controllers\StpController;
         return redirect()->route('login');
     });
 
-    // Arahkan ke dashboard setelah login
+    // dashboard setelah login
     Route::get('/dashboard', [DashboardController::class, 'index'])
         ->middleware(['auth'])
         ->name('dashboard');
@@ -35,6 +35,13 @@ use App\Http\Controllers\StpController;
         Auth::logout();
         return redirect('/');
     })->name('logout');
+
+    // Profile
+    Route::middleware('auth')->group(function () {
+    Route::get('/profile', [\App\Http\Controllers\ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [\App\Http\Controllers\ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [\App\Http\Controllers\ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
     // Dashboard Staff
     Route::get('/dashboard-staff/form-harian', [DashboardStaffController::class, 'formHarian'])->name('dashboard.staff.formharian');

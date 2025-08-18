@@ -58,7 +58,7 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-2 align-items-start align-items-lg-center">
+            <ul class="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-2 align-items-start align-items-lg-center">
 
 
     @auth
@@ -92,7 +92,7 @@
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
                 <li>
-                    <a class="dropdown-item" href="#">
+                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
                         <i class="bi bi-person-lines-fill me-1"></i> Profil
                     </a>
                 </li>
@@ -109,15 +109,16 @@
                 </li>
             </ul>
         </li>
-    @else
-        {{-- Jika belum login --}}
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">
-                <i class="bi bi-box-arrow-in-right me-1"></i> Login
-            </a>
-        </li>
-    @endauth
-</ul>
+
+            @else
+                {{-- Jika belum login --}}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('login') }}">
+                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
+                    </a>
+                </li>
+            @endauth
+        </ul>
 
             </div>
         </div>
