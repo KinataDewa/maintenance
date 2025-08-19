@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Log Pompa')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Riwayat Log Harian Pompa</h1>
 
     <form method="GET" action="{{ route('pompa.logs.riwayat') }}" class="row g-2 mb-4">

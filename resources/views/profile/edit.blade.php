@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="mb-4">Profil Saya</h1>
+    <h1 class="page-title">Profil Saya</h1>
 
     @if (session('status') === 'profile-updated')
         <div class="alert alert-success">Profil berhasil diperbarui.</div>

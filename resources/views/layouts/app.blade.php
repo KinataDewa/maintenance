@@ -1,139 +1,243 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title')</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-        }
-        .navbar-custom {
-            background-color: #fff;
-            border-bottom: 1px solid #dee2e6;
-        }
-        .navbar-brand {
-            font-weight: 700;
-            color: #000 !important;
-        }
-        .nav-link {
-            color: #000 !important;
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-        .nav-link:hover,
-        .nav-link.fw-bold {
-            color: #FFBD38 !important;
-        }
-        
-        .page-title {
-            font-weight: 700;
-            font-size: 1.75rem;
-            color: #343a40;
-            margin-bottom: 1.5rem;
-            border-left: 5px solid #ffbd38;
-            padding-left: 1rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.06); /* Lebih dalam, masih halus */
-        }
-        .btn-warning {
-            background-color: #FFBD38;
-            border: none;
-            color: white;
-        }
-    </style>
-    @stack('styles')
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>@yield('title')</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+/* Sidebar */
+.sidebar {
+    height: 100vh;
+    background-color: #fff;
+    border-right: 1px solid #dee2e6;
+    padding-top: 1rem;
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    z-index: 1050;
+    transition: all 0.4s ease;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.05);
+}
+.sidebar.active { left:0; }
+/* Sidebar Header */
+.sidebar .sidebar-header {
+    font-weight: 700;
+    font-size: 1.25rem;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #dee2e6;
+    margin-bottom: 1rem;
+    position: sticky;
+    top: 0;
+    background-color: #fff;
+    z-index: 2;
+}
+/* Menu Links */
+.sidebar .nav-link {
+    color: #000 !important;
+    font-weight: 500;
+    padding: 0.65rem 1rem;
+    border-radius: 8px;
+    margin: 0.25rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+.sidebar .nav-link i { transition: transform 0.3s ease; }
+.sidebar .nav-link:hover { background-color: #FFBD38; color: #fff !important; }
+.sidebar .nav-link:hover i { transform: scale(1.2); }
+.sidebar .nav-link.fw-bold { background-color: #FFBD38; color: #fff !important; }
+/* Sliding underline */
+.sidebar .nav-link::after {
+    content: '';
+    position: absolute;
+    left:0;
+    bottom:0;
+    height:3px;
+    width:0;
+    background:#fff;
+    transition: width 0.3s ease;
+    border-radius:3px;
+}
+.sidebar .nav-link:hover::after,
+.sidebar .nav-link.fw-bold::after { width:100%; }
+/* Overlay mobile */
+.sidebar-overlay {
+    position: fixed;
+    top:0; left:0;
+    width:100%; height:100%;
+    background: rgba(0,0,0,0.3);
+    z-index: 1040;
+    display: none;
+}
+.sidebar-overlay.active { display:block; }
+/* Content */
+.content { margin-left:0; padding:0.5rem; transition: margin-left 0.4s ease; }
+.page-title {
+    font-weight:700;
+    font-size:1.75rem;
+    color:#343a40;
+    margin-bottom:1.5rem;
+    border-left:5px solid #ffbd38;
+    padding-left:1rem;
+    text-shadow:0 2px 4px rgba(0,0,0,0.06);
+}
+/* Navbar Mobile */
+.navbar-mobile { display:none; }
+@media (max-width:991.98px){
+    .navbar-mobile { display:flex; align-items:center; padding:0.5rem 1rem; background:#fff; border-bottom:1px solid #dee2e6; position:sticky; top:0; z-index:1060;}
+    .content { padding-top:0rem; }
+    .sidebar .sidebar-header img { display:none; }
+}
+/* Desktop */
+@media (min-width:992px){
+    .sidebar { left:0; }
+    .content { margin-left:260px; }
+}
+</style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-custom shadow-sm sticky-top">
-        <div class="container">
-            <a class="navbar-brand d-flex align-items-center gap-2" href="{{ url('/') }}">
-                <img src="{{ asset('images/logo2.png') }}" alt="Logo" height="25">
-                <span class="fw-semibold fs-5 text-dark mb-0" style="letter-spacing: 0.5px;">Maintenance</span>
-            </a>
 
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+{{-- Navbar Mobile --}}
+<div class="navbar-mobile d-lg-none">
+    <button class="btn text-warning p-0 me-2" id="sidebarToggleMobile">
+        <i class="bi bi-list fs-3"></i>
+    </button>
+    <span class="fw-bold fs-5 mb-0">Maintenance</span>
+</div>
 
-            <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto d-flex flex-column flex-lg-row gap-2 align-items-start align-items-lg-center">
+{{-- Sidebar --}}
+<div class="sidebar shadow-sm" id="sidebarMenu">
+    <div class="sidebar-header d-flex align-items-center gap-2">
+        <img src="{{ asset('images/logo2.png') }}" alt="Logo" height="25">
+        <span>Maintenance</span>
+    </div>
 
-
-    @auth
-        {{-- Link Dashboard --}}
+    <ul class="nav flex-column px-2">
+        @auth
+        {{-- Dashboard --}}
         <li class="nav-item">
             <a class="nav-link {{ request()->is('dashboard') ? 'fw-bold' : '' }}" href="{{ route('dashboard') }}">
-                <i class="bi bi-house-door me-1"></i> Dashboard
+                <i class="bi bi-house-door"></i> Dashboard
             </a>
         </li>
 
-        {{-- Link Checklist --}}
+        @if(auth()->user()->role=='staff')
+            {{-- Daily Staff --}}
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('dashboard-staff/form-harian*') ? 'fw-bold' : '' }}" href="#dailySubmenu" data-bs-toggle="collapse">
+                    <span><i class="bi bi-list-check"></i> Daily</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled ps-3 {{ request()->is('dashboard-staff/form-harian*') ? 'show' : '' }}" id="dailySubmenu">
+                    @php
+                    $dailyCards = [
+                        ['title'=>'On/Off Perangkat','icon'=>'clipboard-check-fill','route'=>route('checklist.index')],
+                        ['title'=>'Listrik Tenant','icon'=>'lightning-charge-fill','route'=>route('meteran.create')],
+                        ['title'=>'Listrik Induk PLN','icon'=>'plug-fill','route'=>route('induk.create')],
+                        ['title'=>'Pompa','icon'=>'droplet-fill','route'=>route('pompa.logs.create')],
+                        ['title'=>'Suhu Ruangan','icon'=>'thermometer-half','route'=>route('temperature.create')],
+                    ];
+                    @endphp
+                    @foreach($dailyCards as $card)
+                    <li>
+                        <a class="nav-link {{ request()->url()==$card['route'] ? 'fw-bold' : '' }}" href="{{ $card['route'] }}">
+                            <i class="bi bi-{{ $card['icon'] }}"></i> {{ $card['title'] }}
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            </li>
+        @elseif(auth()->user()->role=='admin')
+            {{-- Daftar Admin --}}
+            <li class="nav-item">
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*','riwayat*') ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
+                    <span><i class="bi bi-list-check"></i> Daftar</span>
+                    <i class="bi bi-chevron-down"></i>
+                </a>
+                <ul class="collapse list-unstyled ps-3 {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*','riwayat*') ? 'show' : '' }}" id="daftarSubmenu">
+                    @php
+                    $daftarCards = [
+                        ['title'=>'Daftar Perangkat','icon'=>'cpu','route'=>route('perangkat.index')],
+                        ['title'=>'Daftar Tenant','icon'=>'building','route'=>route('tenants.index')],
+                        ['title'=>'Daftar Pompa','icon'=>'water','route'=>route('pompa.index')],
+                        ['title'=>'Daftar Ruangan','icon'=>'door-closed','route'=>route('rooms.index')],
+                        ['title'=>'Daftar Exhaust Fan','icon'=>'fan','route'=>route('exhaustfan.index')],
+                        ['title'=>'Riwayat Pekerjaan Staff','icon'=>'clock-history','route'=>route('riwayat.index')],
+                    ];
+                    @endphp
+                    @foreach($daftarCards as $card)
+                    <li>
+                        <a class="nav-link {{ request()->url()==$card['route'] ? 'fw-bold' : '' }}" href="{{ $card['route'] }}">
+                            <i class="bi bi-{{ $card['icon'] }}"></i> {{ $card['title'] }}
+                        </a>
+                    </li>
+                    @endforeach
+                </ul>
+            </li>
+        @endif
+
+        <li class="nav-item"> <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}"> <i class="bi bi-clock-history"></i> Riwayat </a> </li>
+        {{-- Logout/Profile --}}
+        <hr class="my-2">
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('dashboard-staff/form-harian') ? 'fw-bold' : '' }}" 
-            href="{{ route('dashboard.staff.formharian') }}">
-                <i class="bi bi-list-check me-1"></i> Daily
+            <a class="nav-link {{ request()->is('profile') ? 'fw-bold' : '' }}" href="{{ route('profile.edit') }}">
+                <i class="bi bi-person-lines-fill"></i> Profil
             </a>
         </li>
-
-        {{-- Link Riwayat --}}
         <li class="nav-item">
-            <a class="nav-link {{ request()->is('riwayat') ? 'fw-bold' : '' }}" href="{{ route('riwayat.index') }}">
-                <i class="bi bi-clock-history me-1"></i> Riwayat
+            <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                <button class="nav-link border-0 bg-transparent w-100 text-start" type="submit">
+                    <i class="bi bi-box-arrow-right"></i> Logout
+                </button>
+            </form>
+        </li>
+        @else
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('login') }}">
+                <i class="bi bi-box-arrow-in-right"></i> Login
             </a>
         </li>
+        @endauth
+    </ul>
+</div>
 
-        {{-- Dropdown User --}}
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-circle me-1"></i>
-                {{ Auth::user()->name }}
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end">
-                <li>
-                    <a class="dropdown-item" href="{{ route('profile.edit') }}">
-                        <i class="bi bi-person-lines-fill me-1"></i> Profil
-                    </a>
-                </li>
-                <li>
-                    <hr class="dropdown-divider">
-                </li>
-                <li>
-                    <form method="POST" action="{{ route('logout') }}">
-                        @csrf
-                        <button class="dropdown-item" type="submit">
-                            <i class="bi bi-box-arrow-right me-1"></i> Logout
-                        </button>
-                    </form>
-                </li>
-            </ul>
-        </li>
+{{-- Overlay --}}
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-            @else
-                {{-- Jika belum login --}}
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('login') }}">
-                        <i class="bi bi-box-arrow-in-right me-1"></i> Login
-                    </a>
-                </li>
-            @endauth
-        </ul>
-
-            </div>
-        </div>
-    </nav>
-
-    <main class="py-4">
-        <div class="container">
-            @yield('content')
-        </div>
+{{-- Content --}}
+<div class="content">
+    <main>
+        @yield('content')
     </main>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    @stack('scripts')
-    @stack('scripts')
-    @yield('scripts')
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const sidebar = document.getElementById('sidebarMenu');
+const overlay = document.getElementById('sidebarOverlay');
+const toggleMobile = document.getElementById('sidebarToggleMobile');
 
-    </body>
+toggleMobile.addEventListener('click', () => {
+    sidebar.classList.toggle('active');
+    overlay.classList.toggle('active');
+});
+
+overlay.addEventListener('click', () => {
+    sidebar.classList.remove('active');
+    overlay.classList.remove('active');
+});
+</script>
+@stack('scripts')
+@yield('scripts')
+</body>
 </html>

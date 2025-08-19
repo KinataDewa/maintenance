@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Checklist')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Riwayat On/Off Perangkat</h1>
     
     @if($groupedChecklists->isEmpty())

@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Suhu Ruangan')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Riwayat Suhu Ruangan</h1>
 
     @if($logs->isEmpty())

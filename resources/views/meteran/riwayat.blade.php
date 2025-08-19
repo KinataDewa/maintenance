@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Meteran Listrik')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Riwayat Meteran Listrik</h1>
 
     <!-- Filter Form -->

@@ -3,7 +3,7 @@
 @section('title', 'Input Meteran Listrik')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Input Meteran Listrik</h1>
 
     @if(session('success'))

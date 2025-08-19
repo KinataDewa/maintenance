@@ -3,7 +3,7 @@
 @section('title', 'Riwayat Meteran Induk PLN')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Riwayat Meteran Induk PLN</h1>
     <!-- Filter Form -->
     <form method="GET" action="{{ route('meteran-induk.riwayat') }}" class="row g-2 mb-4">
