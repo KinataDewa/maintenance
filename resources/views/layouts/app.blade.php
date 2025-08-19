@@ -6,6 +6,7 @@
 <title>@yield('title')</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
 <style>
 body {
     font-family: 'Poppins', sans-serif;
@@ -102,7 +103,32 @@ body {
     .sidebar { left:0; }
     .content { margin-left:260px; }
 }
+
+.tambahDaftar {
+    font-family: 'Poppins', sans-serif;
+    color: #212529; /* teks gelap default */
+    background-color: #fff; /* putih default */
+    border: 1px solid #FFC107; /* border kuning tipis */
+    padding: 0.5rem 1rem;
+    font-weight: 500;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.tambahDaftar:hover {
+    background-color: #FFC107; 
+    color: ; /* teks putih */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+}
+
 </style>
+
 </head>
 <body>
 
@@ -159,7 +185,7 @@ body {
         @elseif(auth()->user()->role=='admin')
             {{-- Daftar Admin --}}
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*') ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*', 'panel*') ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
                     <span><i class="bi bi-list-check"></i> Daftar</span>
                     <i class="bi bi-chevron-down"></i>
                 </a>
@@ -171,6 +197,7 @@ body {
                         ['title'=>'Daftar Pompa','icon'=>'water','route'=>route('pompa.index')],
                         ['title'=>'Daftar Ruangan','icon'=>'door-closed','route'=>route('rooms.index')],
                         ['title'=>'Daftar Exhaust Fan','icon'=>'fan','route'=>route('exhaustfan.index')],
+                        ['title'=>'Daftar Panel','icon'=>'diagram-3','route'=>route('panel.index')],                        
                     ];
                     @endphp
                     @foreach($daftarCards as $card)

@@ -12,11 +12,12 @@
         </div>
     @endif
 
-    <a href="{{ route('pompa.create') }}" class="btn btn-warning mb-3 rounded-3">+ Tambah Pompa</a>
-
+    <a href="{{ route('pompa.create') }}" class="tambahDaftar mb-3">
+        + Tambah Pompa
+    </a>
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
-            <thead class="table-dark">
+        <table class="table table-bordered text-start">
+            <thead class="table-dark text-center">
                 <tr>
                     <th>No</th>
                     <th>Nama Pompa</th>

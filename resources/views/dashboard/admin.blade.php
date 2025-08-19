@@ -62,6 +62,16 @@
                     'btn_icon' => 'list-ul',
                 ],
                 [
+                    'title' => 'Daftar Panel',
+                    'icon' => 'diagram-3', // icon Bootstrap Icons yang mendekati
+                    'desc' => 'Lihat dan kelola daftar panel gedung.',
+                    'route' => route('panel.index'),
+                    'btn_text' => 'Daftar Panel',
+                    'btn_color' => '#fd3e3e', // merah terang
+                    'icon_color' => 'text-danger',
+                    'btn_icon' => 'list-ul',
+                ],
+                [
                     'title' => 'Riwayat Pekerjaan Staff',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat data semua pekerjaan Anda.',

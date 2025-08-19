@@ -112,6 +112,10 @@ Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwaya
     Route::post('/exhaustfanlogs', [ExhaustFanLogController::class, 'store'])->name('exhaustfanlogs.store');});
     Route::get('/exhaustfanlogs/riwayat', [ExhaustFanLogController::class, 'riwayat'])->name('exhaustfanlogs.riwayat');
 
+    // Panel 
+    Route::middleware(['auth'])->group(function () {
+    Route::resource('panel', \App\Http\Controllers\PanelController::class);
+});
 
     // STP
     Route::get('/stp', [StpController::class, 'index'])->name('stp.index');

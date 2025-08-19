@@ -3,7 +3,7 @@
 @section('title', 'Input Log Exhaust Fan')
 
 @section('content')
-<div class="container">
+<div class="container py-4">
     <h1 class="page-title">Input Log Exhaust Fan</h1>
 
     @if(session('success'))

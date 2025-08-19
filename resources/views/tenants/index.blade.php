@@ -12,11 +12,13 @@
         </div>
     @endif
 
-    <a href="{{ route('tenants.create') }}" class="btn btn-warning mb-3 rounded-3">+ Tambah Tenant</a>
+    <a href="{{ route('tenants.create') }}" class="tambahDaftar mb-3">
+        + Tambah Tenant
+    </a>
 
     <div class="table-responsive">
-        <table class="table table-bordered text-center">
-            <thead class="table-dark">
+        <table class="table table-bordered text-start">
+            <thead class="table-dark text-center">
                 <tr>
                     <th>No</th>
                     <th>Nama Tenant</th>

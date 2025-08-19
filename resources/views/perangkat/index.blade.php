@@ -12,13 +12,13 @@
         </div>
     @endif
 
-    <a href="{{ route('perangkat.create') }}" class="btn btn-warning mb-3 rounded-3">
+    <a href="{{ route('perangkat.create') }}" class="tambahDaftar mb-3">
         + Tambah Perangkat
     </a>
 
     <div class="table-responsive">
-        <table class="table table-bordered text-center align-middle">
-            <thead class="table-dark">
+        <table class="table table-bordered text-start">
+            <thead class="table-dark text-center">
                 <tr>
                     <th style="width:60px;">No</th>
                     <th>Nama Perangkat</th>
