@@ -159,11 +159,11 @@ body {
         @elseif(auth()->user()->role=='admin')
             {{-- Daftar Admin --}}
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*','riwayat*') ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*') ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
                     <span><i class="bi bi-list-check"></i> Daftar</span>
                     <i class="bi bi-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ps-3 {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*','riwayat*') ? 'show' : '' }}" id="daftarSubmenu">
+                <ul class="collapse list-unstyled ps-3 {{ request()->is('perangkat*','tenants*','pompa*','rooms*','exhaustfan*') ? 'show' : '' }}" id="daftarSubmenu">
                     @php
                     $daftarCards = [
                         ['title'=>'Daftar Perangkat','icon'=>'cpu','route'=>route('perangkat.index')],
@@ -171,7 +171,6 @@ body {
                         ['title'=>'Daftar Pompa','icon'=>'water','route'=>route('pompa.index')],
                         ['title'=>'Daftar Ruangan','icon'=>'door-closed','route'=>route('rooms.index')],
                         ['title'=>'Daftar Exhaust Fan','icon'=>'fan','route'=>route('exhaustfan.index')],
-                        ['title'=>'Riwayat Pekerjaan Staff','icon'=>'clock-history','route'=>route('riwayat.index')],
                     ];
                     @endphp
                     @foreach($daftarCards as $card)
@@ -196,7 +195,7 @@ body {
         <li class="nav-item">
             <form method="POST" action="{{ route('logout') }}">
                 @csrf
-                <button class="nav-link border-0 bg-transparent w-100 text-start" type="submit">
+                <button class="nav-link" type="submit">
                     <i class="bi bi-box-arrow-right"></i> Logout
                 </button>
             </form>
