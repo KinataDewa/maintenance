@@ -3,6 +3,52 @@
 @section('title', 'Riwayat Meteran Induk PLN')
 
 @section('content')
+@push('styles')
+<style>
+    /* Tabel Riwayat Meteran Modern */
+    .table {
+        font-size: 0.95rem;
+    }
+
+    .table thead {
+        background-color: #FFC107;
+        color: #111;
+    }
+
+    .table th, .table td {
+        vertical-align: middle;
+        text-align: center;
+        padding: 0.45rem 0.6rem;
+    }
+
+    .table tbody tr {
+        transition: background 0.2s;
+    }
+
+    .table tbody tr:hover {
+        background-color: #FFF3CD;
+    }
+
+    /* Tombol foto */
+    .table .btn-outline-primary {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.8rem;
+        line-height: 1;
+    }
+
+    /* Responsif horizontal */
+    @media (max-width: 768px) {
+        .table-responsive {
+            overflow-x: auto;
+        }
+        .table th, .table td {
+            font-size: 0.85rem;
+            padding: 0.35rem 0.5rem;
+        }
+    }
+</style>
+@endpush
+
 <div class="container py-4">
     <h1 class="page-title">Riwayat Meteran Induk PLN</h1>
     <!-- Filter Form -->

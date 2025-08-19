@@ -4,19 +4,20 @@
 
 @push('styles')
     <style>
-        .toggle-switch {
+        /* Toggle khusus halaman checklist */
+        .checklist-toggle-switch {
             position: relative;
             width: 60px;
             height: 32px;
         }
 
-        .toggle-switch input {
+        .checklist-toggle-switch input {
             opacity: 0;
             width: 0;
             height: 0;
         }
 
-        .slider {
+        .checklist-slider {
             position: absolute;
             cursor: pointer;
             top: 0;
@@ -28,7 +29,7 @@
             border-radius: 34px;
         }
 
-        .slider::before {
+        .checklist-slider::before {
             position: absolute;
             content: "";
             height: 24px;
@@ -40,27 +41,28 @@
             border-radius: 50%;
         }
 
-        input:checked + .slider {
+        .checklist-toggle-switch input:checked + .checklist-slider {
             background-color: #28a745;
         }
 
-        input:checked + .slider::before {
+        .checklist-toggle-switch input:checked + .checklist-slider::before {
             transform: translateX(28px);
         }
 
-        .switch-label {
+        .checklist-switch-label {
             font-weight: 600;
             font-size: 1rem;
             margin-left: 12px;
             min-width: 40px;
             color: #6c757d;
+            transition: color 0.3s;
         }
 
-        .switch-label.on {
+        .checklist-switch-label.on {
             color: #28a745;
         }
 
-        .switch-wrapper {
+        .checklist-switch-wrapper {
             display: flex;
             align-items: center;
             justify-content: center;
@@ -72,8 +74,8 @@
     <div class="container py-4">
         <h1 class="page-title mb-4">Checklist On/Off</h1>
 
-        <table class="table table-bordered text-center">
-            <thead class="table-dark">
+        <table class="table table-bordered text-start">
+            <thead class="table-dark text-center">
                 <tr>
                     <th>No</th>
                     <th>Perangkat</th>
@@ -95,15 +97,15 @@
                                 <input type="hidden" name="perangkat_id" value="{{ $item->id }}">
                                 <input type="hidden" name="aksi" id="aksi{{ $item->id }}">
 
-                                <div class="switch-wrapper">
-                                    <label class="toggle-switch">
+                                <div class="checklist-switch-wrapper">
+                                    <label class="checklist-toggle-switch">
                                         <input type="checkbox"
                                                id="switch{{ $item->id }}"
                                                onchange="submitToggle(this)"
                                                {{ $isOn ? 'checked' : '' }}>
-                                        <span class="slider"></span>
+                                        <span class="checklist-slider"></span>
                                     </label>
-                                    <span class="switch-label {{ $isOn ? 'on' : '' }}"
+                                    <span class="checklist-switch-label {{ $isOn ? 'on' : '' }}"
                                           id="label{{ $item->id }}">
                                         {{ $isOn ? 'ON' : 'OFF' }}
                                     </span>
@@ -122,7 +124,7 @@
         function submitToggle(checkbox) {
             const form = checkbox.closest('form');
             const aksiInput = form.querySelector('input[name="aksi"]');
-            const label = form.querySelector('.switch-label');
+            const label = form.querySelector('.checklist-switch-label');
             const isOn = checkbox.checked;
 
             aksiInput.value = isOn ? 'on' : 'off';

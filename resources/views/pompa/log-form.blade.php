@@ -2,26 +2,28 @@
 
 @section('title', 'Log Harian Pompa')
 @push('styles')
+@push('styles')
 <style>
     /* Card detail pompa minimalis & profesional */
     #pompa-details.card {
-        border-radius: 8px;
+        border-radius: 10px;
         background: #fff;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        padding: 1.25rem 1.5rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+        padding: 1.2rem 1.5rem;
         max-width: 500px;
-        margin: 1.5rem auto 2rem;
+        margin: 2rem auto;
         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         color: #222;
     }
 
     #pompa-details .card-title {
         font-weight: 600;
-        font-size: 1.25rem;
+        font-size: 1.3rem;
         margin-bottom: 1rem;
         border-bottom: 1px solid #ddd;
         padding-bottom: 0.3rem;
         color: #111;
+        text-align: center;
     }
 
     .pompa-detail-list {
@@ -33,7 +35,7 @@
     .pompa-detail-list li {
         display: flex;
         justify-content: space-between;
-        padding: 0.6rem 0;
+        padding: 0.5rem 0;
         border-bottom: 1px solid #eee;
         font-size: 1rem;
     }
@@ -62,7 +64,7 @@
         .pompa-detail-list li {
             flex-direction: column;
             align-items: flex-start;
-            gap: 0.25rem;
+            gap: 0.2rem;
         }
         .pompa-detail-value {
             font-size: 1.1rem;
@@ -70,6 +72,7 @@
     }
 </style>
 @endpush
+
 
 @section('content')
 <div class="container py-4">
@@ -97,7 +100,6 @@
                 @endforeach
             </select>
         </div>
-
         <!-- Detail Pompa -->
         <div id="pompa-details" class="card" style="display: none;">
             <h5 class="card-title">Detail Pompa</h5>
