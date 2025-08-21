@@ -17,6 +17,7 @@ use App\Http\Controllers\RoomTemperatureLogController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ExhaustFanController;
 use App\Http\Controllers\ExhaustFanLogController;
+use App\Http\Controllers\PanelCleaningController;
 use App\Http\Controllers\StpController;
 
     // Halaman landing bebas login (opsional)
@@ -114,7 +115,13 @@ Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwaya
 
     // Panel 
     Route::middleware(['auth'])->group(function () {
-    Route::resource('panel', \App\Http\Controllers\PanelController::class);
+    Route::resource('panel', \App\Http\Controllers\PanelController::class);});
+    
+    // Cleaning Panel
+    Route::prefix('panel-cleaning')->name('panel-cleaning.')->group(function () {
+    Route::get('/create', [PanelCleaningController::class, 'create'])->name('create');
+    Route::post('/', [PanelCleaningController::class, 'store'])->name('store');
+    Route::get('/riwayat', [PanelCleaningController::class, 'riwayat'])->name('riwayat');
 });
 
     // STP

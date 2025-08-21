@@ -96,6 +96,21 @@
                 </div>
             </a>
         </div>
+
+        {{-- Riwayat Cleaning Panel --}}
+        <div class="col">
+            <a href="{{ route('panel-cleaning.riwayat') }}" class="text-decoration-none">
+                <div class="card border-success shadow-sm h-100 bg-white transition">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <i class="bi bi-clipboard-check fs-4 me-2 text-success"></i>
+                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Cleaning Panel</h6>
+                        </div>
+                        <small class="text-muted">Lihat riwayat laporan cleaning panel harian beserta dokumentasi foto before/after.</small>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 @endsection

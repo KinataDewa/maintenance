@@ -31,6 +31,16 @@
                     'btn_icon' => 'fan',
                 ],
                 [
+                    'title' => 'Cleaning Panel',
+                    'icon' => 'clipboard-check',
+                    'desc' => 'Input laporan cleaning panel harian.',
+                    'route' => route('panel-cleaning.create'),
+                    'btn_text' => 'Input Cleaning Panel',
+                    'btn_color' => '#198754', // hijau
+                    'icon_color' => 'text-success',
+                    'btn_icon' => 'clipboard-plus',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',
