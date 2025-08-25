@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DashboardStaffController;
+use App\Http\Controllers\StaffController;
 use App\Http\Controllers\ChecklistController;
 use App\Http\Controllers\ChecklistLogController;
 use App\Http\Controllers\PerangkatController;
@@ -46,12 +47,20 @@ use App\Http\Controllers\StpController;
 
     // Dashboard Staff
     Route::get('/dashboard-staff/form-harian', [DashboardStaffController::class, 'formHarian'])->name('dashboard.staff.formharian');
-
-
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
     Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
     Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');
+
+    // Staff Management (Admin Only)
+    Route::middleware(['auth', 'admin'])->prefix('staff')->name('staff.')->group(function () {
+    Route::get('/', [StaffController::class, 'index'])->name('index');
+    Route::get('/create', [StaffController::class, 'create'])->name('create');
+    Route::post('/', [StaffController::class, 'store'])->name('store');
+    Route::get('/{staff}/edit', [StaffController::class, 'edit'])->name('edit');
+    Route::put('/{staff}', [StaffController::class, 'update'])->name('update');
+    Route::delete('/{staff}', [StaffController::class, 'destroy'])->name('destroy');
+});
 
     //Perangkat 
     Route::resource('perangkat', PerangkatController::class);

@@ -72,6 +72,16 @@
                     'btn_icon' => 'list-ul',
                 ],
                 [
+                    'title' => 'Daftar Staff',
+                    'icon' => 'person-badge',
+                    'desc' => 'Lihat dan kelola data staff.',
+                    'route' => route('staff.index'),
+                    'btn_text' => 'Daftar Staff',
+                    'btn_color' => '#0dcaf0', // cyan
+                    'icon_color' => 'text-info',
+                    'btn_icon' => 'list-ul',
+                ],
+                [
                     'title' => 'Riwayat Pekerjaan Staff',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat data semua pekerjaan Anda.',

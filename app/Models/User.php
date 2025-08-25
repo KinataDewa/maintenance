@@ -20,6 +20,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role',
         'photo',     // tambahkan kolom ini
         'phone',     // contoh tambahan
         'address',   // contoh tambahan
