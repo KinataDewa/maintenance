@@ -129,15 +129,22 @@
 
         <div class="mb-3">
             <label class="form-label">Upload Foto</label>
-            <input type="file" name="foto" class="form-control" accept="image/*">
+            <input type="file" id="foto" name="foto" class="form-control" accept="image/*">
         </div>
+
+        <div class="mt-2">
+            <img id="preview_foto" src="#" alt="Preview Foto" style="display:none; max-width: 200px; border-radius: 5px; box-shadow: 0 1px 4px rgba(0,0,0,0.2);">
+        </div>
+
 
         <div class="mb-3">
             <label class="form-label">Deskripsi (Opsional)</label>
             <textarea name="deskripsi" class="form-control" rows="3" placeholder="Masukkan keterangan tambahan..."></textarea>
         </div>
 
-        <button type="submit" class="btn btn-warning">Simpan</button>
+        <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
+        </div>    
     </form>
 </div>
 
@@ -154,6 +161,21 @@ document.getElementById('pompa_unit_id').addEventListener('change', function() {
         document.getElementById('pompa-details').style.display = 'none';
     }
 });
+
+// Preview Foto
+document.getElementById('foto').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    const preview = document.getElementById('preview_foto');
+
+    if (file && file.type.startsWith('image/')) {
+        preview.src = URL.createObjectURL(file);
+        preview.style.display = 'block';
+    } else {
+        preview.src = '#';
+        preview.style.display = 'none';
+    }
+});
+
 </script>
 @endsection
 

@@ -57,9 +57,9 @@
             </div>
             
             <!-- Tombol Simpan -->
-            <button class="btn w-100 rounded-3 fw-semibold text-white" style="background-color: #dc3545;">
-                Simpan
-            </button>
+            <div class="mt-4 text-end">
+                <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
+            </div>  
         </div>
     </div>
 </div>
@@ -73,6 +73,6 @@
         document.getElementById('jam').textContent = waktu;
     }
     updateTime();
-    setInterval(updateTime, 1000);
+    setInterval(updateTime, 1000);    
 </script>
 @endsection

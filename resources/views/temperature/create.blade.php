@@ -44,8 +44,10 @@
             <label for="foto" class="form-label">Foto (Opsional)</label>
             <input type="file" name="foto" class="form-control" accept="image/*">
         </div>
-
-        <button type="submit" class="btn btn-warning">Simpan</button>
+        
+        <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
+        </div>    
     </form>
 </div>
 @endsection

@@ -4,15 +4,15 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title">Input Meteran Induk PLN</h1>
+    <h1 class="page-title mb-4">Input Meteran Induk PLN</h1>
 
     @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+        <div class="alert alert-success rounded-4">{{ session('success') }}</div>
     @endif
     
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+    <div class="alert alert-danger rounded-4">
+        <ul class="mb-0">
         @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
         @endforeach
@@ -23,73 +23,43 @@
     <form action="{{ route('meteran-induk.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
-        {{-- Kwh --}}
-        <div class="mb-3">
-            <label for="kwh" class="form-label">Kwh</label>
-            <input type="text" name="kwh" id="kwh" class="form-control" required>
-            @error('kwh') <div class="text-danger small">{{ $message }}</div> @enderror
+        @php
+            $fields = [
+                ['name'=>'kwh', 'label'=>'Kwh'],
+                ['name'=>'cosphi', 'label'=>'Cos φ'],
+                ['name'=>'kvar', 'label'=>'Kvar'],
+                ['name'=>'wbp', 'label'=>'WBP'],
+                ['name'=>'lwbp', 'label'=>'LWBP'],
+                ['name'=>'total', 'label'=>'Total'],
+            ];
+        @endphp
 
-            <label for="foto_kwh" class="form-label mt-2">Foto Kwh</label>
-            <input type="file" name="foto_kwh" id="foto_kwh" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_kwh" src="#" alt="Preview Foto Kwh" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
+        <div class="row g-4">
+            @foreach($fields as $field)
+            <div class="col-md-6">
+                <div class="card shadow-sm p-3 h-100">
+                    <div class="mb-3">
+                        <label for="{{ $field['name'] }}" class="form-label fw-bold">{{ $field['label'] }}</label>
+                        <input type="text" name="{{ $field['name'] }}" id="{{ $field['name'] }}" class="form-control form-control-lg" required>
+                        @error($field['name']) 
+                            <div class="text-danger small">{{ $message }}</div> 
+                        @enderror
+                    </div>
+                    <div class="mb-3">
+                        <label for="foto_{{ $field['name'] }}" class="form-label fw-bold">Foto {{ $field['label'] }}</label>
+                        <input type="file" name="foto_{{ $field['name'] }}" id="foto_{{ $field['name'] }}" class="form-control" accept="image/*" capture="environment" required>
+                        <div class="text-center mt-2">
+                            <img id="preview_{{ $field['name'] }}" src="#" alt="Preview Foto {{ $field['label'] }}" class="img-fluid rounded shadow-sm" style="display:none; max-height: 250px; border: 1px solid #ddd; padding: 3px;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @endforeach
         </div>
 
-        {{-- Cos φ --}}
-        <div class="mb-3">
-            <label for="cosphi" class="form-label">Cos φ</label>
-            <input type="text" name="cosphi" id="cosphi" class="form-control" required>
-            @error('cosphi') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <label for="foto_cosphi" class="form-label mt-2">Foto Cos φ</label>
-            <input type="file" name="foto_cosphi" id="foto_cosphi" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_cosphi" src="#" alt="Preview Foto Cos φ" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
+        <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
         </div>
-
-        {{-- Kvar --}}
-        <div class="mb-3">
-            <label for="kvar" class="form-label">Kvar</label>
-            <input type="text" name="kvar" id="kvar" class="form-control" required>
-            @error('kvar') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <label for="foto_kvar" class="form-label mt-2">Foto Kvar</label>
-            <input type="file" name="foto_kvar" id="foto_kvar" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_kvar" src="#" alt="Preview Foto Kvar" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
-        </div>
-
-        {{-- WBP --}}
-        <div class="mb-3">
-            <label for="wbp" class="form-label">WBP</label>
-            <input type="text" name="wbp" id="wbp" class="form-control" required>
-            @error('wbp') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <label for="foto_wbp" class="form-label mt-2">Foto WBP</label>
-            <input type="file" name="foto_wbp" id="foto_wbp" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_wbp" src="#" alt="Preview Foto WBP" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
-        </div>
-
-        {{-- LWBp --}}
-        <div class="mb-3">
-            <label for="lwbp" class="form-label">LWBP</label>
-            <input type="text" name="lwbp" id="lwbp" class="form-control" required>
-            @error('lwbp') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <label for="foto_lwbp" class="form-label mt-2">Foto LWBP</label>
-            <input type="file" name="foto_lwbp" id="foto_lwbp" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_lwbp" src="#" alt="Preview Foto LWBP" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
-        </div>
-
-        {{-- Total --}}
-        <div class="mb-3">
-            <label for="total" class="form-label">Total</label>
-            <input type="text" name="total" id="total" class="form-control" required>
-            @error('total') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <label for="foto_total" class="form-label mt-2">Foto Total</label>
-            <input type="file" name="foto_total" id="foto_total" class="form-control" accept="image/*" capture="environment" required>
-            <img id="preview_total" src="#" alt="Preview Foto Total" class="img-fluid rounded mt-2" style="display:none; max-height: 300px;">
-        </div>
-
-        <button type="submit" class="btn btn-warning text-white">Simpan</button>
     </form>
 </div>
 

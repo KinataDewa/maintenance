@@ -137,6 +137,7 @@ body {
     <button class="btn text-warning p-0 me-2" id="sidebarToggleMobile">
         <i class="bi bi-list fs-3"></i>
     </button>
+    <img src="{{ asset('images/logo2.png') }}" alt="Logo Maintenance" class="me-2" style="height:20px;">
     <span class="fw-bold fs-5 mb-0">Maintenance</span>
 </div>
 
@@ -159,11 +160,11 @@ body {
         @if(auth()->user()->role=='staff')
             {{-- Daily Staff --}}
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('dashboard-staff/form-harian*') ? 'fw-bold' : '' }}" href="#dailySubmenu" data-bs-toggle="collapse">
-                    <span><i class="bi bi-list-check"></i> Daily</span>
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('checklist*','meteran*','induk*','pompa*','suhu*',) ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
+                    <span><i class="bi bi-list-check"></i> Daftar</span>
                     <i class="bi bi-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ps-3 {{ request()->is('dashboard-staff/form-harian*') ? 'show' : '' }}" id="dailySubmenu">
+                <ul class="collapse list-unstyled ps-3 {{ request()->is('checklist*','meteran*','induk*','pompa*','suhu*',) ? 'show' : '' }}" id="daftarSubmenu">
                     @php
                     $dailyCards = [
                         ['title'=>'On/Off Perangkat','icon'=>'clipboard-check-fill','route'=>route('checklist.index')],

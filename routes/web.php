@@ -19,8 +19,6 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ExhaustFanController;
 use App\Http\Controllers\ExhaustFanLogController;
 use App\Http\Controllers\PanelCleaningController;
-use App\Http\Controllers\StpController;
-
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
         return redirect()->route('login');
@@ -133,9 +131,6 @@ Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwaya
     Route::get('/riwayat', [PanelCleaningController::class, 'riwayat'])->name('riwayat');
 });
 
-    // STP
-    Route::get('/stp', [StpController::class, 'index'])->name('stp.index');
-    Route::post('/stp', [StpController::class, 'store'])->name('stp.store');
-    });
+   });
 
 require __DIR__.'/auth.php';

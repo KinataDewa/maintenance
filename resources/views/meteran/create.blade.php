@@ -51,8 +51,10 @@
             <textarea name="deskripsi" class="form-control" rows="2"></textarea>
             @error('deskripsi') <div class="text-danger small">{{ $message }}</div> @enderror
         </div>
-
-        <button type="submit" class="btn btn-warning text-white">Simpan</button>
+        
+        <div class="mt-4 text-end">
+            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
+        </div>   
     </form>
 </div>
 
