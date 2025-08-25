@@ -4,113 +4,93 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title">Riwayat Aktivitas</h1>
+    <h1 class="page-title mb-4 fw-bold">Riwayat Aktivitas</h1>
 
     <div class="row row-cols-1 row-cols-md-3 g-4">
-        {{-- Riwayat Checklist Harian --}}
-        <div class="col">
-            <a href="{{ route('checklist.riwayat') }}" class="text-decoration-none">
-                <div class="card border-success shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-list-check fs-4 me-2 text-success"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Checklist On/Off</h6>
-                        </div>
-                        <small class="text-muted">Lihat semua riwayat checklist kerja harian staff maintenance.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
+        {{-- Card Items --}}
+        @php
+            $cards = [
+                [
+                    'title' => 'Riwayat Checklist On/Off',
+                    'icon' => 'list-check',
+                    'color' => 'success',
+                    'desc' => 'Lihat semua riwayat checklist kerja harian staff maintenance.',
+                    'route' => route('checklist.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Listrik Tenant',
+                    'icon' => 'lightning-charge',
+                    'color' => 'warning',
+                    'desc' => 'Lihat data penggunaan KWh dan dokumentasi meteran listrik.',
+                    'route' => route('meteran.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Induk PLN',
+                    'icon' => 'plug',
+                    'color' => 'danger',
+                    'desc' => 'Lihat data catatan kWh, kVar, dan cos φ dari meter induk PLN.',
+                    'route' => route('meteran-induk.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Pompa',
+                    'icon' => 'droplet-half',
+                    'color' => 'primary',
+                    'desc' => 'Lihat data riwayat pompa air bersih, diesel, dan hydrant.',
+                    'route' => route('pompa.logs.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Suhu Ruangan',
+                    'icon' => 'thermometer-half',
+                    'color' => 'danger',
+                    'desc' => 'Lihat pencatatan suhu & dokumentasi setiap ruangan.',
+                    'route' => route('room-temperature-logs.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Exhaust Fan',
+                    'icon' => 'fan',
+                    'color' => 'info',
+                    'desc' => 'Lihat semua riwayat perawatan exhaust fan oleh staff.',
+                    'route' => route('exhaustfanlogs.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Cleaning Panel',
+                    'icon' => 'clipboard-check',
+                    'color' => 'success',
+                    'desc' => 'Lihat riwayat laporan cleaning panel beserta dokumentasi foto before/after.',
+                    'route' => route('panel-cleaning.riwayat'),
+                ],
+            ];
+        @endphp
 
-        {{-- Riwayat Meteran Listrik --}}
-        <div class="col">
-            <a href="{{ route('meteran.riwayat') }}" class="text-decoration-none">
-                <div class="card border-warning shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-lightning-charge fs-4 me-2 text-warning"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Listrik Tenant</h6>
+        @foreach ($cards as $card)
+            <div class="col">
+                <a href="{{ $card['route'] }}" class="text-decoration-none">
+                    <div class="card shadow-sm border-0 rounded-4 h-100 transition riwayat-card border-top border-{{ $card['color'] }}">
+                        <div class="card-body">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
+                                     style="width: 50px; height: 50px;">
+                                    <i class="bi bi-{{ $card['icon'] }} fs-4 text-{{ $card['color'] }}"></i>
+                                </div>
+                                <h6 class="mb-0 fw-bold text-dark">{{ $card['title'] }}</h6>
+                            </div>
+                            <small class="text-muted">{{ $card['desc'] }}</small>
                         </div>
-                        <small class="text-muted">Lihat data penggunaan KWh dan dokumentasi meteran listrik.</small>
                     </div>
-                </div>
-            </a>
-        </div>
-
-        {{-- Riwayat Induk PLN --}}
-        <div class="col">
-            <a href="{{ route('meteran-induk.riwayat') }}" class="text-decoration-none">
-                <div class="card border-danger shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-plug fs-4 me-2 text-danger"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Induk PLN</h6>
-                        </div>
-                        <small class="text-muted">Lihat data catatan kWh, kVar, dan cos φ dari meter induk PLN.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        {{-- Riwayat Pompa --}}
-        <div class="col">
-            <a href="{{ route('pompa.logs.riwayat') }}" class="text-decoration-none">
-                <div class="card border-primary shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-droplet-half fs-4 me-2 text-primary"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Pompa</h6>
-                        </div>
-                        <small class="text-muted">Lihat data riwayat pompa air bersih, diesel, dan hydrant.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        {{-- ✅ Riwayat Suhu Ruangan --}}
-        <div class="col">
-            <a href="{{ route('room-temperature-logs.riwayat') }}" class="text-decoration-none">
-                <div class="card border-danger shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-thermometer-half fs-4 me-2 text-danger"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Suhu Ruangan</h6>
-                        </div>
-                        <small class="text-muted">Lihat pencatatan suhu & dokumentasi setiap ruangan.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-        
-        {{-- Riwayat Exhaust Fan --}}
-        <div class="col">
-            <a href="{{ route('exhaustfanlogs.riwayat') }}" class="text-decoration-none">
-                <div class="card border-info shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-fan fs-4 me-2 text-info"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Exhaust Fan</h6>
-                        </div>
-                        <small class="text-muted">Lihat semua riwayat perawatan exhaust fan oleh staff.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        {{-- Riwayat Cleaning Panel --}}
-        <div class="col">
-            <a href="{{ route('panel-cleaning.riwayat') }}" class="text-decoration-none">
-                <div class="card border-success shadow-sm h-100 bg-white transition">
-                    <div class="card-body">
-                        <div class="d-flex align-items-center mb-2">
-                            <i class="bi bi-clipboard-check fs-4 me-2 text-success"></i>
-                            <h6 class="mb-0 fw-semibold text-dark">Riwayat Cleaning Panel</h6>
-                        </div>
-                        <small class="text-muted">Lihat riwayat laporan cleaning panel harian beserta dokumentasi foto before/after.</small>
-                    </div>
-                </div>
-            </a>
-        </div>
+                </a>
+            </div>
+        @endforeach
     </div>
 </div>
+
+{{-- Custom Style --}}
+<style>
+    .riwayat-card {
+        transition: all 0.25s ease-in-out;
+    }
+    .riwayat-card:hover {
+        /* transform: translateY(-6px); */
+        box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
+    }
+</style>
 @endsection
