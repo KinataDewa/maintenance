@@ -6,21 +6,36 @@ use Illuminate\Http\Request;
 
 class StpController extends Controller
 {
-    public function index()
-    {
-        // Nanti data bisa diambil dari database, untuk sekarang hardcode saja
+    public function index() {
         return view('stp.index');
     }
 
-    public function store(Request $request)
-    {
-        // Sementara hanya validasi sederhana
+    public function meteran() {
+        return view('stp.meteran'); // halaman input meteran
+    }
+
+    public function storeMeteran(Request $request) {
         $request->validate([
-            'shift' => 'required|string',
-            'data' => 'array', // nanti untuk semua aktivitas
+            'meteran' => 'required|numeric',
+            'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        // Belum ada penyimpanan ke database (hanya flash message)
-        return back()->with('success', 'Checklist STP berhasil disimpan untuk Shift ' . $request->shift);
+        // Simpan foto jika ada
+        $path = null;
+        if ($request->hasFile('foto')) {
+            $path = $request->file('foto')->store('stp_meteran', 'public');
+        }
+
+        // sementara simpan ke log/debug
+        // nanti bisa disimpan ke tabel database
+        return back()->with('success', 'Meteran STP berhasil disimpan!');
+    }
+
+    public function perawatan() {
+        return view('stp.perawatan'); // halaman input perawatan
+    }
+
+    public function monitoring() {
+        return view('stp.monitoring');
     }
 }

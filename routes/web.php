@@ -19,6 +19,8 @@ use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ExhaustFanController;
 use App\Http\Controllers\ExhaustFanLogController;
 use App\Http\Controllers\PanelCleaningController;
+use App\Http\Controllers\StpController;
+
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
         return redirect()->route('login');
@@ -128,8 +130,24 @@ Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwaya
     Route::prefix('panel-cleaning')->name('panel-cleaning.')->group(function () {
     Route::get('/create', [PanelCleaningController::class, 'create'])->name('create');
     Route::post('/', [PanelCleaningController::class, 'store'])->name('store');
-    Route::get('/riwayat', [PanelCleaningController::class, 'riwayat'])->name('riwayat');
-});
+    Route::get('/riwayat', [PanelCleaningController::class, 'riwayat'])->name('riwayat');});
+
+    // STP
+    Route::prefix('stp')->name('stp.')->group(function () {
+        Route::get('/', [StpController::class, 'index'])->name('index');
+
+        // Meteran
+        Route::get('/meteran', [StpController::class, 'meteran'])->name('meteran');
+        Route::post('/meteran', [StpController::class, 'storeMeteran'])->name('meteran.store'); 
+
+        // Perawatan
+        Route::get('/perawatan', [StpController::class, 'perawatan'])->name('perawatan');
+        Route::post('/perawatan', [StpController::class, 'storePerawatan'])->name('perawatan.store'); 
+
+        // Monitoring
+        Route::get('/monitoring', [StpController::class, 'monitoring'])->name('monitoring');
+    });
+
 
    });
 

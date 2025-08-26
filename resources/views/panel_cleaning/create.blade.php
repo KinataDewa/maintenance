@@ -86,7 +86,7 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <button type="submit" class="btn btn-warning text-white">Simpan</button>
     </form>
 </div>
 

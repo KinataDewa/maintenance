@@ -51,7 +51,7 @@
 
         {{-- Button --}}
         <div class="d-grid mb-3">
-            <button type="submit" class="btn btn-warning fw-semibold">
+            <button type="submit" class="btn btn-warning text-white fw-semibold">
                 <i class="bi bi-box-arrow-in-right me-1"></i> Log in
             </button>
         </div>

@@ -133,13 +133,14 @@ body {
 <body>
 
 {{-- Navbar Mobile --}}
-<div class="navbar-mobile d-lg-none">
-    <button class="btn text-warning p-0 me-2" id="sidebarToggleMobile">
-        <i class="bi bi-list fs-3"></i>
+<div class="navbar-mobile d-lg-none d-flex align-items-center px-1 py-2">
+    <button class="btn text-warning me-3" id="sidebarToggleMobile">
+        <i class="bi bi-list fs-2"></i>
     </button>
-    <img src="{{ asset('images/logo2.png') }}" alt="Logo Maintenance" class="me-2" style="height:20px;">
-    <span class="fw-bold fs-5 mb-0">Maintenance</span>
+    <img src="{{ asset('images/logo2.png') }}" alt="Logo Maintenance" class="me-3" style="height:30px;">
+    <span class="fw-bold fs-4">Maintenance</span>
 </div>
+
 
 {{-- Sidebar --}}
 <div class="sidebar shadow-sm" id="sidebarMenu">
