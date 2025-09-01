@@ -19,7 +19,6 @@ class ExhaustFanLogController extends Controller
     {
         $request->validate([
             'exhaust_fan_id' => 'required|exists:exhaust_fans,id',
-            'status' => 'required|in:normal,tidak normal',
             'perawatan' => 'required|array',
             'perawatan.*' => 'string',
             'foto_pembersihan' => 'nullable|image|max:5120', // max 5MB

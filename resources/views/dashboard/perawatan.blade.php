@@ -29,6 +29,16 @@
                     'icon_color' => 'text-success',
                     'btn_icon' => 'clipboard-plus',
                 ],
+                [
+                    'title' => 'Perawatan Pompa',
+                    'icon' => 'tools', // ganti jika ada icon pompa lain
+                    'desc' => 'Input laporan perawatan pompa harian.',
+                    'route' => route('pompa.maintenance.create'),
+                    'btn_text' => 'Input Perawatan Pompa',
+                    'btn_color' => '#0d6efd', // biru
+                    'icon_color' => 'text-primary', // biru
+                    'btn_icon' => 'droplet', // icon pompa/droplet
+                ],
             ];
         @endphp
 

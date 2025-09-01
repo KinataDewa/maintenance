@@ -11,7 +11,6 @@ class ExhaustFanLog extends Model
 
     protected $fillable = [
         'exhaust_fan_id',
-        'status',
         'perawatan',
         'foto_pembersihan',
         'keterangan',

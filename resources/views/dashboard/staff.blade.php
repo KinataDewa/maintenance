@@ -10,7 +10,7 @@
         @php
             $cards = [
                 [
-                    'title' => 'Form Input Harian',
+                    'title' => 'Form Harian',
                     'icon' => 'pencil-square',
                     'desc' => 'Akses semua form input harian di sini.',
                     'route' => route('dashboard.staff.formharian'),

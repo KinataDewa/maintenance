@@ -59,6 +59,13 @@
                     'desc' => 'Lihat riwayat laporan cleaning panel beserta dokumentasi foto before/after.',
                     'route' => route('panel-cleaning.riwayat'),
                 ],
+                [
+                    'title' => 'Riwayat Perawatan Pompa',
+                    'icon' => 'tools', // icon mewakili pompa mekanik
+                    'color' => 'primary', // biru
+                    'desc' => 'Lihat semua catatan perawatan pompa harian oleh staff.',
+                    'route' => route('pompa.maintenance.riwayat'),
+                ],
             ];
         @endphp
 

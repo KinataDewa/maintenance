@@ -21,6 +21,7 @@ use App\Http\Controllers\ExhaustFanLogController;
 use App\Http\Controllers\PanelCleaningController;
 use App\Http\Controllers\StpController;
 use App\Http\Controllers\PemakaianAirController;
+use App\Http\Controllers\PompaMaintenanceController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -85,15 +86,25 @@ use App\Http\Controllers\PemakaianAirController;
     Route::get('/induk/export', [MeteranIndukController::class, 'export'])->name('meteran-induk.export');
 
     // Pompa Unit
-    Route::resource('pompa', PompaUnitController::class)->only([
+    Route::prefix('pompa')->name('pompa.')->middleware('auth')->group(function () {
+
+    // Pompa Unit CRUD
+    Route::resource('/', PompaUnitController::class)->only([
         'index', 'create', 'store', 'edit', 'update', 'destroy'
     ]);
 
     // Pompa Log
-    Route::prefix('pompa')->name('pompa.')->group(function () {
     Route::get('log', [PompaLogController::class, 'create'])->name('logs.create');
     Route::post('log', [PompaLogController::class, 'store'])->name('logs.store');
     Route::get('logs/riwayat', [PompaLogController::class, 'riwayat'])->name('logs.riwayat');
+    Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
+
+    // Pompa Maintenance
+    Route::get('maintenance/create', [PompaMaintenanceController::class, 'create'])->name('maintenance.create');
+    Route::post('maintenance', [PompaMaintenanceController::class, 'store'])->name('maintenance.store');
+    Route::get('maintenance/riwayat', [PompaMaintenanceController::class, 'riwayat'])->name('maintenance.riwayat');
+
+});
 
     // Export Excel
     Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
@@ -157,6 +168,5 @@ use App\Http\Controllers\PemakaianAirController;
     Route::get('/riwayat', [PemakaianAirController::class, 'riwayat'])->name('riwayat');
 });
 
-   });
 
 require __DIR__.'/auth.php';
