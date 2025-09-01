@@ -4,18 +4,23 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title">Input Log Exhaust Fan</h1>
+    <h3 class="page-title">Input Log Exhaust Fan</h3>
 
-    @if(session('success'))
-        <div class="alert alert-success">{{ session('success') }}</div>
+    {{-- Alert sukses --}}
+    @if (session('success'))
+        <div class="alert alert-success rounded-4">
+            {{ session('success') }}
+        </div>
     @endif
 
+    {{-- Alert error --}}
     @if ($errors->any())
-        <div class="alert alert-danger">
+        <div class="alert alert-danger rounded-4">
+            <div class="fw-bold mb-1">Terjadi kesalahan:</div>
             <ul class="mb-0">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
+                @foreach ($errors->all() as $e)
+                    <li>{{ $e }}</li>
+                @endforeach
             </ul>
         </div>
     @endif
@@ -23,6 +28,7 @@
     <form action="{{ route('exhaustfanlogs.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
+        {{-- Pilih Exhaust Fan --}}
         <div class="mb-3">
             <label for="exhaust_fan_id" class="form-label">Pilih Exhaust Fan</label>
             <select name="exhaust_fan_id" id="exhaust_fan_id" class="form-select" required>
@@ -33,34 +39,22 @@
                     </option>
                 @endforeach
             </select>
-            @error('exhaust_fan_id') <div class="text-danger small">{{ $message }}</div> @enderror
         </div>
 
+        {{-- Checklist Perawatan --}}
         <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
-            <select name="status" id="status" class="form-select" required>
-                <option value="">-- Pilih Status --</option>
-                <option value="normal" {{ old('status') == 'normal' ? 'selected' : '' }}>Normal</option>
-                <option value="tidak normal" {{ old('status') == 'tidak normal' ? 'selected' : '' }}>Tidak Normal</option>
-            </select>
-            @error('status') <div class="text-danger small">{{ $message }}</div> @enderror
-        </div>
+            <label class="form-label">Checklist Perawatan</label>
+            @php
+                $options = ['Pembersihan', 'Pemeriksaan', 'Penggantian Filter', 'Pelumasan', 'Lainnya'];
+                $oldPerawatan = old('perawatan', []);
+                if (!is_array($oldPerawatan)) {
+                    $oldPerawatan = explode(',', $oldPerawatan);
+                }
+            @endphp
 
-        <div class="mb-3">
-    <label class="form-label fw-semibold">Perawatan</label>
-    <div class="row row-cols-2 row-cols-md-3 row-cols-lg-5 g-1">
-        @php
-            $options = ['Pembersihan', 'Pemeriksaan', 'Penggantian Filter', 'Pelumasan', 'Lainnya'];
-            $oldPerawatan = old('perawatan', []);
-            if (!is_array($oldPerawatan)) {
-                $oldPerawatan = explode(',', $oldPerawatan);
-            }
-        @endphp
-
-        @foreach ($options as $option)
-            <div class="col">
+            @foreach ($options as $option)
                 <div class="form-check">
-                    <input
+                    <input 
                         class="form-check-input"
                         type="checkbox"
                         name="perawatan[]"
@@ -71,46 +65,52 @@
                         {{ $option }}
                     </label>
                 </div>
-            </div>
-        @endforeach
-    </div>
-    @error('perawatan') <div class="text-danger small mt-1">{{ $message }}</div> @enderror
-</div>
-
-
-        <div class="mb-3">
-            <label for="foto_pembersihan" class="form-label">Foto Pembersihan (Opsional)</label>
-            <input type="file" name="foto_pembersihan" id="foto_pembersihan" class="form-control" accept="image/*" capture="environment">
-            @error('foto_pembersihan') <div class="text-danger small">{{ $message }}</div> @enderror
-
-            <div class="mt-2">
-                <img id="preview-image" src="#" alt="Preview Foto" class="img-fluid rounded" style="display: none; max-height: 300px;">
-            </div>
+            @endforeach
         </div>
 
+        {{-- Keterangan --}}
         <div class="mb-3">
             <label for="keterangan" class="form-label">Keterangan (Opsional)</label>
             <textarea name="keterangan" id="keterangan" rows="3" class="form-control">{{ old('keterangan') }}</textarea>
-            @error('keterangan') <div class="text-danger small">{{ $message }}</div> @enderror
         </div>
 
-        <button type="submit" class="btn btn-warning text-white">Simpan</button>
+        {{-- Foto Before --}}
+        <div class="mb-3">
+            <label for="foto_before" class="form-label">Foto Before (Sebelum)</label>
+            <input type="file" name="foto_before" id="foto_before" class="form-control" accept="image/*">
+            <div class="mt-2">
+                <img id="preview_before" src="#" alt="" class="img-fluid rounded d-none" style="max-height:160px;">
+            </div>
+        </div>
+
+        {{-- Foto After --}}
+        <div class="mb-3">
+            <label for="foto_after" class="form-label">Foto After (Sesudah)</label>
+            <input type="file" name="foto_after" id="foto_after" class="form-control" accept="image/*">
+            <div class="mt-2">
+                <img id="preview_after" src="#" alt="" class="img-fluid rounded d-none" style="max-height:160px;">
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">
+                <i class="bi bi-save"></i> Simpan
+            </button>
+        </div>      
     </form>
 </div>
 
-{{-- Preview Foto Script --}}
+@push('scripts')
 <script>
-    document.getElementById('foto_pembersihan').addEventListener('change', function (event) {
-        const file = event.target.files[0];
-        const preview = document.getElementById('preview-image');
-
-        if (file && file.type.startsWith('image/')) {
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
-        } else {
-            preview.src = '#';
-            preview.style.display = 'none';
-        }
-    });
+function preview(input, previewId){
+    const file = input.files && input.files[0];
+    if(!file) return;
+    const img = document.getElementById(previewId);
+    img.src = URL.createObjectURL(file);
+    img.classList.remove('d-none');
+}
+document.getElementById('foto_before')?.addEventListener('change', function(){ preview(this, 'preview_before'); });
+document.getElementById('foto_after')?.addEventListener('change', function(){ preview(this, 'preview_after'); });
 </script>
+@endpush
 @endsection

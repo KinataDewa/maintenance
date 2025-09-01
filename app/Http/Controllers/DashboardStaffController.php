@@ -17,4 +17,9 @@ class DashboardStaffController extends Controller
     {
         return view('dashboard.formharian');
     }
+
+    public function perawatan()
+    {
+        return view('dashboard.perawatan');
+    }
 }

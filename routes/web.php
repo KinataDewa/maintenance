@@ -48,6 +48,7 @@ use App\Http\Controllers\PemakaianAirController;
 
     // Dashboard Staff
     Route::get('/dashboard-staff/form-harian', [DashboardStaffController::class, 'formHarian'])->name('dashboard.staff.formharian');
+    Route::get('/dashboard-staff/perawatan', [DashboardStaffController::class, 'perawatan'])->name('dashboard.staff.perawatan');
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
     Route::get('/checklist/riwayat', [ChecklistController::class, 'riwayat'])->name('checklist.riwayat');

@@ -86,7 +86,11 @@
             </div>
         </div>
 
-        <button type="submit" class="btn btn-warning text-white">Simpan</button>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">
+                <i class="bi bi-save"></i> Simpan
+            </button>
+        </div>        
     </form>
 </div>
 
