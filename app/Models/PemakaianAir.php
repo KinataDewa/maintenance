@@ -2,30 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class RoomTemperatureLog extends Model
+class PemakaianAir extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'room_id',
-        'user_id',
-        'titik_1',
-        'titik_2',
-        'foto',
-        'waktu_cek',
-    ];
+    protected $table = 'pemakaian_air';
 
-    public function room()
-    {
-        return $this->belongsTo(Room::class);
-    }
+    protected $fillable = [
+        'user_id',
+        'sumber_air',
+        'meteran',
+        'foto',
+        'deskripsi',
+        'tanggal',
+        'waktu',
+    ];
 
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 }
-

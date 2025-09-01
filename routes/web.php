@@ -20,6 +20,7 @@ use App\Http\Controllers\ExhaustFanController;
 use App\Http\Controllers\ExhaustFanLogController;
 use App\Http\Controllers\PanelCleaningController;
 use App\Http\Controllers\StpController;
+use App\Http\Controllers\PemakaianAirController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -103,8 +104,9 @@ use App\Http\Controllers\StpController;
     // Route untuk log suhu ruangan
     Route::get('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'create'])->name('temperature.create');
     Route::post('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'store'])->name('temperature.store');
+
     // Riwayat suhu ruangan
-Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwayat'])
+    Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwayat'])
     ->name('room-temperature-logs.riwayat');
 
     // Tenant
@@ -148,6 +150,11 @@ Route::get('/temperature/riwayat', [RoomTemperatureLogController::class, 'riwaya
         Route::get('/monitoring', [StpController::class, 'monitoring'])->name('monitoring');
     });
 
+    Route::prefix('pemakaian-air')->name('pemakaian-air.')->middleware('auth')->group(function () {
+    Route::get('/create', [PemakaianAirController::class, 'create'])->name('create');
+    Route::post('/', [PemakaianAirController::class, 'store'])->name('store');
+    Route::get('/riwayat', [PemakaianAirController::class, 'riwayat'])->name('riwayat');
+});
 
    });
 

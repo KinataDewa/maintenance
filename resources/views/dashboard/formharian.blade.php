@@ -40,10 +40,10 @@
                     'btn_icon' => 'plug-fill',
                 ],
                 [
-                    'title' => 'Pompa',
+                    'title' => 'Pemakaian Air',
                     'icon' => 'droplet-fill',
-                    'desc' => 'Input data laporan setiap Pompa.',
-                    'route' => route('pompa.logs.create'),
+                    'desc' => 'Input data laporan pemakaian air PDAM dan STP.',
+                    'route' => route('pemakaian-air.create'),
                     'btn_text' => 'Isi Laporan Pompa',
                     'btn_color' => '#0d6efd',
                     'icon_color' => 'text-primary',
@@ -64,7 +64,7 @@
 
         @foreach ($cards as $card)
             <div class="col-md-6 col-xl-4">
-                <div class="card border-0 shadow-sm rounded-4 h-100 d-flex flex-column transition"
+                <div class="card border-0 shadow-m rounded-4 h-100 d-flex flex-column transition"
                      style="transition: transform 0.25s, box-shadow 0.25s;">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div class="mb-3">

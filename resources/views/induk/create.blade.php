@@ -57,9 +57,13 @@
             @endforeach
         </div>
 
-        <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
+        <br>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">
+                <i class="bi bi-save"></i> Simpan
+            </button>
         </div>
+
     </form>
 </div>
 

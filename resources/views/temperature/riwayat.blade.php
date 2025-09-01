@@ -62,10 +62,9 @@
                                             <th>Ruangan</th>
                                             <th>Titik 1 (°C)</th>
                                             <th>Titik 2 (°C)</th>
-                                            <th>Titik 3 (°C)</th>
-                                            <th>Waktu</th>
+                                            <th>Jam</th>
                                             <th>Foto</th>
-                                            <th>Petugas</th>
+                                            <th>Staff</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -75,7 +74,6 @@
                                                 <td>{{ $log->room->nama ?? '-' }}</td>
                                                 <td class="text-center">{{ $log->titik_1 }}</td>
                                                 <td class="text-center">{{ $log->titik_2 }}</td>
-                                                <td class="text-center">{{ $log->titik_3 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($log->waktu_cek)->translatedFormat('H:i') }}</td>
                                                 <td class="text-center">
                                                     @if($log->foto && file_exists(public_path('storage/' . $log->foto)))

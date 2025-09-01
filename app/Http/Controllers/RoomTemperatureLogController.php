@@ -21,11 +21,10 @@ class RoomTemperatureLogController extends Controller
             'room_id' => 'required|exists:rooms,id',
             'titik_1' => 'required|numeric',
             'titik_2' => 'required|numeric',
-            'titik_3' => 'required|numeric',
             'foto' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
         ]);
 
-        $data = $request->only('room_id', 'titik_1', 'titik_2', 'titik_3');
+        $data = $request->only('room_id', 'titik_1', 'titik_2');
         $data['user_id'] = Auth::id();
         $data['waktu_cek'] = now();
 

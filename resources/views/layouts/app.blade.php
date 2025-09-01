@@ -12,6 +12,7 @@ body {
     font-family: 'Poppins', sans-serif;
     overflow-x: hidden;
 }
+
 /* Sidebar */
 .sidebar {
     height: 100vh;
@@ -27,6 +28,7 @@ body {
     box-shadow: 2px 0 12px rgba(0,0,0,0.05);
 }
 .sidebar.active { left:0; }
+
 /* Sidebar Header */
 .sidebar .sidebar-header {
     font-weight: 700;
@@ -39,9 +41,10 @@ body {
     background-color: #fff;
     z-index: 2;
 }
+
 /* Menu Links */
 .sidebar .nav-link {
-    color: #000 !important;
+    color: #212529 !important;
     font-weight: 500;
     padding: 0.65rem 1rem;
     border-radius: 8px;
@@ -53,23 +56,28 @@ body {
     transition: all 0.3s ease;
 }
 .sidebar .nav-link i { transition: transform 0.3s ease; }
-.sidebar .nav-link:hover { background-color: #FFBD38; color: #fff !important; }
-.sidebar .nav-link:hover i { transform: scale(1.2); }
-.sidebar .nav-link.fw-bold { background-color: #FFBD38; color: #fff !important; }
-/* Sliding underline */
-.sidebar .nav-link::after {
-    content: '';
-    position: absolute;
-    left:0;
-    bottom:0;
-    height:3px;
-    width:0;
-    background:#fff;
-    transition: width 0.3s ease;
-    border-radius:3px;
+
+/* Hover soft */
+.sidebar .nav-link:hover {
+    background-color: #f8f9fa;
+    color: #FFBD38 !important;
 }
-.sidebar .nav-link:hover::after,
-.sidebar .nav-link.fw-bold::after { width:100%; }
+.sidebar .nav-link:hover i {
+    transform: scale(1.15);
+    color: #FFBD38;
+}
+
+/* Aktif lebih clean */
+.sidebar .nav-link.fw-bold {
+    background-color: transparent;
+    color: #FFBD38 !important;
+    border-left: 4px solid #FFBD38;
+    font-weight: 600;
+}
+
+/* Matikan underline animasi */
+.sidebar .nav-link::after { display: none; }
+
 /* Overlay mobile */
 .sidebar-overlay {
     position: fixed;
@@ -80,6 +88,7 @@ body {
     display: none;
 }
 .sidebar-overlay.active { display:block; }
+
 /* Content */
 .content { margin-left:0; padding:0.5rem; transition: margin-left 0.4s ease; }
 .page-title {
@@ -87,10 +96,11 @@ body {
     font-size:1.75rem;
     color:#343a40;
     margin-bottom:1.5rem;
-    border-left:5px solid #ffbd38;
+    border-left:5px solid #FFBD38;
     padding-left:1rem;
-    text-shadow:0 2px 4px rgba(0,0,0,0.06);
+    text-shadow:0 2px 4px rgba(0,0,0,0.05);
 }
+
 /* Navbar Mobile */
 .navbar-mobile { display:none; }
 @media (max-width:991.98px){
@@ -98,17 +108,19 @@ body {
     .content { padding-top:0rem; }
     .sidebar .sidebar-header img { display:none; }
 }
+
 /* Desktop */
 @media (min-width:992px){
     .sidebar { left:0; }
     .content { margin-left:260px; }
 }
 
+/* Tombol Tambah Daftar */
 .tambahDaftar {
     font-family: 'Poppins', sans-serif;
-    color: #212529; /* teks gelap default */
-    background-color: #fff; /* putih default */
-    border: 1px solid #FFC107; /* border kuning tipis */
+    color: #212529;
+    background-color: #fff;
+    border: 1px solid #FFBD38;
     padding: 0.5rem 1rem;
     font-weight: 500;
     border-radius: 0.5rem;
@@ -118,16 +130,15 @@ body {
     gap: 0.3rem;
     text-decoration: none;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
 }
-
 .tambahDaftar:hover {
-    background-color: #FFC107; 
-    color: ; /* teks putih */
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    background-color: #FFBD38;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
-
 </style>
+
 @stack('styles')
 </head>
 <body>

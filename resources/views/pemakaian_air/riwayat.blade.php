@@ -1,50 +1,41 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Meteran Listrik')
+@section('title', 'Riwayat Pemakaian Air')
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title">Riwayat Meteran Listrik</h1>
+    <h1 class="page-title">Riwayat Pemakaian Air</h1>
 
+    <!-- Filter Form --> 
     <!-- Filter Form -->
-    <form method="GET" action="{{ route('meteran.riwayat') }}" class="row g-2 mb-4">
-        <div class="col-md-4">
-            <label for="tenant_id" class="form-label">Filter Tenant</label>
-            <select name="tenant_id" id="tenant_id" class="form-select">
-                <option value="">Semua Tenant</option>
-                @foreach($tenants as $tenant)
-                    <option value="{{ $tenant->id }}" {{ request('tenant_id') == $tenant->id ? 'selected' : '' }}>
-                        {{ $tenant->nama }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-4">
-            <label for="tanggal" class="form-label">Tanggal</label>
-            <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
-        </div>
-        <div class="col-md-4 d-flex align-items-end">
-            <button type="submit" class="btn btn-warning me-2"><i class="bi bi-filter-circle me-1"></i> Filter</button>
-            <a href="{{ route('meteran.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
-        </div>
-    </form>
-
-    <!-- Export Button -->
-    <form method="GET" action="{{ route('meteran.export') }}" class="mb-4">
-        <input type="hidden" name="tenant_id" value="{{ request('tenant_id') }}">
-        <input type="hidden" name="tanggal" value="{{ request('tanggal') }}">
-        <button class="btn btn-success">
-            <i class="bi bi-file-earmark-excel me-1"></i> Export Excel
+<form method="GET" action="{{ route('pemakaian-air.riwayat') }}" class="row g-2 mb-4">
+    <div class="col-md-4">
+        <label for="sumber_air" class="form-label">Jenis Pompa</label>
+        <select name="sumber_air" id="sumber_air" class="form-select">
+            <option value="">Semua Jenis</option>
+            <option value="PDAM" {{ request('sumber_air') == 'PDAM' ? 'selected' : '' }}>PDAM</option>
+            <option value="STP" {{ request('sumber_air') == 'STP' ? 'selected' : '' }}>STP</option>
+        </select>
+    </div>
+    <div class="col-md-4">
+        <label for="tanggal" class="form-label">Tanggal</label>
+        <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
+    </div>
+    <div class="col-md-4 d-flex align-items-end">
+        <button type="submit" class="btn btn-warning me-2">
+            <i class="bi bi-filter-circle me-1"></i> Filter
         </button>
-    </form>
+        <a href="{{ route('pemakaian-air.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
+    </div>
+</form>
 
     <!-- Data -->
-    @if($riwayat->isEmpty())
-        <div class="alert alert-info">Belum ada data meteran listrik.</div>
+    @if($data->isEmpty())
+        <div class="alert alert-info">Belum ada data pemakaian air.</div>
     @else
         @php
-            $grouped = $riwayat->groupBy(function($item) {
-                return \Carbon\Carbon::parse($item->waktu_input)->format('Y-m-d');
+            $grouped = $data->groupBy(function($item) {
+                return \Carbon\Carbon::parse($item->tanggal)->format('Y-m-d');
             });
         @endphp
 
@@ -67,35 +58,35 @@
                                     <thead class="bg-dark text-white">
                                         <tr>
                                             <th>No</th>
-                                            <th>Tenant</th>
-                                            <th>Kwh</th>
-                                            <th>Jam</th>
+                                            <th>User</th>
+                                            <th>Sumber Air</th>
+                                            <th>Meteran</th>
                                             <th>Deskripsi</th>
+                                            <th>Jam</th>
                                             <th>Foto</th>
-                                            <th>Staff</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($logs as $i => $data)
+                                        @foreach ($logs as $i => $item)
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
-                                                <td>{{ $data->tenant->nama }}</td>
-                                                <td>{{ $data->kwh }}</td>
-                                                <td>{{ \Carbon\Carbon::parse($data->waktu_input)->format('H:i') }}</td>
-                                                <td>{{ $data->deskripsi ?? '-' }}</td>
+                                                <td>{{ $item->user->name ?? '-' }}</td>
+                                                <td><span class="badge bg-warning text-dark">{{ $item->sumber_air }}</span></td>
+                                                <td>{{ $item->meteran }}</td>
+                                                <td>{{ $item->deskripsi ?? '-' }}</td>
+                                                <td>{{ $item->waktu }}</td>
                                                 <td>
-                                                    @if($data->foto && file_exists(public_path('storage/' . $data->foto)))
-                                                        <button class="btn btn-sm btn-outline-primary" onclick="showFoto('{{ asset('storage/' . $data->foto) }}')">
+                                                    @if($item->foto && file_exists(public_path('storage/' . $item->foto)))
+                                                        <button class="btn btn-sm btn-outline-primary" onclick="showFoto('{{ asset('storage/' . $item->foto) }}')">
                                                             <i class="bi bi-image"></i>
                                                         </button>
-                                                        <a href="{{ asset('storage/' . $data->foto) }}" class="btn btn-sm btn-outline-success" download>
+                                                        <a href="{{ asset('storage/' . $item->foto) }}" class="btn btn-sm btn-outline-success" download>
                                                             <i class="bi bi-download"></i>
                                                         </a>
                                                     @else
                                                         <span class="text-muted">-</span>
                                                     @endif
                                                 </td>
-                                                <td>{{ $data->user->name ?? '-' }}</td>
                                             </tr>
                                         @endforeach
                                     </tbody>
@@ -114,17 +105,17 @@
     <div class="modal-dialog modal-dialog-centered modal-md">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Foto Meteran</h5>
+                <h5 class="modal-title">Foto Pemakaian Air</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Tutup"></button>
             </div>
             <div class="modal-body text-center">
-                <img id="previewFoto" src="" class="img-fluid rounded" alt="Foto Meteran" style="max-height: 400px; object-fit: contain;">
+                <img id="previewFoto" src="" class="img-fluid rounded" alt="Foto Pemakaian Air" style="max-height: 400px; object-fit: contain;">
             </div>
         </div>
     </div>
 </div>
-
 @endsection
+
 @section('scripts')
 <script>
     function showFoto(url) {

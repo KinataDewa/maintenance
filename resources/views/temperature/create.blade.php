@@ -36,18 +36,15 @@
         </div>
 
         <div class="mb-3">
-            <label for="titik_3" class="form-label">Titik 3 (°C)</label>
-            <input type="number" name="titik_3" class="form-control" step="0.1" required>
-        </div>
-
-        <div class="mb-3">
             <label for="foto" class="form-label">Foto (Opsional)</label>
             <input type="file" name="foto" class="form-control" accept="image/*">
         </div>
         
-        <div class="mt-4 text-end">
-            <button type="submit" class="btn btn-warning btn-lg text-white shadow-sm">Simpan</button>
-        </div>    
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">
+                <i class="bi bi-save"></i> Simpan
+            </button>
+        </div>   
     </form>
 </div>
 @endsection

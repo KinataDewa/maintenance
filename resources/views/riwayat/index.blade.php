@@ -32,11 +32,11 @@
                     'route' => route('meteran-induk.riwayat'),
                 ],
                 [
-                    'title' => 'Riwayat Pompa',
+                    'title' => 'Riwayat Pemakaian Air',
                     'icon' => 'droplet-half',
                     'color' => 'primary',
                     'desc' => 'Lihat data riwayat pompa air bersih, diesel, dan hydrant.',
-                    'route' => route('pompa.logs.riwayat'),
+                    'route' => route('pemakaian-air.riwayat'),
                 ],
                 [
                     'title' => 'Riwayat Suhu Ruangan',
