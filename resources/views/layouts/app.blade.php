@@ -172,17 +172,17 @@ body {
         @if(auth()->user()->role=='staff')
             {{-- Daily Staff --}}
             <li class="nav-item">
-                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('checklist*','meteran*','induk*','pompa*','suhu*',) ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
+                <a class="nav-link d-flex justify-content-between align-items-center {{ request()->is('checklist*','meteran*','induk*','pemakaian-air.create*','suhu*',) ? 'fw-bold' : '' }}" href="#daftarSubmenu" data-bs-toggle="collapse">
                     <span><i class="bi bi-list-check"></i> Daftar</span>
                     <i class="bi bi-chevron-down"></i>
                 </a>
-                <ul class="collapse list-unstyled ps-3 {{ request()->is('checklist*','meteran*','induk*','pompa*','suhu*',) ? 'show' : '' }}" id="daftarSubmenu">
+                <ul class="collapse list-unstyled ps-3 {{ request()->is('checklist*','meteran*','induk*','pemakaian-air.create*','suhu*',) ? 'show' : '' }}" id="daftarSubmenu">
                     @php
                     $dailyCards = [
                         ['title'=>'On/Off Perangkat','icon'=>'clipboard-check-fill','route'=>route('checklist.index')],
                         ['title'=>'Listrik Tenant','icon'=>'lightning-charge-fill','route'=>route('meteran.create')],
                         ['title'=>'Listrik Induk PLN','icon'=>'plug-fill','route'=>route('induk.create')],
-                        ['title'=>'Pompa','icon'=>'droplet-fill','route'=>route('pompa.logs.create')],
+                        ['title'=>'Pemakaian Air','icon'=>'droplet-fill','route'=>route('pemakaian-air.create')],
                         ['title'=>'Suhu Ruangan','icon'=>'thermometer-half','route'=>route('temperature.create')],
                     ];
                     @endphp

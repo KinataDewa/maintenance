@@ -4,12 +4,13 @@
 
 @section('content')
 <div class="container py-4">
-    <div class="d-flex justify-content-end mb-4">
-    <a href="{{ route('rooms.create') }}" class="btn btn-dark rounded-3 shadow-sm">
-        <i class="bi bi-plus-lg"></i> Tambah Ruangan
-    </a>
-</div>
 
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h3 class="page-title mb-0">Daftar Ruangan</h3>
+        <a href="{{ route('rooms.create') }}" class="btn btn-dark rounded-3 shadow-sm">
+            <i class="bi bi-plus-lg"></i> Tambah Ruangan
+        </a>
+    </div>
 
     @if (session('success'))
         <div class="alert alert-success alert-dismissible fade show rounded-3" role="alert">

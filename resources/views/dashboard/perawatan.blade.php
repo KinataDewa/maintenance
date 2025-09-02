@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title mb-4 fw-bold">Daily Report</h1>
+    <h1 class="page-title mb-4 fw-bold">Perawatan</h1>
 
     <div class="row g-4">
         @php

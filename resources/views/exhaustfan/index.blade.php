@@ -6,8 +6,8 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="page-title mb-0">Daftar Exhaust Fan</h3>
-        <a href="{{ route('exhaustfan.create') }}" class="btn btn-primary rounded-3 shadow-sm">
-            <i class="bi bi-plus-lg"></i> Tambah Exhaust Fan
+        <a href="{{ route('rooms.create') }}" class="btn btn-dark rounded-3 shadow-sm">
+            <i class="bi bi-plus-lg"></i> Tambah Ruangan
         </a>
     </div>
 
