@@ -18,6 +18,18 @@
         </div>
 
         <div class="mb-3">
+            <label for="jenis" class="form-label">Jenis</label>
+            <select class="form-select" id="jenis" name="jenis" required>
+                <option value="">-- Pilih Jenis --</option>
+                <option value="STP">STP</option>
+                <option value="PDAM">PDAM</option>
+                <option value="Hydrant">Hydrant</option>
+                <option value="Hydrant">Diesel</option>
+                <option value="Lainnya">Lainnya</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label for="merk" class="form-label">Merk</label>
             <input type="text" class="form-control" id="merk" name="merk">
         </div>

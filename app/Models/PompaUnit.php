@@ -9,7 +9,7 @@ class PompaUnit extends Model
 {
     use HasFactory;
     protected $fillable = [
-    'nama_pompa', 'merk', 'tipe', 'kapasitas', 'tekanan'
+    'nama_pompa', 'jenis', 'merk', 'tipe', 'kapasitas', 'tekanan'
 ];
 public function logs()
 {

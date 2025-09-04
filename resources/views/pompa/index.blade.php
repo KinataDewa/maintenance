@@ -6,8 +6,8 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="page-title mb-0">Daftar Pompa</h3>
-        <a href="{{ route('rooms.create') }}" class="btn btn-dark rounded-3 shadow-sm">
-            <i class="bi bi-plus-lg"></i> Tambah Ruangan
+        <a href="{{ route('pompa.create') }}" class="btn btn-dark rounded-3 shadow-sm">
+            <i class="bi bi-plus-lg"></i> Tambah Pompa
         </a>
     </div>
 
@@ -26,6 +26,7 @@
                         <tr>
                             <th style="width:60px;">No</th>
                             <th>Nama Pompa</th>
+                            <th>Jenis</th>
                             <th>Merk</th>
                             <th>Tipe</th>
                             <th>Kapasitas</th>
@@ -38,6 +39,7 @@
                         <tr>
                             <td class="text-center fw-semibold">{{ $loop->iteration }}</td>
                             <td>{{ $pompa->nama_pompa }}</td>
+                            <td>{{ $pompa->jenis ?? '-' }}</td>
                             <td>{{ $pompa->merk ?? '-' }}</td>
                             <td>{{ $pompa->tipe ?? '-' }}</td>
                             <td>{{ $pompa->kapasitas ?? '-' }}</td>

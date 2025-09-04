@@ -26,6 +26,17 @@
         </div>
 
         <div class="mb-3">
+            <label for="jenis" class="form-label">Jenis</label>
+            <select class="form-select" id="jenis" name="jenis" required>
+                <option value="STP" {{ old('jenis', $pompa->jenis) == 'STP' ? 'selected' : '' }}>STP</option>
+                <option value="PDAM" {{ old('jenis', $pompa->jenis) == 'PDAM' ? 'selected' : '' }}>PDAM</option>
+                <option value="Hydrant" {{ old('jenis', $pompa->jenis) == 'Hydrant' ? 'selected' : '' }}>Hydrant</option>
+                <option value="Hydrant" {{ old('jenis', $pompa->jenis) == 'Diesel' ? 'selected' : '' }}>Diesel</option>
+                <option value="Lainnya" {{ old('jenis', $pompa->jenis) == 'Lainnya' ? 'selected' : '' }}>Lainnya</option>
+            </select>
+        </div>
+
+        <div class="mb-3">
             <label for="merk" class="form-label">Merk</label>
             <input type="text" class="form-control" id="merk" name="merk" value="{{ old('merk', $pompa->merk) }}">
         </div>

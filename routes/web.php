@@ -86,25 +86,20 @@ use App\Http\Controllers\PompaMaintenanceController;
     Route::get('/induk/export', [MeteranIndukController::class, 'export'])->name('meteran-induk.export');
 
     // Pompa Unit
-    Route::prefix('pompa')->name('pompa.')->middleware('auth')->group(function () {
+Route::middleware('auth')->group(function () {
 
     // Pompa Unit CRUD
-    Route::resource('/', PompaUnitController::class)->only([
+    Route::resource('pompa', PompaUnitController::class)->only([
         'index', 'create', 'store', 'edit', 'update', 'destroy'
     ]);
 
-    // Pompa Log
-    Route::get('log', [PompaLogController::class, 'create'])->name('logs.create');
-    Route::post('log', [PompaLogController::class, 'store'])->name('logs.store');
-    Route::get('logs/riwayat', [PompaLogController::class, 'riwayat'])->name('logs.riwayat');
-    Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
-
     // Pompa Maintenance
-    Route::get('maintenance/create', [PompaMaintenanceController::class, 'create'])->name('maintenance.create');
-    Route::post('maintenance', [PompaMaintenanceController::class, 'store'])->name('maintenance.store');
-    Route::get('maintenance/riwayat', [PompaMaintenanceController::class, 'riwayat'])->name('maintenance.riwayat');
-
+    Route::get('pompa/maintenance/create', [PompaMaintenanceController::class, 'create'])->name('pompa.maintenance.create');
+    Route::post('pompa/maintenance', [PompaMaintenanceController::class, 'store'])->name('pompa.maintenance.store');
+    Route::get('pompa/maintenance/riwayat', [PompaMaintenanceController::class, 'riwayat'])->name('pompa.maintenance.riwayat');
 });
+
+
 
     // Export Excel
     Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');

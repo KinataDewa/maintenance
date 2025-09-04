@@ -29,26 +29,24 @@ class PompaUnitController extends Controller
         return redirect()->route('pompa.index')->with('success', 'Pompa berhasil ditambahkan.');
     }
 
-    public function edit(PompaUnit $pompa)
-    {
-        return view('pompa.edit', compact('pompa'));
-    }
+    public function edit($id)
+{
+    $pompa = PompaUnit::findOrFail($id);
+    return view('pompa.edit', compact('pompa'));
+}
 
-    public function update(Request $request, PompaUnit $pompa)
-    {
-        $request->validate([
-            'nama_pompa' => 'required|string|max:255',
-        ]);
+public function update(Request $request, $id)
+{
+    $pompa = PompaUnit::findOrFail($id);
+    $pompa->update($request->all());
+    return redirect()->route('pompa.index')->with('success', 'Pompa berhasil diupdate.');
+}
 
-        $pompa->update($request->all());
+public function destroy($id)
+{
+    $pompa = PompaUnit::findOrFail($id);
+    $pompa->delete();
+    return redirect()->route('pompa.index')->with('success', 'Pompa berhasil dihapus.');
+}
 
-        return redirect()->route('pompa.index')->with('success', 'Pompa berhasil diupdate.');
-    }
-
-    public function destroy(PompaUnit $pompa)
-    {
-        $pompa->delete();
-
-        return redirect()->route('pompa.index')->with('success', 'Pompa berhasil dihapus.');
-    }
 }

@@ -43,7 +43,10 @@
             <input type="password" name="password_confirmation" class="form-control" required>
         </div>
 
-        <button type="submit" class="btn btn-success">Simpan</button>
+        <div class="d-flex justify-content-between">
+            <a href="{{ route('staff.index') }}" class="btn btn-outline-secondary rounded-2">← Kembali</a>
+            <button type="submit" class="btn btn-warning rounded-2">Simpan</button>
+        </div>    
     </form>
 </div>
 @endsection

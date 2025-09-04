@@ -6,8 +6,8 @@
 <div class="container py-4">
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h3 class="page-title mb-0">Daftar Tenant</h3>
-        <a href="{{ route('rooms.create') }}" class="btn btn-dark rounded-3 shadow-sm">
-            <i class="bi bi-plus-lg"></i> Tambah Ruangan
+        <a href="{{ route('tenants.create') }}" class="btn btn-dark rounded-3 shadow-sm">
+            <i class="bi bi-plus-lg"></i> Tambah Tenant
         </a>
     </div>
 
