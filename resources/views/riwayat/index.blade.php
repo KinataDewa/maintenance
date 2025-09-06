@@ -66,6 +66,13 @@
                     'desc' => 'Lihat semua catatan perawatan pompa harian oleh staff.',
                     'route' => route('pompa.maintenance.riwayat'),
                 ],
+                 [
+                    'title' => 'Riwayat Pengecekan Panel',
+                    'icon' => 'hdd-network',
+                    'color' => 'warning',
+                    'desc' => 'Lihat riwayat pengecekan panel listrik dan hasil inspeksi.',
+                    'route' => route('panel-inspections.riwayat'),
+                ],
             ];
         @endphp
 

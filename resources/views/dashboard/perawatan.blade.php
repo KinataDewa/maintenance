@@ -39,6 +39,16 @@
                     'icon_color' => 'text-primary', // biru
                     'btn_icon' => 'droplet', // icon pompa/droplet
                 ],
+                [
+                    'title' => 'Pengecekan Panel',
+                    'icon' => 'hdd-network', // icon panel listrik
+                    'desc' => 'Input laporan pengecekan panel listrik.',
+                    'route' => route('panel-inspections.create'), // route create untuk pengecekan panel
+                    'btn_text' => 'Input Pengecekan Panel',
+                    'btn_color' => '#fd7e14', // warna oranye untuk beda
+                    'icon_color' => 'text-warning',
+                    'btn_icon' => 'hdd',
+                ],
             ];
         @endphp
 

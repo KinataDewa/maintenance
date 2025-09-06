@@ -22,6 +22,7 @@ use App\Http\Controllers\PanelCleaningController;
 use App\Http\Controllers\StpController;
 use App\Http\Controllers\PemakaianAirController;
 use App\Http\Controllers\PompaMaintenanceController;
+use App\Http\Controllers\PanelInspectionController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -99,8 +100,6 @@ Route::middleware('auth')->group(function () {
     Route::get('pompa/maintenance/riwayat', [PompaMaintenanceController::class, 'riwayat'])->name('pompa.maintenance.riwayat');
 });
 
-
-
     // Export Excel
     Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
 });
@@ -161,7 +160,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/create', [PemakaianAirController::class, 'create'])->name('create');
     Route::post('/', [PemakaianAirController::class, 'store'])->name('store');
     Route::get('/riwayat', [PemakaianAirController::class, 'riwayat'])->name('riwayat');
-});
+    });
+
+    Route::prefix('panel-inspections')->name('panel-inspections.')->group(function () {
+        Route::get('/create', [PanelInspectionController::class, 'create'])->name('create');
+        Route::post('/', [PanelInspectionController::class, 'store'])->name('store');
+        Route::get('/riwayat', [PanelInspectionController::class, 'riwayat'])->name('riwayat');
+    });
+
 
 
 require __DIR__.'/auth.php';
