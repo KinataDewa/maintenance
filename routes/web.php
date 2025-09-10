@@ -23,6 +23,7 @@ use App\Http\Controllers\StpController;
 use App\Http\Controllers\PemakaianAirController;
 use App\Http\Controllers\PompaMaintenanceController;
 use App\Http\Controllers\PanelInspectionController;
+use App\Http\Controllers\PompaStpController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -168,6 +169,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/riwayat', [PanelInspectionController::class, 'riwayat'])->name('riwayat');
     });
 
+// Pompa STP
+Route::prefix('pompa-stp')->name('pompa-stp.')->middleware('auth')->group(function () {
+    Route::get('/create', [\App\Http\Controllers\PompaStpController::class, 'create'])->name('create');
+    Route::post('/', [\App\Http\Controllers\PompaStpController::class, 'store'])->name('store');
+    Route::get('/riwayat', [\App\Http\Controllers\PompaStpController::class, 'riwayat'])->name('riwayat');
+});
 
 
 require __DIR__.'/auth.php';

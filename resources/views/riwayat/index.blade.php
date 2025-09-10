@@ -66,12 +66,19 @@
                     'desc' => 'Lihat semua catatan perawatan pompa harian oleh staff.',
                     'route' => route('pompa.maintenance.riwayat'),
                 ],
-                 [
+                [
                     'title' => 'Riwayat Pengecekan Panel',
                     'icon' => 'hdd-network',
                     'color' => 'warning',
                     'desc' => 'Lihat riwayat pengecekan panel listrik dan hasil inspeksi.',
                     'route' => route('panel-inspections.riwayat'),
+                ],
+                [
+                    'title' => 'Riwayat Pompa STP',
+                    'icon' => 'gear-wide-connected',
+                    'color' => 'success',
+                    'desc' => 'Lihat riwayat pengecekan kondisi pompa STP 1 dan STP 2.',
+                    'route' => route('pompa-stp.riwayat'),
                 ],
             ];
         @endphp
@@ -103,7 +110,6 @@
         transition: all 0.25s ease-in-out;
     }
     .riwayat-card:hover {
-        /* transform: translateY(-6px); */
         box-shadow: 0 8px 20px rgba(0,0,0,0.15) !important;
     }
 </style>
