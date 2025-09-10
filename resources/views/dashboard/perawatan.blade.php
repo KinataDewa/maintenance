@@ -40,7 +40,7 @@
                     'btn_icon' => 'droplet', // icon pompa/droplet
                 ],
                 [
-                    'title' => 'Pengecekan Panel',
+                    'title' => 'Perawatan Panel',
                     'icon' => 'hdd-network', // icon panel listrik
                     'desc' => 'Input laporan pengecekan panel listrik.',
                     'route' => route('panel-inspections.create'), // route create untuk pengecekan panel

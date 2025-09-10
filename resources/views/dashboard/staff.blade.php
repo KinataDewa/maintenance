@@ -20,7 +20,7 @@
                     'btn_icon' => 'arrow-right-circle',
                 ],
                 [
-                    'title' => 'Pemeliharaan',
+                    'title' => 'Perawatan',
                     'icon' => 'tools',
                     'desc' => 'Menu perawatan dan perbaikan rutin.',
                     'route' => route('dashboard.staff.perawatan'),
