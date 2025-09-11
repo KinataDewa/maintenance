@@ -4,24 +4,25 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
-    /**
-     * Run the migrations.
-     */
+return new class extends Migration {
     public function up(): void
     {
         Schema::create('mesin_stp_logs', function (Blueprint $table) {
             $table->id();
-            $table->timestamps();
+            $table->enum('mesin', ['Mesin STP 1', 'Mesin STP 2']); // pilihan mesin
+            $table->string('oli');      // status oli
+            $table->string('vanbelt');  // status vanbelt
+            $table->float('suhu');      // suhu dalam °C
+            $table->enum('suara', ['Halus', 'Bising Ringan', 'Bising Berat']); // kondisi suara
+            $table->string('catatan');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->timestamps(); // otomatis tanggal & jam
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mesin_stp_logs');
     }
 };
+

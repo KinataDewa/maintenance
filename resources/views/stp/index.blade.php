@@ -60,6 +60,18 @@
             </a>
         </div>
 
+        <!-- Input Mesin STP -->
+        <div class="col-12 col-md-3">
+            <a href="{{ route('mesin-stp.create') }}" class="text-decoration-none">
+                <div class="card menu-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-cpu icon-warning"></i>
+                        <h6 class="fw-bold mt-2 mb-1">Input Mesin STP</h6>
+                        <p class="text-muted small">Isi data pengecekan Mesin STP harian.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 </div>
 

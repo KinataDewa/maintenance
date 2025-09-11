@@ -176,5 +176,13 @@ Route::prefix('pompa-stp')->name('pompa-stp.')->middleware('auth')->group(functi
     Route::get('/riwayat', [\App\Http\Controllers\PompaStpController::class, 'riwayat'])->name('riwayat');
 });
 
+// Mesin STP
+Route::prefix('mesin-stp')->name('mesin-stp.')->middleware('auth')->group(function () {
+    Route::get('/create', [\App\Http\Controllers\MesinStpController::class, 'create'])->name('create');
+    Route::post('/store', [\App\Http\Controllers\MesinStpController::class, 'store'])->name('store');
+    Route::get('/riwayat', [\App\Http\Controllers\MesinStpController::class, 'riwayat'])->name('riwayat');
+});
+
+
 
 require __DIR__.'/auth.php';

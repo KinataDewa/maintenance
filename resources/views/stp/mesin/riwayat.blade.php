@@ -1,19 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Riwayat Pompa STP')
+@section('title', 'Riwayat Mesin STP')
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title mb-4 fw-bold">Riwayat Pompa STP</h1>
+    <h1 class="page-title mb-4 fw-bold">Riwayat Mesin STP</h1>
 
     <!-- Filter Form -->
-    <form method="GET" action="{{ route('pompa-stp.riwayat') }}" class="row g-2 mb-4">
+    <form method="GET" action="{{ route('mesin-stp.riwayat') }}" class="row g-2 mb-4">
         <div class="col-md-4">
-            <label for="pompa" class="form-label">Filter Pompa</label>
-            <select name="pompa" id="pompa" class="form-select">
-                <option value="">Semua Pompa</option>
-                <option value="Pompa STP 1" {{ request('pompa') == 'Pompa STP 1' ? 'selected' : '' }}>Pompa STP 1</option>
-                <option value="Pompa STP 2" {{ request('pompa') == 'Pompa STP 2' ? 'selected' : '' }}>Pompa STP 2</option>
+            <label for="mesin" class="form-label">Filter Mesin</label>
+            <select name="mesin" id="mesin" class="form-select">
+                <option value="">Semua Mesin</option>
+                <option value="Mesin STP 1" {{ request('mesin') == 'Mesin STP 1' ? 'selected' : '' }}>Mesin STP 1</option>
+                <option value="Mesin STP 2" {{ request('mesin') == 'Mesin STP 2' ? 'selected' : '' }}>Mesin STP 2</option>
             </select>
         </div>
         <div class="col-md-4">
@@ -24,13 +24,15 @@
             <button type="submit" class="btn btn-warning me-2">
                 <i class="bi bi-filter-circle me-1"></i> Filter
             </button>
-            <a href="{{ route('pompa-stp.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
+            <a href="{{ route('mesin-stp.riwayat') }}" class="btn btn-outline-secondary">
+                Reset
+            </a>
         </div>
     </form>
 
     <!-- Data -->
     @if($logs->isEmpty())
-        <div class="alert alert-info">Belum ada data pompa STP.</div>
+        <div class="alert alert-info">Belum ada data mesin STP.</div>
     @else
         @php
             // Group data by tanggal
@@ -59,12 +61,12 @@
                                         <tr>
                                             <th>No</th>
                                             <th>Waktu</th>
-                                            <th>Pompa</th>
-                                            <th>Voltase (V)</th>
-                                            <th>Suhu (°C)</th>
+                                            <th>Mesin</th>
                                             <th>Oli</th>
-                                            <th>Pulling</th>
-                                            <th>Motor</th>
+                                            <th>Vanbelt</th>
+                                            <th>Suhu (°C)</th>
+                                            <th>Suara</th>
+                                            <th>Catatan</th>
                                             <th>Staff</th>
                                         </tr>
                                     </thead>
@@ -73,9 +75,7 @@
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ \Carbon\Carbon::parse($log->created_at)->format('H:i') }}</td>
-                                                <td>{{ $log->pompa }}</td>
-                                                <td>{{ $log->voltase }}</td>
-                                                <td>{{ $log->suhu }}</td>
+                                                <td>{{ $log->mesin }}</td>
 
                                                 <!-- Badge Oli -->
                                                 <td>
@@ -84,20 +84,37 @@
                                                     </span>
                                                 </td>
 
-                                                <!-- Badge Pulling -->
+                                                <!-- Badge Vanbelt -->
                                                 <td>
                                                     <span class="badge rounded-pill bg-info bg-opacity-10 text-info px-3 py-2 fw-semibold">
-                                                        {{ $log->pulling }}
+                                                        {{ $log->vanbelt }}
                                                     </span>
                                                 </td>
 
-                                                <!-- Badge Motor -->
+                                                <!-- Suhu -->
+                                                <td>{{ $log->suhu }}</td>
+
+                                                <!-- Badge Suara -->
                                                 <td>
-                                                    <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning px-3 py-2 fw-semibold">
-                                                        {{ $log->motor }}
-                                                    </span>
+                                                    @if($log->suara == 'Halus')
+                                                        <span class="badge rounded-pill bg-success bg-opacity-10 text-success px-3 py-2 fw-semibold">
+                                                            Halus
+                                                        </span>
+                                                    @elseif($log->suara == 'Bising Ringan')
+                                                        <span class="badge rounded-pill bg-warning bg-opacity-10 text-warning px-3 py-2 fw-semibold">
+                                                            Bising Ringan
+                                                        </span>
+                                                    @else
+                                                        <span class="badge rounded-pill bg-danger bg-opacity-10 text-danger px-3 py-2 fw-semibold">
+                                                            Bising Berat
+                                                        </span>
+                                                    @endif
                                                 </td>
 
+                                                <!-- Catatan -->
+                                                <td>{{ $log->catatan ?? '-' }}</td>
+
+                                                <!-- Staff -->
                                                 <td>{{ $log->user->name ?? '-' }}</td>
                                             </tr>
                                         @endforeach
@@ -128,11 +145,11 @@
         font-size: 0.9rem;
         text-transform: uppercase;
         letter-spacing: 0.5px;
-        border: 1px solid #dee2e6; 
+        border: 1px solid #dee2e6; /* Garis kolom */
     }
 
     .table tbody td {
-        border: 1px solid #dee2e6;
+        border: 1px solid #dee2e6; /* Garis baris dan kolom */
     }
 
     .table-hover tbody tr:hover {

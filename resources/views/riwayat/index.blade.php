@@ -80,6 +80,13 @@
                     'desc' => 'Lihat riwayat pengecekan kondisi pompa STP 1 dan STP 2.',
                     'route' => route('pompa-stp.riwayat'),
                 ],
+                [
+                    'title' => 'Riwayat Mesin STP',
+                    'icon' => 'cpu',
+                    'color' => 'info',
+                    'desc' => 'Lihat riwayat pengecekan kondisi Mesin STP 1 dan STP 2.',
+                    'route' => route('mesin-stp.riwayat'),
+                ],
             ];
         @endphp
 
