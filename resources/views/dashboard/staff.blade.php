@@ -20,7 +20,7 @@
                     'btn_icon' => 'arrow-right-circle',
                 ],
                 [
-                    'title' => 'Perawatan',
+                    'title' => 'Pengecekan',
                     'icon' => 'tools',
                     'desc' => 'Menu perawatan dan perbaikan rutin.',
                     'route' => route('dashboard.staff.perawatan'),
@@ -39,16 +39,6 @@
                     'btn_outline' => true,
                     'icon_color' => 'text-secondary',
                     'btn_icon' => 'journal-text',
-                ],
-                [
-                    'title' => 'STP',
-                    'icon' => 'droplet',
-                    'desc' => 'Menu STP: input meteran dan pembersihan STP.',
-                    'route' => route('stp.index'),
-                    'btn_text' => 'Buka Menu STP',
-                    'btn_color' => 'info', // hijau tosca/teal
-                    'icon_color' => 'text-info',
-                    'btn_icon' => 'water',
                 ],
             ];
         @endphp

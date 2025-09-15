@@ -49,6 +49,16 @@
                     'icon_color' => 'text-warning',
                     'btn_icon' => 'hdd',
                 ],
+                [
+                'title' => 'STP',
+                'icon' => 'water', // icon yang relevan untuk STP
+                'desc' => 'Input laporan pengecekan STP harian.',
+                'route' => route('stp.index'), // route index STP
+                'btn_text' => 'Input Pengecekan STP',
+                'btn_color' => '#20c997', // hijau toska
+                'icon_color' => 'text-info',
+                'btn_icon' => 'water',
+            ],    
             ];
         @endphp
 

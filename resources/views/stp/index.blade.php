@@ -8,32 +8,6 @@
 
     <div class="row g-3">
 
-        <!-- Monitoring STP -->
-        <div class="col-12 col-md-3">
-            <a href="{{ route('stp.monitoring') }}" class="text-decoration-none">
-                <div class="card menu-card h-100">
-                    <div class="card-body text-center">
-                        <i class="bi bi-droplet-half icon-primary"></i>
-                        <h6 class="fw-bold mt-2 mb-1">Monitoring STP</h6>
-                        <p class="text-muted small">Status & kondisi STP terkini.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
-        <!-- Meteran STP -->
-        <div class="col-12 col-md-3">
-            <a href="{{ route('stp.meteran') }}" class="text-decoration-none">
-                <div class="card menu-card h-100">
-                    <div class="card-body text-center">
-                        <i class="bi bi-speedometer2 icon-warning"></i>
-                        <h6 class="fw-bold mt-2 mb-1">Meteran STP</h6>
-                        <p class="text-muted small">Input data meteran & konsumsi air.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
         <!-- Perawatan STP -->
         <div class="col-12 col-md-3">
             <a href="{{ route('stp.perawatan') }}" class="text-decoration-none">
