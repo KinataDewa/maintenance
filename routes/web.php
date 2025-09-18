@@ -24,6 +24,7 @@ use App\Http\Controllers\PemakaianAirController;
 use App\Http\Controllers\PompaMaintenanceController;
 use App\Http\Controllers\PanelInspectionController;
 use App\Http\Controllers\PompaStpController;
+use App\Http\Controllers\PerawatanPanelController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -184,5 +185,8 @@ Route::prefix('mesin-stp')->name('mesin-stp.')->middleware('auth')->group(functi
 });
 
 
+Route::get('/perawatan-panels/create', [PerawatanPanelController::class, 'create'])->name('perawatan-panels.create');
+Route::post('/perawatan-panels/store', [PerawatanPanelController::class, 'store'])->name('perawatan-panels.store');
+Route::get('/perawatan-panels/riwayat', [PerawatanPanelController::class, 'index'])->name('perawatan-panels.index');
 
 require __DIR__.'/auth.php';
