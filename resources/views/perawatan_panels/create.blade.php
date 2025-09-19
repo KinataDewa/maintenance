@@ -32,6 +32,15 @@
             @enderror
         </div>
 
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Status</label>
+            <select name="status" class="form-select" required>
+                <option value="">-- Pilih Status --</option>
+                <option value="before">Before</option>
+                <option value="after">After</option>
+            </select>
+        </div>
+
         <hr class="my-4">
 
         <!-- Pengecekan Panel -->

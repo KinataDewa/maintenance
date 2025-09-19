@@ -52,6 +52,7 @@ class PerawatanPanelController extends Controller
                     'penggantian_komponen' => $request->input('perawatan.penggantian_komponen', []),
                     'perbaikan' => $request->input('perawatan.perbaikan', []),
                 ],
+                'status' => $request->status, // <--- ini
                 'foto' => $fotoPaths,
                 'catatan' => $request->catatan,
                 'user_id' => Auth::id(),

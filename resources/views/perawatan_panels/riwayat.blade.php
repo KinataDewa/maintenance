@@ -63,6 +63,7 @@
                                         <tr>
                                             <th style="width: 50px;">No</th>
                                             <th>Panel</th>
+                                            <th>Status</th>
                                             <th>Petugas</th>
                                             <th>Catatan</th>
                                             <th>Foto</th>
@@ -77,6 +78,7 @@
                                                     <strong>{{ $data->panel->nama }}</strong><br>
                                                     <small class="text-muted">{{ $data->panel->lokasi }}</small>
                                                 </td>
+                                                <td>{{ ucfirst($data->status ?? '-') }}</td>
                                                 <td>{{ $data->user->name ?? '-' }}</td>
                                                 <td>{{ $data->catatan ?? '-' }}</td>
                                                 <td>

@@ -17,6 +17,7 @@ class PerawatanPanel extends Model
         'perawatan',
         'foto',
         'catatan',
+        'status',
         'user_id'
     ];
 
