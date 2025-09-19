@@ -30,6 +30,16 @@
                     'btn_icon' => 'gear',
                 ],
                 [
+                    'title' => 'perawatan',
+                    'icon' => 'tools',
+                    'desc' => 'Menu perawatan dan perbaikan rutin.',
+                    'route' => route('dashboard.staff.pengecekan'),
+                    'btn_text' => 'Buka Menu',
+                    'btn_color' => 'success',   // hijau bootstrap
+                    'icon_color' => 'text-success',
+                    'btn_icon' => 'gear',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',

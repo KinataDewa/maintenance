@@ -52,6 +52,7 @@ use App\Http\Controllers\PerawatanPanelController;
 
     // Dashboard Staff
     Route::get('/dashboard-staff/form-harian', [DashboardStaffController::class, 'formHarian'])->name('dashboard.staff.formharian');
+    Route::get('/dashboard-staff/pengecekan', [DashboardStaffController::class, 'pengecekan'])->name('dashboard.staff.pengecekan');
     Route::get('/dashboard-staff/perawatan', [DashboardStaffController::class, 'perawatan'])->name('dashboard.staff.perawatan');
     Route::get('/checklist', [ChecklistController::class, 'index'])->name('checklist.index');
     Route::post('/checklist/store', [ChecklistController::class, 'store'])->name('checklist.store');
@@ -106,8 +107,6 @@ Route::middleware('auth')->group(function () {
     Route::get('logs/export', [PompaLogController::class, 'exportExcel'])->name('logs.export');
 });
 
-    Route::get('/suhu-ruangan', [SuhuRuanganController::class, 'index'])->name('suhu.index');
-    Route::resource('rooms', RoomController::class);
 
     // Route untuk log suhu ruangan
     Route::get('/room-temperature', [\App\Http\Controllers\RoomTemperatureLogController::class, 'create'])->name('temperature.create');
@@ -185,8 +184,10 @@ Route::prefix('mesin-stp')->name('mesin-stp.')->middleware('auth')->group(functi
 });
 
 
-Route::get('/perawatan-panels/create', [PerawatanPanelController::class, 'create'])->name('perawatan-panels.create');
-Route::post('/perawatan-panels/store', [PerawatanPanelController::class, 'store'])->name('perawatan-panels.store');
-Route::get('/perawatan-panels/riwayat', [PerawatanPanelController::class, 'index'])->name('perawatan-panels.index');
+Route::prefix('perawatan-panels')->name('perawatan-panels.')->group(function () {
+    Route::get('/create', [PerawatanPanelController::class, 'create'])->name('create');
+    Route::post('/store', [PerawatanPanelController::class, 'store'])->name('store');
+    Route::get('/riwayat', [PerawatanPanelController::class, 'riwayat'])->name('riwayat');
+});
 
 require __DIR__.'/auth.php';

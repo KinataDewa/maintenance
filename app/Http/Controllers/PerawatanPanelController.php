@@ -60,7 +60,7 @@ class PerawatanPanelController extends Controller
         return redirect()->back()->with('success', 'Data perawatan panel berhasil disimpan.');
     }
 
-    public function index(Request $request)
+    public function riwayat(Request $request)
     {
         // Ambil semua data perawatan dengan relasi panel dan user
         $riwayat = \App\Models\PerawatanPanel::with(['panel', 'user'])
