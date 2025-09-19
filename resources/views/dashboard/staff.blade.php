@@ -15,27 +15,27 @@
                     'desc' => 'Akses semua form input harian di sini.',
                     'route' => route('dashboard.staff.formharian'),
                     'btn_text' => 'Buka Menu',
-                    'btn_color' => 'primary', // biru
+                    'btn_color' => 'primary',
                     'icon_color' => 'text-primary',
                     'btn_icon' => 'arrow-right-circle',
                 ],
                 [
                     'title' => 'Pengecekan',
                     'icon' => 'tools',
-                    'desc' => 'Menu perawatan dan perbaikan rutin.',
-                    'route' => route('dashboard.staff.perawatan'),
+                    'desc' => 'Menu pengecekan rutin dan inspeksi.',
+                    'route' => route('dashboard.staff.pengecekan'),
                     'btn_text' => 'Buka Menu',
-                    'btn_color' => 'success',   // hijau bootstrap
-                    'icon_color' => 'text-success',
+                    'btn_color' => 'warning', // kuning
+                    'icon_color' => 'text-warning',
                     'btn_icon' => 'gear',
                 ],
                 [
-                    'title' => 'perawatan',
-                    'icon' => 'tools',
+                    'title' => 'Perawatan',
+                    'icon' => 'wrench',
                     'desc' => 'Menu perawatan dan perbaikan rutin.',
-                    'route' => route('dashboard.staff.pengecekan'),
+                    'route' => route('dashboard.staff.perawatan'),
                     'btn_text' => 'Buka Menu',
-                    'btn_color' => 'success',   // hijau bootstrap
+                    'btn_color' => 'success', // hijau
                     'icon_color' => 'text-success',
                     'btn_icon' => 'gear',
                 ],
@@ -45,7 +45,7 @@
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',
                     'route' => route('riwayat.index'),
                     'btn_text' => 'Lihat Riwayat',
-                    'btn_color' => 'secondary', // abu-abu
+                    'btn_color' => 'secondary',
                     'btn_outline' => true,
                     'icon_color' => 'text-secondary',
                     'btn_icon' => 'journal-text',

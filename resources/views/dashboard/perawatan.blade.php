@@ -10,35 +10,15 @@
         @php
         $cards = [
                 [
-                    'title' => 'Exhaust Fan',
-                    'icon' => 'fan',
-                    'desc' => 'Input laporan perawatan exhaust fan.',
-                    'route' => route('exhaustfanlogs.create'),
-                    'btn_text' => 'Input Exhaust Fan',
-                    'btn_color' => '#6610f2',
-                    'icon_color' => 'text-purple',
-                    'btn_icon' => 'fan',
-                ],
-                [
-                    'title' => 'Perawatan Pompa',
-                    'icon' => 'tools', // ganti jika ada icon pompa lain
-                    'desc' => 'Input laporan perawatan pompa harian.',
-                    'route' => route('pompa.maintenance.create'),
-                    'btn_text' => 'Input Perawatan Pompa',
-                    'btn_color' => '#0d6efd', // biru
-                    'icon_color' => 'text-primary', // biru
-                    'btn_icon' => 'droplet', // icon pompa/droplet
-                ],
-                [
-                    'title' => 'STP',
-                    'icon' => 'water', // icon yang relevan untuk STP
-                    'desc' => 'Input laporan pengecekan STP harian.',
-                    'route' => route('stp.index'), // route index STP
-                    'btn_text' => 'Input Pengecekan STP',
-                    'btn_color' => '#20c997', // hijau toska
-                    'icon_color' => 'text-info',
-                    'btn_icon' => 'water',
-                ],
+                    'title' => 'Perawatan Panel',
+                    'icon' => 'hdd-network',
+                    'desc' => 'Input laporan perawatan panel',
+                    'route' => route('perawatan-panels.create'),
+                    'btn_text' => 'Input Pengecekan Panel',
+                    'btn_color' => '#fd7e14', 
+                    'icon_color' => 'text-warning',
+                    'btn_icon' => 'hdd',
+                ],    
             ];
         @endphp
 

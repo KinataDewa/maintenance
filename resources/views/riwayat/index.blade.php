@@ -71,7 +71,7 @@
                     'icon' => 'hdd-network',
                     'color' => 'warning',
                     'desc' => 'Lihat riwayat pengecekan panel listrik dan hasil inspeksi.',
-                    'route' => route('panel-inspections.riwayat'),
+                    'route' => route('pengecekan-panels.riwayat'),
                 ],
                 [
                     'title' => 'Riwayat Pompa STP',
