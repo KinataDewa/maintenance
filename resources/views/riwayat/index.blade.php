@@ -60,6 +60,13 @@
                     'route' => route('perawatan-panels.riwayat'),
                 ],
                 [
+                    'title' => 'Riwayat Pengecekan Panel',
+                    'icon' => 'hdd-network',
+                    'color' => 'warning',
+                    'desc' => 'Lihat riwayat pengecekan panel listrik dan hasil inspeksi.',
+                    'route' => route('pengecekan-panels.riwayat'),
+                ],
+                [
                     'title' => 'Riwayat Perawatan Pompa',
                     'icon' => 'tools', // icon mewakili pompa mekanik
                     'color' => 'primary', // biru
@@ -67,11 +74,11 @@
                     'route' => route('perawatan-pompa.riwayat'),
                 ],
                 [
-                    'title' => 'Riwayat Pengecekan Panel',
-                    'icon' => 'hdd-network',
-                    'color' => 'warning',
-                    'desc' => 'Lihat riwayat pengecekan panel listrik dan hasil inspeksi.',
-                    'route' => route('pengecekan-panels.riwayat'),
+                    'title' => 'Riwayat Pengecekan Pompa',
+                    'icon' => 'tools', // icon mewakili pompa mekanik
+                    'color' => 'primary', // biru
+                    'desc' => 'Lihat semua catatan perawatan pompa harian oleh staff.',
+                    'route' => route('pengecekan-pompas.riwayat'),
                 ],
                 [
                     'title' => 'Riwayat Pompa STP',

@@ -20,16 +20,6 @@
                 'btn_icon' => 'fan',
             ],
             [
-                'title' => 'Perawatan Pompa',
-                'icon' => 'droplet',
-                'desc' => 'Input laporan perawatan pompa harian.',
-                'route' => route('pompa.maintenance.create'),
-                'btn_text' => 'Input Perawatan Pompa',
-                'btn_color' => '#0d6efd', // biru
-                'icon_color' => 'text-primary',
-                'btn_icon' => 'droplet',
-            ],
-            [
                 'title' => 'STP',
                 'icon' => 'water',
                 'desc' => 'Input laporan pengecekan STP harian.',
@@ -40,7 +30,7 @@
                 'btn_icon' => 'water',
             ],
             [
-                'title' => 'Panel',
+                'title' => 'Pengecekan Panel',
                 'icon' => 'cpu', // icon panel listrik
                 'desc' => 'Input laporan pengecekan panel listrik harian.',
                 'route' => route('pengecekan-panels.create'),
@@ -49,6 +39,16 @@
                 'icon_color' => 'text-warning',
                 'btn_icon' => 'cpu',
             ],
+            [
+                'title' => 'Pengecekan Pompa',
+                'icon' => 'water',
+                'desc' => 'Input laporan pengecekan pompa',
+                'route' => route('pengecekan-pompas.create'),
+                'btn_text' => 'Input Pengecekan Pompa',
+                'btn_color' => '#0d6efd', 
+                'icon_color' => 'text-primary',
+                'btn_icon' => 'droplet',
+                ],     
         ];
         @endphp
 

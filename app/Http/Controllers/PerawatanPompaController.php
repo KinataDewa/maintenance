@@ -76,22 +76,22 @@ class PerawatanPompaController extends Controller
         $riwayat = PerawatanPompa::with(['pompaUnit', 'user'])->latest()->paginate(10);
         return view('perawatan_pompa.riwayat', compact('riwayat'));
     }
+
     public function riwayat(Request $request)
-{
-    $query = PerawatanPompa::with(['pompaUnit', 'user'])->latest();
+    {
+        $query = PerawatanPompa::with(['pompaUnit', 'user'])->latest();
 
-    if ($request->pompa_unit_id) {
-        $query->where('pompa_unit_id', $request->pompa_unit_id);
+        if ($request->pompa_unit_id) {
+            $query->where('pompa_unit_id', $request->pompa_unit_id);
+        }
+
+        if ($request->tanggal) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        $riwayat = $query->paginate(10);
+        $pompaUnits = PompaUnit::all();
+
+        return view('perawatan_pompa.riwayat', compact('riwayat', 'pompaUnits'));
     }
-
-    if ($request->tanggal) {
-        $query->whereDate('created_at', $request->tanggal);
-    }
-
-    $riwayat = $query->paginate(10);
-    $pompaUnits = PompaUnit::all();
-
-    return view('perawatan_pompa.riwayat', compact('riwayat', 'pompaUnits'));
-}
-
 }
