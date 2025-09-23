@@ -50,7 +50,7 @@
                     'icon' => 'fan',
                     'color' => 'info',
                     'desc' => 'Lihat semua riwayat perawatan exhaust fan oleh staff.',
-                    'route' => route('exhaustfanlogs.riwayat'),
+                    'route' => route('perawatan-exhaust-fans.riwayat'),
                 ],
                 [
                     'title' => 'Riwayat Perawatan Panel',

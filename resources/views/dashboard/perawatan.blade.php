@@ -28,6 +28,16 @@
                     'btn_color' => '#0d6efd', 
                     'icon_color' => 'text-primary',
                     'btn_icon' => 'droplet',
+                ],
+                [
+                    'title' => 'Perawatan Exhaust Fan',
+                    'icon' => 'fan',
+                    'desc' => 'Input laporan perawatan exhaust fan',
+                    'route' => route('perawatan-exhaust-fans.create'),
+                    'btn_text' => 'Input Pengecekan Exhaust Fan',
+                    'btn_color' => '#198754', // hijau
+                    'icon_color' => 'text-success',
+                    'btn_icon' => 'wind',
                 ],    
             ];
         @endphp

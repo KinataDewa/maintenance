@@ -28,6 +28,8 @@ use App\Http\Controllers\PengecekanPanelController;
 use App\Http\Controllers\PerawatanPanelController;
 use App\Http\Controllers\PerawatanPompaController;
 use App\Http\Controllers\PengecekanPompaController;
+use App\Http\Controllers\PerawatanExhaustFanController;
+
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -208,5 +210,11 @@ Route::prefix('pengecekan-pompas')->name('pengecekan-pompas.')->group(function (
     Route::get('/riwayat', [PengecekanPompaController::class, 'index'])->name('riwayat');
 });
 
+// Pengecekan dan Perawatan Exhaust Fan
+Route::prefix('perawatan-exhaust-fans')->group(function () {
+    Route::get('/create', [PerawatanExhaustFanController::class, 'create'])->name('perawatan-exhaust-fans.create');
+    Route::post('/store', [PerawatanExhaustFanController::class, 'store'])->name('perawatan-exhaust-fans.store');
+    Route::get('/riwayat', [PerawatanExhaustFanController::class, 'riwayat'])->name('perawatan-exhaust-fans.riwayat');
+});
 
 require __DIR__.'/auth.php';
