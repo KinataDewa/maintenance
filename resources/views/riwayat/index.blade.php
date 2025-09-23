@@ -64,7 +64,7 @@
                     'icon' => 'tools', // icon mewakili pompa mekanik
                     'color' => 'primary', // biru
                     'desc' => 'Lihat semua catatan perawatan pompa harian oleh staff.',
-                    'route' => route('perawatan-panels.riwayat'),
+                    'route' => route('perawatan-pompa.riwayat'),
                 ],
                 [
                     'title' => 'Riwayat Pengecekan Panel',

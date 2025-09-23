@@ -19,6 +19,16 @@
                     'icon_color' => 'text-warning',
                     'btn_icon' => 'hdd',
                 ],    
+                [
+                    'title' => 'Perawatan Pompa',
+                    'icon' => 'water',
+                    'desc' => 'Input laporan perawatan pompa',
+                    'route' => route('perawatan-pompa.create'),
+                    'btn_text' => 'Input Pengecekan Pompa',
+                    'btn_color' => '#0d6efd', 
+                    'icon_color' => 'text-primary',
+                    'btn_icon' => 'droplet',
+                ],    
             ];
         @endphp
 

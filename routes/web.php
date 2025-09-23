@@ -26,6 +26,7 @@ use App\Http\Controllers\PanelInspectionController;
 use App\Http\Controllers\PompaStpController;
 use App\Http\Controllers\PengecekanPanelController;
 use App\Http\Controllers\PerawatanPanelController;
+use App\Http\Controllers\PerawatanPompaController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -196,6 +197,13 @@ Route::prefix('perawatan-panels')->name('perawatan-panels.')->group(function () 
     Route::get('/create', [PerawatanPanelController::class, 'create'])->name('create');
     Route::post('/store', [PerawatanPanelController::class, 'store'])->name('store');
     Route::get('/riwayat', [PerawatanPanelController::class, 'riwayat'])->name('riwayat');
+});
+
+//perawatan dan pengecekan pompa
+Route::prefix('perawatan-pompa')->name('perawatan-pompa.')->group(function () {
+    Route::get('/create', [PerawatanPompaController::class, 'create'])->name('create');
+    Route::post('/store', [PerawatanPompaController::class, 'store'])->name('store');
+    Route::get('/riwayat', [PerawatanPompaController::class, 'index'])->name('riwayat');
 });
 
 require __DIR__.'/auth.php';
