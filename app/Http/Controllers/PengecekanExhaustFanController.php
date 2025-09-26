@@ -34,6 +34,8 @@ class PengecekanExhaustFanController extends Controller
     {
         $request->validate([
             'exhaust_fan_id' => 'required|exists:exhaust_fans,id',
+            'daya_hisap' => 'nullable|numeric',
+            'suhu' => 'nullable|numeric',
             'foto.*' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
             'catatan' => 'nullable|string',
         ]);
@@ -48,6 +50,8 @@ class PengecekanExhaustFanController extends Controller
         PengecekanExhaustFan::create([
             'exhaust_fan_id' => $request->exhaust_fan_id,
             'user_id' => Auth::id(),
+            'daya_hisap' => $request->daya_hisap,
+            'suhu' => $request->suhu,
             'pengecekan' => $request->input('pengecekan', []),
             'foto' => $fotoPaths,
             'catatan' => $request->catatan,

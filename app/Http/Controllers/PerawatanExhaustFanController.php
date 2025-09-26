@@ -51,6 +51,8 @@ class PerawatanExhaustFanController extends Controller
         $request->validate([
             'exhaust_fan_id' => 'required|exists:exhaust_fans,id',
             'status' => 'required|in:Before,After',
+            'daya_hisap' => 'nullable|numeric',
+            'suhu' => 'nullable|numeric',
             'foto.*' => 'nullable|image|mimes:jpg,jpeg,png|max:4096',
             'catatan' => 'nullable|string',
             // pengecekan & perawatan optional (no strict validation here)
@@ -67,6 +69,8 @@ class PerawatanExhaustFanController extends Controller
             'exhaust_fan_id' => $request->exhaust_fan_id,
             'user_id' => Auth::id(),
             'status' => $request->status,
+            'daya_hisap' => $request->daya_hisap,
+            'suhu' => $request->suhu,
             'pengecekan' => $request->input('pengecekan', []),
             'perawatan' => $request->input('perawatan', []),
             'foto' => $fotoPaths,

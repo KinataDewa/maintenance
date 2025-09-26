@@ -6,117 +6,153 @@
 <div class="container py-4">
     <h1 class="page-title mb-4">Riwayat Perawatan Exhaust Fan</h1>
 
-    {{-- Filter --}}
-    <form method="GET" action="{{ route('perawatan-exhaust-fans.riwayat') }}" class="row g-2 mb-4">
-        <div class="col-md-4">
-            <select name="exhaust_fan_id" class="form-select">
-                <option value="">Semua Exhaust Fan</option>
-                @foreach($exhaustFans as $fan)
-                    <option value="{{ $fan->id }}" {{ request('exhaust_fan_id') == $fan->id ? 'selected' : '' }}>
-                        {{ $fan->nama_fan ?? $fan->nama }} - {{ $fan->lokasi ?? '-' }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-        <div class="col-md-3">
-            <select name="status" class="form-select">
-                <option value="">Semua Status</option>
-                <option value="Before" {{ request('status') == 'Before' ? 'selected' : '' }}>Before</option>
-                <option value="After" {{ request('status') == 'After' ? 'selected' : '' }}>After</option>
-            </select>
-        </div>
-        <div class="col-md-3">
-            <input type="date" name="tanggal" class="form-control" value="{{ request('tanggal') }}">
-        </div>
-        <div class="col-md-2 d-flex">
-            <button class="btn btn-warning me-2">Filter</button>
-            <a href="{{ route('perawatan-exhaust-fans.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
-        </div>
-    </form>
-
     @if($riwayat->isEmpty())
-        <div class="alert alert-info">Belum ada data perawatan.</div>
+        <div class="alert alert-info">Belum ada data perawatan exhaust fan.</div>
     @else
         @php
+            // Grouping data berdasarkan tanggal
             $grouped = $riwayat->groupBy(function($item) {
-                return $item->created_at->format('Y-m-d');
+                return \Carbon\Carbon::parse($item->created_at)->format('Y-m-d');
             });
         @endphp
 
-        <div class="accordion" id="accordionRiwayat">
-            @foreach($grouped as $tanggal => $logs)
-                @php $id = 'collapse-'.\Str::slug($tanggal); @endphp
-                <div class="accordion-item mb-2">
+        <div class="accordion" id="riwayatAccordion">
+            @foreach ($grouped as $tanggal => $logs)
+                @php $accordionId = 'collapse-' . \Str::slug($tanggal); @endphp
+                <div class="accordion-item mb-2 shadow-sm">
                     <h2 class="accordion-header" id="heading-{{ $loop->index }}">
-                        <button class="accordion-button collapsed bg-dark text-white" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#{{ $id }}" aria-expanded="false">
+                        <button class="accordion-button collapsed bg-dark text-white fw-bold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false"
+                            aria-controls="{{ $accordionId }}">
                             {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }}
                         </button>
                     </h2>
-                    <div id="{{ $id }}" class="accordion-collapse collapse" data-bs-parent="#accordionRiwayat">
+                    <div id="{{ $accordionId }}" class="accordion-collapse collapse"
+                         aria-labelledby="heading-{{ $loop->index }}" data-bs-parent="#riwayatAccordion">
                         <div class="accordion-body p-0">
                             <div class="table-responsive">
-                                <table class="table table-sm mb-0">
-                                    <thead class="table-dark">
+                                <table class="table table-bordered table-striped table-sm mb-0 text-dark">
+                                    <thead class="bg-dark text-white">
                                         <tr>
-                                            <th>No</th>
+                                            <th style="width: 50px;">No</th>
                                             <th>Exhaust Fan</th>
+                                            <th>Daya Hisap (CFM)</th>
+                                            <th>Suhu (°C)</th>
                                             <th>Status</th>
-                                            <th>Pengecekan</th>
-                                            <th>Perawatan</th>
-                                            <th>Foto</th>
                                             <th>Petugas</th>
-                                            <th>Waktu</th>
+                                            <th>Foto</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach($logs as $i => $data)
-                                        <tr>
-                                            <td>{{ $i + 1 }}</td>
-                                            <td>
-                                                <strong>{{ $data->exhaustFan->nama_fan ?? $data->exhaustFan->nama }}</strong><br>
-                                                <small class="text-muted">{{ $data->exhaustFan->lokasi ?? '-' }}</small>
-                                            </td>
-                                            <td>
-                                                <span class="badge bg-{{ $data->status == 'Before' ? 'secondary' : 'success' }}">
-                                                    {{ $data->status }}
-                                                </span>
-                                            </td>
-                                            <td>
-                                                @if(!empty($data->pengecekan) && is_array($data->pengecekan))
-                                                    @foreach($data->pengecekan as $k => $checks)
-                                                        <strong>{{ $k }}:</strong> {{ is_array($checks) ? implode(', ', $checks) : $checks }} <br>
-                                                    @endforeach
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(!empty($data->perawatan) && is_array($data->perawatan))
-                                                    @foreach($data->perawatan as $k => $checks)
-                                                        <strong>{{ $k }}:</strong> {{ is_array($checks) ? implode(', ', $checks) : $checks }} <br>
-                                                    @endforeach
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(!empty($data->foto) && is_array($data->foto))
-                                                    <div class="d-flex flex-wrap gap-2">
-                                                        @foreach($data->foto as $f)
-                                                            <a href="{{ asset('storage/'.$f) }}" target="_blank">
-                                                                <img src="{{ asset('storage/'.$f) }}" style="width:60px;height:60px;object-fit:cover" class="rounded">
-                                                            </a>
-                                                        @endforeach
+                                        @foreach ($logs as $i => $data)
+                                            <tr>
+                                                <td>{{ $i + 1 }}</td>
+                                                <td>
+                                                    <strong>{{ $data->exhaustFan->nama_fan ?? $data->exhaustFan->nama }}</strong><br>
+                                                    <small class="text-muted">{{ $data->exhaustFan->lokasi ?? '-' }}</small>
+                                                </td>
+                                                <td>{{ $data->daya_hisap ?? '-' }}</td>
+                                                <td>{{ $data->suhu ?? '-' }}</td>
+                                                <td>
+                                                    <span class="badge bg-{{ $data->status == 'Before' ? 'secondary' : 'success' }}">
+                                                        {{ $data->status }}
+                                                    </span>
+                                                </td>
+                                                <td>{{ $data->user->name ?? '-' }}</td>
+                                                <td>
+                                                    @if($data->foto && is_array($data->foto))
+                                                        <div class="d-flex flex-wrap gap-2">
+                                                            @foreach($data->foto as $foto)
+                                                                <a href="{{ asset('storage/' . $foto) }}" target="_blank">
+                                                                    <img src="{{ asset('storage/' . $foto) }}" class="img-thumbnail" style="width: 60px; height: 60px; object-fit: cover;">
+                                                                </a>
+                                                            @endforeach
+                                                        </div>
+                                                    @else
+                                                        <span class="text-muted">Tidak ada foto</span>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    <button class="btn btn-sm btn-outline-primary" data-bs-toggle="modal"
+                                                        data-bs-target="#detailModal{{ $data->id }}">
+                                                        <i class="bi bi-eye"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+
+                                            <!-- Modal Detail -->
+                                            <div class="modal fade" id="detailModal{{ $data->id }}" tabindex="-1" aria-hidden="true">
+                                                <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bg-dark text-white">
+                                                            <h5 class="modal-title">Detail Perawatan - {{ $data->exhaustFan->nama_fan ?? $data->exhaustFan->nama }}</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            <p><strong>Petugas:</strong> {{ $data->user->name ?? '-' }}</p>
+                                                            <p><strong>Tanggal:</strong> {{ $data->created_at->format('d M Y H:i') }}</p>
+                                                            <p><strong>Status:</strong> 
+                                                                <span class="badge bg-{{ $data->status == 'Before' ? 'secondary' : 'success' }}">
+                                                                    {{ $data->status }}
+                                                                </span>
+                                                            </p>
+                                                            <hr>
+
+                                                            <h6 class="fw-bold">Daya Hisap</h6>
+                                                            <p>{{ $data->daya_hisap ?? '-' }} CFM</p>
+
+                                                            <h6 class="fw-bold">Suhu</h6>
+                                                            <p>{{ $data->suhu ?? '-' }} °C</p>
+
+                                                            <hr>
+                                                            <h6 class="fw-bold">Pengecekan</h6>
+                                                            @if(!empty($data->pengecekan) && is_array($data->pengecekan))
+                                                                <ul class="list-group mb-3">
+                                                                    @foreach($data->pengecekan as $k => $checks)
+                                                                        <li class="list-group-item">
+                                                                            <strong>{{ ucfirst($k) }}:</strong> 
+                                                                            {{ is_array($checks) ? implode(', ', $checks) : $checks }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @else
+                                                                <p class="text-muted">Tidak ada data pengecekan</p>
+                                                            @endif
+
+                                                            <h6 class="fw-bold">Perawatan</h6>
+                                                            @if(!empty($data->perawatan) && is_array($data->perawatan))
+                                                                <ul class="list-group">
+                                                                    @foreach($data->perawatan as $k => $checks)
+                                                                        <li class="list-group-item">
+                                                                            <strong>{{ ucfirst($k) }}:</strong> 
+                                                                            {{ is_array($checks) ? implode(', ', $checks) : $checks }}
+                                                                        </li>
+                                                                    @endforeach
+                                                                </ul>
+                                                            @else
+                                                                <p class="text-muted">Tidak ada data perawatan</p>
+                                                            @endif
+
+                                                            <hr>
+                                                            <h6 class="fw-bold">Foto</h6>
+                                                            @if($data->foto && is_array($data->foto))
+                                                                <div class="d-flex flex-wrap gap-2">
+                                                                    @foreach($data->foto as $foto)
+                                                                        <a href="{{ asset('storage/' . $foto) }}" target="_blank">
+                                                                            <img src="{{ asset('storage/' . $foto) }}" class="img-thumbnail" style="width: 80px; height: 80px; object-fit: cover;">
+                                                                        </a>
+                                                                    @endforeach
+                                                                </div>
+                                                            @else
+                                                                <p class="text-muted">Tidak ada foto</p>
+                                                            @endif
+                                                        </div>
                                                     </div>
-                                                @else
-                                                    -
-                                                @endif
-                                            </td>
-                                            <td>{{ $data->user->name ?? '-' }}</td>
-                                            <td>{{ $data->created_at->format('d/m/Y H:i') }}</td>
-                                        </tr>
-                                    @endforeach
+                                                </div>
+                                            </div>
+                                            <!-- End Modal Detail -->
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -124,10 +160,6 @@
                     </div>
                 </div>
             @endforeach
-        </div>
-
-        <div class="mt-3">
-            {{ $riwayat->links() }}
         </div>
     @endif
 </div>

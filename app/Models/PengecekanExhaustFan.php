@@ -12,6 +12,8 @@ class PengecekanExhaustFan extends Model
     protected $fillable = [
         'exhaust_fan_id',
         'user_id',
+        'daya_hisap',
+        'suhu',
         'pengecekan',
         'foto',
         'catatan',

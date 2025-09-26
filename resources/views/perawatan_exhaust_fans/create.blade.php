@@ -19,10 +19,24 @@
                 <option value="">-- Pilih Exhaust Fan --</option>
                 @foreach($exhaustFans as $fan)
                     <option value="{{ $fan->id }}" {{ old('exhaust_fan_id') == $fan->id ? 'selected' : '' }}>
-                        {{ $fan->nama_fan ?? $fan->nama }} - {{ $fan->lokasi ?? '-' }}
+                        {{ $fan->nama_fan ?? $fan->nama }}
                     </option>
                 @endforeach
             </select>
+        </div>
+
+        <div class="row">
+            <!-- Daya Hisap -->
+            <div class="col-md-6 mb-3">
+                <label for="daya_hisap" class="form-label fw-semibold">Daya Hisap (CFM)</label>
+                <input type="number" step="0.01" name="daya_hisap" id="daya_hisap" class="form-control" placeholder="Contoh: 150.50">
+            </div>
+
+            <!-- Suhu -->
+            <div class="col-md-6 mb-3">
+                <label for="suhu" class="form-label fw-semibold">Suhu (°C)</label>
+                <input type="number" step="0.01" name="suhu" id="suhu" class="form-control" placeholder="Contoh: 28.5">
+            </div>
         </div>
 
         <div class="mb-3">

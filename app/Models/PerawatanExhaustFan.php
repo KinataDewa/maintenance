@@ -13,6 +13,8 @@ class PerawatanExhaustFan extends Model
         'exhaust_fan_id',
         'user_id',
         'status',
+        'daya_hisap',
+        'suhu',
         'pengecekan',
         'perawatan',
         'foto',
