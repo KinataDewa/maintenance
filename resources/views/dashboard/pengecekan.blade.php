@@ -10,16 +10,6 @@
         @php
         $cards = [
             [
-                'title' => 'Exhaust Fan',
-                'icon' => 'fan',
-                'desc' => 'Input laporan perawatan exhaust fan.',
-                'route' => route('exhaustfanlogs.create'),
-                'btn_text' => 'Input Exhaust Fan',
-                'btn_color' => '#6610f2', // ungu
-                'icon_color' => 'text-purple',
-                'btn_icon' => 'fan',
-            ],
-            [
                 'title' => 'STP',
                 'icon' => 'water',
                 'desc' => 'Input laporan pengecekan STP harian.',
@@ -48,7 +38,17 @@
                 'btn_color' => '#0d6efd', 
                 'icon_color' => 'text-primary',
                 'btn_icon' => 'droplet',
-                ],     
+            ],   
+            [
+                'title' => 'Pengecekan Exhaust Fan',
+                'icon' => 'fan',
+                'desc' => 'Input laporan pengecekan exhaust fan',
+                'route' => route('pengecekan-exhaust-fans.create'),
+                'btn_text' => 'Input Pengecekan Exhaust Fan',
+                'btn_color' => '#198754', // hijau
+                'icon_color' => 'text-success',
+                'btn_icon' => 'wind',
+            ],      
         ];
         @endphp
 

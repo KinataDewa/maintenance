@@ -17,18 +17,16 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\RoomTemperatureLogController;
 use App\Http\Controllers\TenantController;
 use App\Http\Controllers\ExhaustFanController;
-use App\Http\Controllers\ExhaustFanLogController;
-use App\Http\Controllers\PanelCleaningController;
 use App\Http\Controllers\StpController;
 use App\Http\Controllers\PemakaianAirController;
 use App\Http\Controllers\PompaMaintenanceController;
-use App\Http\Controllers\PanelInspectionController;
 use App\Http\Controllers\PompaStpController;
 use App\Http\Controllers\PengecekanPanelController;
 use App\Http\Controllers\PerawatanPanelController;
 use App\Http\Controllers\PerawatanPompaController;
 use App\Http\Controllers\PengecekanPompaController;
 use App\Http\Controllers\PerawatanExhaustFanController;
+use App\Http\Controllers\PengecekanExhaustFanController;
 
 
     // Halaman landing bebas login (opsional)
@@ -215,6 +213,12 @@ Route::prefix('perawatan-exhaust-fans')->group(function () {
     Route::get('/create', [PerawatanExhaustFanController::class, 'create'])->name('perawatan-exhaust-fans.create');
     Route::post('/store', [PerawatanExhaustFanController::class, 'store'])->name('perawatan-exhaust-fans.store');
     Route::get('/riwayat', [PerawatanExhaustFanController::class, 'riwayat'])->name('perawatan-exhaust-fans.riwayat');
+});
+
+Route::prefix('pengecekan-exhaust-fans')->group(function () {
+    Route::get('/create', [PengecekanExhaustFanController::class, 'create'])->name('pengecekan-exhaust-fans.create');
+    Route::post('/store', [PengecekanExhaustFanController::class, 'store'])->name('pengecekan-exhaust-fans.store');
+    Route::get('/riwayat', [PengecekanExhaustFanController::class, 'riwayat'])->name('pengecekan-exhaust-fans.riwayat');
 });
 
 require __DIR__.'/auth.php';

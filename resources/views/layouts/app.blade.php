@@ -92,14 +92,16 @@ body {
 /* Content */
 .content { margin-left:0; padding:0.5rem; transition: margin-left 0.4s ease; }
 .page-title {
-    font-weight:700;
-    font-size:1.75rem;
-    color:#343a40;
-    margin-bottom:1.5rem;
-    border-left:5px solid #FFBD38;
-    padding-left:1rem;
-    text-shadow:0 2px 4px rgba(0,0,0,0.05);
+    font-weight: 300;
+    font-size: 25px; /* sebelumnya pakai rem */
+    color: #343a40;
+    margin-bottom: 12px; /* sebelumnya 1.5rem */
+    border-left: 4px solid #FFBD38; /* sebelumnya 5px */
+    padding-left: 8px; /* sebelumnya 1rem */
+    text-shadow: 0 1px 2px rgba(0,0,0,0.05); /* sebelumnya 0 2px 4px */
 }
+
+
 
 /* Navbar Mobile */
 .navbar-mobile { display:none; }

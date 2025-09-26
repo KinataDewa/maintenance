@@ -5,23 +5,26 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ExhaustFanLog extends Model
+class PengecekanExhaustFan extends Model
 {
     use HasFactory;
 
     protected $fillable = [
         'exhaust_fan_id',
-        'perawatan',
-        'foto_pembersihan',
-        'keterangan',
-        'tanggal',
-        'jam',
         'user_id',
+        'pengecekan',
+        'foto',
+        'catatan',
+    ];
+
+    protected $casts = [
+        'pengecekan' => 'array',
+        'foto' => 'array',
     ];
 
     public function exhaustFan()
     {
-        return $this->belongsTo(ExhaustFan::class);
+        return $this->belongsTo(ExhaustFan::class, 'exhaust_fan_id');
     }
 
     public function user()
