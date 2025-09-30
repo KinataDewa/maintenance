@@ -27,6 +27,7 @@ use App\Http\Controllers\PerawatanPompaController;
 use App\Http\Controllers\PengecekanPompaController;
 use App\Http\Controllers\PerawatanExhaustFanController;
 use App\Http\Controllers\PengecekanExhaustFanController;
+use App\Http\Controllers\ZatStpController;
 
 
     // Halaman landing bebas login (opsional)
@@ -154,6 +155,15 @@ Route::middleware('auth')->group(function () {
         // Monitoring
         Route::get('/monitoring', [StpController::class, 'monitoring'])->name('monitoring');
     });
+
+    // Form input
+    Route::get('/zat-stp/create', [ZatStpController::class, 'create'])->name('zat-stp.create');
+
+    // Simpan data
+    Route::post('/zat-stp/store', [ZatStpController::class, 'store'])->name('zat-stp.store');
+
+    // Riwayat
+    Route::get('/zat-stp/riwayat', [ZatStpController::class, 'riwayat'])->name('zat-stp.riwayat');
 
     Route::prefix('pemakaian-air')->name('pemakaian-air.')->middleware('auth')->group(function () {
     Route::get('/create', [PemakaianAirController::class, 'create'])->name('create');

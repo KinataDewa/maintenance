@@ -8,19 +8,6 @@
 
     <div class="row g-3">
 
-        <!-- Perawatan STP -->
-        <div class="col-12 col-md-3">
-            <a href="{{ route('stp.perawatan') }}" class="text-decoration-none">
-                <div class="card menu-card h-100">
-                    <div class="card-body text-center">
-                        <i class="bi bi-tools icon-success"></i>
-                        <h6 class="fw-bold mt-2 mb-1">Perawatan STP</h6>
-                        <p class="text-muted small">Laporan pembersihan & perawatan.</p>
-                    </div>
-                </div>
-            </a>
-        </div>
-
         <!-- Input Pompa STP -->
         <div class="col-12 col-md-3">
             <a href="{{ route('pompa-stp.create') }}" class="text-decoration-none">
@@ -46,6 +33,20 @@
                 </div>
             </a>
         </div>
+
+        <!-- Input Zat STP -->
+        <div class="col-12 col-md-3">
+            <a href="{{ route('zat-stp.create') }}" class="text-decoration-none">
+                <div class="card menu-card h-100">
+                    <div class="card-body text-center">
+                        <i class="bi bi-droplet-half icon-primary"></i>
+                        <h6 class="fw-bold mt-2 mb-1">Input Zat STP</h6>
+                        <p class="text-muted small">Isi data pengecekan zat cair STP harian.</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
     </div>
 </div>
 
@@ -71,6 +72,6 @@
 .icon-primary { color: #0dcaf0; }
 .icon-warning { color: #ffc107; }
 .icon-success { color: #198754; }
-.icon-info { color: #0d6efd; } /* Warna biru untuk Pompa STP */
+.icon-info { color: #0d6efd; }
 </style>
 @endsection
