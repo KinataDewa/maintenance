@@ -39,16 +39,16 @@
                     'btn_icon' => 'list-ul',
                     'count' => 6,
                 ],
-                [
-                    'title' => 'Daftar Ruangan',
-                    'icon' => 'door-closed',
-                    'desc' => 'Pantau daftar ruangan, suhu & kelembapan.',
-                    'route' => route('rooms.index'),
-                    'btn_text' => 'Daftar Ruangan',
-                    'btn_color' => 'warning',
-                    'btn_icon' => 'list-ul',
-                    'count' => 20,
-                ],
+                // [
+                //     'title' => 'Daftar Ruangan',
+                //     'icon' => 'door-closed',
+                //     'desc' => 'Pantau daftar ruangan, suhu & kelembapan.',
+                //     'route' => route('rooms.index'),
+                //     'btn_text' => 'Daftar Ruangan',
+                //     'btn_color' => 'warning',
+                //     'btn_icon' => 'list-ul',
+                //     'count' => 20,
+                // ],
                 [
                     'title' => 'Daftar Exhaust Fan',
                     'icon' => 'fan',
@@ -78,6 +78,16 @@
                     'btn_color' => 'info',
                     'btn_icon' => 'list-ul',
                     'count' => 9,
+                ],
+                [
+                    'title' => 'Daftar AC',
+                    'icon' => 'snow',
+                    'desc' => 'Kelola daftar AC (Indoor & Outdoor).',
+                    'route' => route('acs.index'),
+                    'btn_text' => 'Daftar AC',
+                    'btn_color' => 'primary',
+                    'btn_icon' => 'list-ul',
+                    'count' => 3, // bisa ganti nanti dengan count dynamic
                 ],
                 [
                     'title' => 'Riwayat Pekerjaan Staff',

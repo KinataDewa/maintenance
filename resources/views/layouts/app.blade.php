@@ -210,7 +210,7 @@ body {
                         ['title'=>'Daftar Perangkat','icon'=>'cpu','route'=>route('perangkat.index')],
                         ['title'=>'Daftar Tenant','icon'=>'building','route'=>route('tenants.index')],
                         ['title'=>'Daftar Pompa','icon'=>'water','route'=>route('pompa.index')],
-                        ['title'=>'Daftar Ruangan','icon'=>'door-closed','route'=>route('rooms.index')],
+                        // ['title'=>'Daftar Ruangan','icon'=>'door-closed','route'=>route('rooms.index')],
                         ['title'=>'Daftar Exhaust Fan','icon'=>'fan','route'=>route('exhaustfan.index')],
                         ['title'=>'Daftar Panel','icon'=>'diagram-3','route'=>route('panel.index')],                        
                     ];
