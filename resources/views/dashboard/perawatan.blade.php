@@ -35,9 +35,19 @@
                     'desc' => 'Input laporan perawatan exhaust fan',
                     'route' => route('perawatan-exhaust-fans.create'),
                     'btn_text' => 'Input Pengecekan Exhaust Fan',
-                    'btn_color' => '#198754', // hijau
+                    'btn_color' => '#198754', 
                     'icon_color' => 'text-success',
                     'btn_icon' => 'wind',
+                ],
+                [
+                    'title' => 'Perawatan AC',
+                    'icon' => 'snow',
+                    'desc' => 'Input laporan perawatan AC',
+                    'route' => route('perawatan-ac.create'),
+                    'btn_text' => 'Input Pengecekan AC',
+                    'btn_color' => '#6f42c1', 
+                    'icon_color' => 'text-info',
+                    'btn_icon' => 'snow2',
                 ],    
             ];
         @endphp

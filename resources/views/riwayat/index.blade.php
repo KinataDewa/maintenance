@@ -94,6 +94,14 @@
                     'desc' => 'Lihat riwayat pengecekan kondisi Mesin STP 1 dan STP 2.',
                     'route' => route('mesin-stp.riwayat'),
                 ],
+                [
+                    'title' => 'Riwayat Perawatan AC',
+                    'icon' => 'snow', // icon AC (pakai snowflake/snow)
+                    'color' => 'primary',
+                    'desc' => 'Lihat semua riwayat perawatan AC indoor & outdoor.',
+                    'route' => route('perawatan-ac.riwayat'),
+                ],
+
             ];
         @endphp
 

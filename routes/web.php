@@ -29,6 +29,7 @@ use App\Http\Controllers\PerawatanExhaustFanController;
 use App\Http\Controllers\PengecekanExhaustFanController;
 use App\Http\Controllers\ZatStpController;
 use App\Http\Controllers\AcController;
+use App\Http\Controllers\PerawatanAcController;
 
 
     // Halaman landing bebas login (opsional)
@@ -236,5 +237,9 @@ Route::prefix('pengecekan-exhaust-fans')->group(function () {
 
 Route::resource('acs', AcController::class);
 
+// Perawatan AC
+Route::get('/perawatan-ac/create', [PerawatanAcController::class, 'create'])->name('perawatan-ac.create');
+Route::post('/perawatan-ac/store', [PerawatanAcController::class, 'store'])->name('perawatan-ac.store');
+Route::get('/perawatan-ac/riwayat', [PerawatanAcController::class, 'riwayat'])->name('perawatan-ac.riwayat');
 
 require __DIR__.'/auth.php';
