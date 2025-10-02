@@ -95,6 +95,13 @@
                     'route' => route('mesin-stp.riwayat'),
                 ],
                 [
+                    'title' => 'Riwayat Zat STP',
+                    'icon' => 'cpu',
+                    'color' => 'info',
+                    'desc' => 'Lihat riwayat pengecekan kondisi Mesin STP 1 dan STP 2.',
+                    'route' => route('zat-stp.riwayat'),
+                ],
+                [
                     'title' => 'Riwayat Perawatan AC',
                     'icon' => 'snow', // icon AC (pakai snowflake/snow)
                     'color' => 'primary',

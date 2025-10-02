@@ -45,9 +45,9 @@
         <!-- Status -->
         <div class="mb-3">
             <label class="form-label fw-semibold">Status</label>
-            <select name="status" class="form-select" required>
+            <select name="status" id="status" class="form-select" required>
                 <option value="">-- Pilih Status --</option>
-                <option value="Before">Before</option>
+                <option value="Before" selected>Before</option>
                 <option value="After">After</option>
             </select>
         </div>
@@ -62,7 +62,15 @@
                 <label class="form-label">Pengecekan Indoor</label>
                 <div class="row">
                     @php
-                        $indoorChecks = ['Filter AC', 'Suhu Ruangan', 'Remote AC'];
+                        $indoorChecks = [
+                            'Filter Udara',
+                            'Suhu Ruangan',
+                            'Hembusan Blower',
+                            'Indikator Panel & Remote',
+                            'Saluran Pembuangan Air',
+                            'Kebocoran Air Indoor',
+                            'Kondisi Kabel Listrik'
+                        ];
                     @endphp
                     @foreach($indoorChecks as $item)
                         <div class="col-md-4">
@@ -75,11 +83,17 @@
                 </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 checklist-perawatan">
                 <label class="form-label">Perawatan Indoor</label>
                 <div class="row">
                     @php
-                        $indoorMaint = ['Cuci Filter', 'Pembersihan Evaporator'];
+                        $indoorMaint = [
+                            'Cuci Filter Udara',
+                            'Pembersihan Evaporator (Coil Dingin)',
+                            'Pembersihan Blower Fan',
+                            'Pembersihan Saluran Drain',
+                            'Pengencangan Kabel Listrik'
+                        ];
                     @endphp
                     @foreach($indoorMaint as $item)
                         <div class="col-md-6">
@@ -101,7 +115,14 @@
                 <label class="form-label">Pengecekan Outdoor</label>
                 <div class="row">
                     @php
-                        $outdoorChecks = ['Kondisi Kondensor', 'Tekanan Freon', 'Kebocoran Pipa'];
+                        $outdoorChecks = [
+                            'Suara & Getaran Kompresor',
+                            'Tekanan Freon',
+                            'Kondisi Sirip Kondensor',
+                            'Putaran Kipas Outdoor',
+                            'Isolasi Pipa',
+                            'Terminal Kabel & Kapasitor'
+                        ];
                     @endphp
                     @foreach($outdoorChecks as $item)
                         <div class="col-md-4">
@@ -114,11 +135,17 @@
                 </div>
             </div>
 
-            <div class="mb-3">
+            <div class="mb-3 checklist-perawatan">
                 <label class="form-label">Perawatan Outdoor</label>
                 <div class="row">
                     @php
-                        $outdoorMaint = ['Pembersihan Kondensor', 'Isi Freon'];
+                        $outdoorMaint = [
+                            'Pembersihan Kondensor (Coil Panas)',
+                            'Pembersihan Kipas Outdoor',
+                            'Pengisian / Penambahan Freon',
+                            'Penggantian Isolasi Pipa',
+                            'Pengencangan Terminal Kabel'
+                        ];
                     @endphp
                     @foreach($outdoorMaint as $item)
                         <div class="col-md-6">
@@ -131,6 +158,7 @@
                 </div>
             </div>
         </div>
+
 
         <hr class="my-4">
 
@@ -159,12 +187,32 @@
 
 {{-- Script Checklist Lokasi --}}
 <script>
-    document.getElementById('lokasi').addEventListener('change', function() {
+    function updateChecklistDisplay() {
+        let lokasi = document.getElementById('lokasi').value;
+        let status = document.getElementById('status').value;
+        
         let indoor = document.getElementById('checklist-indoor');
         let outdoor = document.getElementById('checklist-outdoor');
-        indoor.style.display = (this.value === 'Indoor') ? 'block' : 'none';
-        outdoor.style.display = (this.value === 'Outdoor') ? 'block' : 'none';
-    });
+        let perawatanSections = document.querySelectorAll('.checklist-perawatan');
+
+        // tampilkan checklist sesuai lokasi
+        indoor.style.display = (lokasi === 'Indoor') ? 'block' : 'none';
+        outdoor.style.display = (lokasi === 'Outdoor') ? 'block' : 'none';
+
+        // atur apakah perawatan ditampilkan
+        if (status === 'Before') {
+            perawatanSections.forEach(el => el.style.display = 'none');
+        } else {
+            perawatanSections.forEach(el => el.style.display = 'block');
+        }
+    }
+
+    // trigger saat ganti lokasi/status
+    document.getElementById('lokasi').addEventListener('change', updateChecklistDisplay);
+    document.getElementById('status').addEventListener('change', updateChecklistDisplay);
+
+    // jalankan saat pertama kali load (default Before)
+    document.addEventListener('DOMContentLoaded', updateChecklistDisplay);
 
     // Preview foto
     document.getElementById('foto').addEventListener('change', function(event) {
@@ -185,4 +233,5 @@
         });
     });
 </script>
+
 @endsection
