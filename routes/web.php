@@ -30,6 +30,7 @@ use App\Http\Controllers\PengecekanExhaustFanController;
 use App\Http\Controllers\ZatStpController;
 use App\Http\Controllers\AcController;
 use App\Http\Controllers\PerawatanAcController;
+use App\Http\Controllers\PengecekanAcController;
 
 
     // Halaman landing bebas login (opsional)
@@ -241,5 +242,10 @@ Route::resource('acs', AcController::class);
 Route::get('/perawatan-ac/create', [PerawatanAcController::class, 'create'])->name('perawatan-ac.create');
 Route::post('/perawatan-ac/store', [PerawatanAcController::class, 'store'])->name('perawatan-ac.store');
 Route::get('/perawatan-ac/riwayat', [PerawatanAcController::class, 'riwayat'])->name('perawatan-ac.riwayat');
+
+// Pengecekan AC
+Route::get('/pengecekan-ac/create', [PengecekanAcController::class, 'create'])->name('pengecekan-ac.create');
+Route::post('/pengecekan-ac/store', [PengecekanAcController::class, 'store'])->name('pengecekan-ac.store');
+Route::get('/pengecekan-ac/riwayat', [PengecekanAcController::class, 'riwayat'])->name('pengecekan-ac.riwayat');
 
 require __DIR__.'/auth.php';

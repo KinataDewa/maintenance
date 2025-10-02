@@ -48,7 +48,17 @@
                 'btn_color' => '#198754', // hijau
                 'icon_color' => 'text-success',
                 'btn_icon' => 'wind',
-            ],      
+            ],
+            [
+                'title' => 'Pengecekan AC',
+                'icon' => 'snow',
+                'desc' => 'Input laporan Pengecekan AC',
+                'route' => route('pengecekan-ac.create'),
+                'btn_text' => 'Input Pengecekan AC',
+                'btn_color' => '#6f42c1', 
+                'icon_color' => 'text-info',
+                'btn_icon' => 'snow2',
+            ],          
         ];
         @endphp
 

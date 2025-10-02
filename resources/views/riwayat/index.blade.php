@@ -108,6 +108,13 @@
                     'desc' => 'Lihat semua riwayat perawatan AC indoor & outdoor.',
                     'route' => route('perawatan-ac.riwayat'),
                 ],
+                [
+                    'title' => 'Riwayat Pengecekan AC',
+                    'icon' => 'snow', // icon AC (pakai snowflake/snow)
+                    'color' => 'primary',
+                    'desc' => 'Lihat semua riwayat pengecekan AC indoor & outdoor.',
+                    'route' => route('pengecekan-ac.riwayat'),
+                ],
 
             ];
         @endphp
