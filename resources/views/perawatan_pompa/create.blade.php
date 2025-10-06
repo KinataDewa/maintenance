@@ -41,10 +41,11 @@
             </select>
         </div>
 
+        {{-- Status --}}
         <div class="mb-3">
-            <label for="status" class="form-label">Status</label>
+            <label for="status" class="form-label fw-semibold">Status</label>
             <select name="status" id="status" class="form-select" required>
-                <option value="Before">Before</option>
+                <option value="Before" selected>Before</option>
                 <option value="After">After</option>
             </select>
         </div>
@@ -58,10 +59,10 @@
                 <strong>{{ $kategori }}</strong>
                 @foreach($checks as $check)
                     <div class="form-check">
-                        <input class="form-check-input" 
-                               type="checkbox" 
-                               name="pengecekan[{{ $kategori }}][]" 
-                               id="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check) }}" 
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="pengecekan[{{ $kategori }}][]"
+                               id="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check) }}"
                                value="{{ $check }}"
                                {{ isset(old('pengecekan')[$kategori]) && in_array($check, old('pengecekan')[$kategori]) ? 'checked' : '' }}>
                         <label class="form-check-label" for="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check) }}">
@@ -74,26 +75,29 @@
 
         <hr class="my-4">
 
-        {{-- Perawatan --}}
-        <h5 class="fw-bold mb-3">Perawatan</h5>
-        @foreach($perawatanItems as $kategori => $checks)
-            <div class="mb-3">
-                <strong>{{ $kategori }}</strong>
-                @foreach($checks as $check)
-                    <div class="form-check">
-                        <input class="form-check-input" 
-                               type="checkbox" 
-                               name="perawatan[{{ $kategori }}][]" 
-                               id="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check.'-perawatan') }}" 
-                               value="{{ $check }}"
-                               {{ isset(old('perawatan')[$kategori]) && in_array($check, old('perawatan')[$kategori]) ? 'checked' : '' }}>
-                        <label class="form-check-label" for="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check.'-perawatan') }}">
-                            {{ $check }}
-                        </label>
-                    </div>
-                @endforeach
-            </div>
-        @endforeach
+        {{-- Perawatan (disembunyikan saat Before) --}}
+        <div id="perawatan-section" style="display: none;">
+            <h5 class="fw-bold mb-3">Perawatan</h5>
+            @foreach($perawatanItems as $kategori => $checks)
+                <div class="mb-3">
+                    <strong>{{ $kategori }}</strong>
+                    @foreach($checks as $check)
+                        <div class="form-check">
+                            <input class="form-check-input"
+                                   type="checkbox"
+                                   name="perawatan[{{ $kategori }}][]"
+                                   id="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check.'-perawatan') }}"
+                                   value="{{ $check }}"
+                                   {{ isset(old('perawatan')[$kategori]) && in_array($check, old('perawatan')[$kategori]) ? 'checked' : '' }}>
+                            <label class="form-check-label" for="{{ \Illuminate\Support\Str::slug($kategori.'-'.$check.'-perawatan') }}">
+                                {{ $check }}
+                            </label>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+            <hr class="my-4">
+        </div>
 
         {{-- Foto --}}
         <div class="mb-3">
@@ -118,18 +122,36 @@
 
 @push('scripts')
 <script>
-// Preview multiple images
-document.getElementById('foto')?.addEventListener('change', function() {
-    const container = document.getElementById('previewContainer');
-    container.innerHTML = '';
-    const files = this.files;
-    if(!files) return;
-    Array.from(files).forEach(file => {
-        const img = document.createElement('img');
-        img.src = URL.createObjectURL(file);
-        img.classList.add('img-fluid', 'rounded', 'me-2', 'mb-2');
-        img.style.maxHeight = '120px';
-        container.appendChild(img);
+document.addEventListener('DOMContentLoaded', function() {
+    const statusSelect = document.getElementById('status');
+    const perawatanSection = document.getElementById('perawatan-section');
+
+    // Fungsi untuk toggle tampilan
+    function togglePerawatan() {
+        if (statusSelect.value === 'After') {
+            perawatanSection.style.display = 'block';
+        } else {
+            perawatanSection.style.display = 'none';
+        }
+    }
+
+    // Jalankan saat load pertama dan ketika berubah
+    togglePerawatan();
+    statusSelect.addEventListener('change', togglePerawatan);
+
+    // Preview multiple images
+    document.getElementById('foto')?.addEventListener('change', function() {
+        const container = document.getElementById('previewContainer');
+        container.innerHTML = '';
+        const files = this.files;
+        if (!files) return;
+        Array.from(files).forEach(file => {
+            const img = document.createElement('img');
+            img.src = URL.createObjectURL(file);
+            img.classList.add('img-fluid', 'rounded', 'me-2', 'mb-2');
+            img.style.maxHeight = '120px';
+            container.appendChild(img);
+        });
     });
 });
 </script>

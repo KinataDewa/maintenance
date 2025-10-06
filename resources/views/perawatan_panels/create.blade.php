@@ -32,11 +32,12 @@
             @enderror
         </div>
 
+        <!-- Status -->
         <div class="mb-3">
             <label class="form-label fw-semibold">Status</label>
-            <select name="status" class="form-select" required>
+            <select name="status" id="status" class="form-select" required>
                 <option value="">-- Pilih Status --</option>
-                <option value="before">Before</option>
+                <option value="before" selected>Before</option>
                 <option value="after">After</option>
             </select>
         </div>
@@ -102,73 +103,75 @@
 
         <hr class="my-4">
 
-        <!-- Perawatan Panel -->
-        <h5 class="fw-bold mb-3">Perawatan Panel</h5>
+        <!-- PERAWATAN PANEL (disembunyikan saat BEFORE) -->
+        <div id="perawatan-section" style="display: none;">
+            <h5 class="fw-bold mb-3">Perawatan Panel</h5>
 
-        <!-- Pembersihan -->
-        <div class="mb-3">
-            <label class="form-label">Pembersihan</label>
-            @php
-                $pembersihanOptions = ['Membersihkan Debu', 'Membersihkan Kotoran', 'Membersihkan Hama'];
-            @endphp
-            <div class="row">
-                @foreach($pembersihanOptions as $item)
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="perawatan[pembersihan][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
-                        <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+            <!-- Pembersihan -->
+            <div class="mb-3">
+                <label class="form-label">Pembersihan</label>
+                @php
+                    $pembersihanOptions = ['Membersihkan Debu', 'Membersihkan Kotoran', 'Membersihkan Hama'];
+                @endphp
+                <div class="row">
+                    @foreach($pembersihanOptions as $item)
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perawatan[pembersihan][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
+                            <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
 
-        <!-- Pengencangan Koneksi -->
-        <div class="mb-3">
-            <label class="form-label">Pengencangan Koneksi</label>
-            <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="perawatan[pengencangan_koneksi][]" value="Mengencangkan sambungan yang longgar" id="pengencangan_sambungan">
-                <label class="form-check-label" for="pengencangan_sambungan">Mengencangkan sambungan yang longgar</label>
+            <!-- Pengencangan Koneksi -->
+            <div class="mb-3">
+                <label class="form-label">Pengencangan Koneksi</label>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="perawatan[pengencangan_koneksi][]" value="Mengencangkan sambungan yang longgar" id="pengencangan_sambungan">
+                    <label class="form-check-label" for="pengencangan_sambungan">Mengencangkan sambungan yang longgar</label>
+                </div>
             </div>
-        </div>
 
-        <!-- Penggantian Komponen -->
-        <div class="mb-3">
-            <label class="form-label">Penggantian Komponen</label>
-            @php
-                $penggantianOptions = ['Mengganti MCB', 'Mengganti Sekering', 'Mengganti Busbar'];
-            @endphp
-            <div class="row">
-                @foreach($penggantianOptions as $item)
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="perawatan[penggantian_komponen][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
-                        <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+            <!-- Penggantian Komponen -->
+            <div class="mb-3">
+                <label class="form-label">Penggantian Komponen</label>
+                @php
+                    $penggantianOptions = ['Mengganti MCB', 'Mengganti Sekering', 'Mengganti Busbar'];
+                @endphp
+                <div class="row">
+                    @foreach($penggantianOptions as $item)
+                    <div class="col-md-4">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perawatan[penggantian_komponen][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
+                            <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
 
-        <!-- Perbaikan -->
-        <div class="mb-3">
-            <label class="form-label">Perbaikan</label>
-            @php
-                $perbaikanOptions = ['Perbaikan komponen rusak', 'Penggantian komponen rusak'];
-            @endphp
-            <div class="row">
-                @foreach($perbaikanOptions as $item)
-                <div class="col-md-6">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="perawatan[perbaikan][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
-                        <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+            <!-- Perbaikan -->
+            <div class="mb-3">
+                <label class="form-label">Perbaikan</label>
+                @php
+                    $perbaikanOptions = ['Perbaikan komponen rusak', 'Penggantian komponen rusak'];
+                @endphp
+                <div class="row">
+                    @foreach($perbaikanOptions as $item)
+                    <div class="col-md-6">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="perawatan[perbaikan][]" value="{{ $item }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
+                            <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
+                        </div>
                     </div>
+                    @endforeach
                 </div>
-                @endforeach
             </div>
-        </div>
 
-        <hr class="my-4">
+            <hr class="my-4">
+        </div>
 
         <!-- Upload Foto -->
         <div class="mb-3">
@@ -193,12 +196,12 @@
     </form>
 </div>
 
-{{-- Preview Foto Script --}}
+{{-- Script untuk Preview Foto dan Toggle Section --}}
 <script>
+    // Preview foto
     document.getElementById('foto').addEventListener('change', function(event) {
         const container = document.getElementById('preview-container');
-        container.innerHTML = ''; // Bersihkan preview sebelumnya
-
+        container.innerHTML = '';
         Array.from(event.target.files).forEach(file => {
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
@@ -213,5 +216,23 @@
             }
         });
     });
+
+    // Tampilkan/Sembunyikan bagian Perawatan Panel
+    const statusSelect = document.getElementById('status');
+    const perawatanSection = document.getElementById('perawatan-section');
+
+    function togglePerawatan() {
+        if (statusSelect.value === 'after') {
+            perawatanSection.style.display = 'block';
+        } else {
+            perawatanSection.style.display = 'none';
+        }
+    }
+
+    // Jalankan saat halaman dimuat pertama kali
+    togglePerawatan();
+
+    // Jalankan setiap kali status berubah
+    statusSelect.addEventListener('change', togglePerawatan);
 </script>
 @endsection
