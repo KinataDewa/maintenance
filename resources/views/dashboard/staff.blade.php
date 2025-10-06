@@ -40,6 +40,16 @@
                     'btn_icon' => 'gear',
                 ],
                 [
+                    'title' => 'Perbaikan',
+                    'icon' => 'hammer',
+                    'desc' => 'Catat dan laporkan perbaikan untuk semua perangkat.',
+                    'route' => route('perbaikan.create'),
+                    'btn_text' => 'Input Perbaikan',
+                    'btn_color' => 'danger', // merah
+                    'icon_color' => 'text-danger',
+                    'btn_icon' => 'tools',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',

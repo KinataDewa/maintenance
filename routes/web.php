@@ -31,6 +31,7 @@ use App\Http\Controllers\ZatStpController;
 use App\Http\Controllers\AcController;
 use App\Http\Controllers\PerawatanAcController;
 use App\Http\Controllers\PengecekanAcController;
+use App\Http\Controllers\PerbaikanController;
 
 
     // Halaman landing bebas login (opsional)
@@ -247,5 +248,11 @@ Route::get('/perawatan-ac/riwayat', [PerawatanAcController::class, 'riwayat'])->
 Route::get('/pengecekan-ac/create', [PengecekanAcController::class, 'create'])->name('pengecekan-ac.create');
 Route::post('/pengecekan-ac/store', [PengecekanAcController::class, 'store'])->name('pengecekan-ac.store');
 Route::get('/pengecekan-ac/riwayat', [PengecekanAcController::class, 'riwayat'])->name('pengecekan-ac.riwayat');
+
+// Perbaikan
+Route::get('/perbaikan/create', [PerbaikanController::class, 'create'])->name('perbaikan.create');
+Route::post('/perbaikan/store', [PerbaikanController::class, 'store'])->name('perbaikan.store');
+Route::get('/perbaikan/riwayat', [PerbaikanController::class, 'riwayat'])->name('perbaikan.riwayat');
+Route::post('/perbaikan/update/{id}', [PerbaikanController::class, 'updateStatus'])->name('perbaikan.updateStatus');
 
 require __DIR__.'/auth.php';
