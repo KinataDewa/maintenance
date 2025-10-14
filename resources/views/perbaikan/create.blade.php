@@ -71,7 +71,12 @@
             <input type="file" class="form-control" name="foto" accept="image/*">
         </div>
 
-        <button type="submit" class="btn btn-warning rounded-4 px-4">Simpan</button>
+        <div class="d-flex justify-content-end">
+            <button type="submit" class="btn btn-dark">
+                <i class="bi bi-save"></i> Simpan
+            </button>
+        </div>
+        
     </form>
 </div>
 
