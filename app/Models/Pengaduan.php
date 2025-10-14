@@ -22,6 +22,7 @@ class Pengaduan extends Model
         'pic_telp',
         'foto',
         'status',
+        'progres', // kolom baru
     ];
 
     // Relasi ke tabel rooms

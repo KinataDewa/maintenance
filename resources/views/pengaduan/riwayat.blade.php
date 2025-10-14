@@ -8,19 +8,44 @@
 
     <!-- Filter Form -->
     <form method="GET" action="{{ route('pengaduan.riwayat') }}" class="row g-2 mb-4">
-        <div class="col-md-4">
+        <div class="col-md-3">
             <label for="tanggal" class="form-label">Tanggal</label>
             <input type="date" name="tanggal" id="tanggal" class="form-control" value="{{ request('tanggal') }}">
         </div>
-        <div class="col-md-8 d-flex align-items-end">
+
+        <div class="col-md-3">
+            <label for="perangkat_tipe" class="form-label">Perangkat</label>
+            <select name="perangkat_tipe" id="perangkat_tipe" class="form-select">
+                <option value="">-- Semua Perangkat --</option>
+                @php
+                    $perangkatOptions = ['AC','ExhaustFan','Panel','Perangkat','PompaUnit','Perbaikan','Lainnya'];
+                @endphp
+                @foreach($perangkatOptions as $pt)
+                    <option value="{{ $pt }}" {{ request('perangkat_tipe') == $pt ? 'selected' : '' }}>{{ $pt }}</option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label for="room_id" class="form-label">Ruangan</label>
+            <select name="room_id" id="room_id" class="form-select">
+                <option value="">-- Semua Ruangan --</option>
+                @foreach($rooms as $room)
+                    <option value="{{ $room->id }}" {{ request('room_id') == $room->id ? 'selected' : '' }}>
+                        {{ $room->nama ?? $room->name }}
+                    </option>
+                @endforeach
+            </select>
+        </div>
+
+        <div class="col-md-3 d-flex align-items-end">
             <button type="submit" class="btn btn-warning me-2">
                 <i class="bi bi-filter-circle me-1"></i> Filter
             </button>
-            <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-outline-secondary">
-                Reset
-            </a>
+            <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-outline-secondary">Reset</a>
         </div>
     </form>
+
 
     <!-- Data -->
     @if($pengaduans->isEmpty())
@@ -58,7 +83,9 @@
                                             <th>PIC</th>
                                             <th>Status</th>
                                             <th>Deskripsi</th>
+                                            <th>Progres</th>
                                             <th>Foto</th>
+                                            <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-secondary">
@@ -81,12 +108,24 @@
                                                 </td>
                                                 <td>{{ $p->deskripsi ?? '-' }}</td>
                                                 <td>
+                                                    <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 fw-semibold">
+                                                        {{ $p->progres ?? '-' }}
+                                                    </span>
+                                                </td>
+                                                <td>
                                                     @if($p->foto)
                                                         <a href="{{ asset('storage/' . $p->foto) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
                                                             <i class="bi bi-image"></i> Lihat
                                                         </a>
                                                     @else
                                                         <small class="text-muted">Tidak ada</small>
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(in_array(auth()->user()->role, ['admin', 'staff']))
+                                                        <a href="{{ route('pengaduan.edit', $p->id) }}" class="btn btn-sm btn-outline-primary">
+                                                            <i class="bi bi-pencil"></i> Edit
+                                                        </a>
                                                     @endif
                                                 </td>
                                             </tr>

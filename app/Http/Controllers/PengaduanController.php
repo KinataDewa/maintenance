@@ -52,16 +52,83 @@ class PengaduanController extends Controller
             'pic_nama' => $request->pic_nama,
             'pic_telp' => $request->pic_telp,
             'foto' => $fotoPath,
-            'status' => 'baru',
+            'status' => 'Diproses',
+            'progres' => 'Diproses', // set awal
         ]);
 
         return redirect()->back()->with('success', 'Pengaduan berhasil dikirim!');
     }
 
-    public function riwayat()
+    public function riwayat(Request $request)
     {
-        $pengaduans = Pengaduan::with('room')->latest()->get();
-        return view('pengaduan.riwayat', compact('pengaduans'));
+        $query = Pengaduan::with('room')->latest();
+
+        // Filter Tanggal
+        if ($request->tanggal) {
+            $query->whereDate('created_at', $request->tanggal);
+        }
+
+        // Filter Perangkat
+        if ($request->perangkat_tipe) {
+            $query->where('perangkat_tipe', $request->perangkat_tipe);
+        }
+
+        // Filter Ruangan
+        if ($request->room_id) {
+            $query->where('room_id', $request->room_id);
+        }
+
+        $pengaduans = $query->get();
+
+        // Ambil semua rooms untuk filter dropdown
+        $rooms = \App\Models\Room::all();
+
+        return view('pengaduan.riwayat', compact('pengaduans', 'rooms'));
+    }
+
+    // Edit form
+    public function edit(Pengaduan $pengaduan)
+    {
+        $user = auth()->user();
+
+        // Role check: hanya admin/staff
+        if (!in_array($user->role, ['admin', 'staff'])) {
+            abort(403, 'Akses ditolak');
+        }
+
+        $statusOptions = [
+            'Diproses',
+            'Proses PO Barang',
+            'Proses Order Barang',
+            'Proses Barang Diterima',
+            'Proses Pengerjaan',
+            'Selesai'
+        ];
+
+        return view('pengaduan.edit', compact('pengaduan', 'statusOptions'));
+    }
+
+    // Update data
+    public function update(Request $request, Pengaduan $pengaduan)
+    {
+        $user = auth()->user();
+
+        if (!in_array($user->role, ['admin', 'staff'])) {
+            abort(403, 'Akses ditolak');
+        }
+
+        $request->validate([
+            'status' => 'required|string|in:Diproses,Proses PO Barang,Proses Order Barang,Proses Barang Diterima,Proses Pengerjaan,Selesai',
+            'progres' => 'nullable|string|max:500',
+        ]);
+
+        $pengaduan->update([
+            'status' => $request->status,
+            'progres' => $request->progres,
+        ]);
+
+        return redirect()->route('pengaduan.riwayat')
+                        ->with('success', 'Pengaduan berhasil diperbarui!');
     }
 
 }
