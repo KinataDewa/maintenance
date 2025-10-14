@@ -50,6 +50,16 @@
                     'btn_icon' => 'tools',
                 ],
                 [
+                    'title' => 'Pengaduan',
+                    'icon' => 'exclamation-triangle',
+                    'desc' => 'Laporkan kendala atau keluhan dari ruangan.',
+                    'route' => route('pengaduan.create'),
+                    'btn_text' => 'Buat Pengaduan',
+                    'btn_color' => 'info', // biru muda
+                    'icon_color' => 'text-info',
+                    'btn_icon' => 'send',
+                ],
+                [
                     'title' => 'Riwayat',
                     'icon' => 'clock-history',
                     'desc' => 'Lihat seluruh catatan pekerjaan yang telah dilakukan.',

@@ -32,7 +32,7 @@ use App\Http\Controllers\AcController;
 use App\Http\Controllers\PerawatanAcController;
 use App\Http\Controllers\PengecekanAcController;
 use App\Http\Controllers\PerbaikanController;
-
+use App\Http\Controllers\PengaduanController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -254,5 +254,10 @@ Route::get('/perbaikan/create', [PerbaikanController::class, 'create'])->name('p
 Route::post('/perbaikan/store', [PerbaikanController::class, 'store'])->name('perbaikan.store');
 Route::get('/perbaikan/riwayat', [PerbaikanController::class, 'riwayat'])->name('perbaikan.riwayat');
 Route::post('/perbaikan/update/{id}', [PerbaikanController::class, 'updateStatus'])->name('perbaikan.updateStatus');
+
+// Pengaduan
+Route::get('/pengaduan', [PengaduanController::class, 'create'])->name('pengaduan.create');
+Route::post('/pengaduan', [PengaduanController::class, 'store'])->name('pengaduan.store');
+Route::get('/pengaduan/riwayat', [PengaduanController::class, 'riwayat'])->name('pengaduan.riwayat');
 
 require __DIR__.'/auth.php';

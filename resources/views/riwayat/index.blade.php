@@ -28,6 +28,11 @@
                 <i class="bi bi-wrench-adjustable text-danger"></i> Perbaikan
             </button>
         </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link fw-semibold d-flex align-items-center gap-2" id="pengaduan-tab" data-bs-toggle="tab" data-bs-target="#pengaduan" type="button">
+                <i class="bi bi-exclamation-triangle text-info"></i> Pengaduan
+            </button>
+        </li>
     </ul>
 
     {{-- Tab Content --}}
@@ -149,6 +154,40 @@
                                     <div class="d-flex align-items-center mb-3">
                                         <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
                                              style="width: 50px; height: 50px;">
+                                            <i class="bi bi-{{ $card['icon'] }} fs-4 text-{{ $card['color'] }}"></i>
+                                        </div>
+                                        <h6 class="mb-0 fw-bold text-dark">{{ $card['title'] }}</h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+
+        {{-- PENGADUAN --}}
+        <div class="tab-pane fade" id="pengaduan" role="tabpanel">
+            <div class="row row-cols-1 row-cols-md-3 g-4">
+                @php
+                    $pengaduan = [
+                        [
+                            'title' => 'Laporan Pengaduan',
+                            'icon' => 'chat-left-dots',
+                            'color' => 'info',
+                            'route' => route('pengaduan.riwayat'),
+                        ],
+                    ];
+                @endphp
+
+                @foreach($pengaduan as $card)
+                    <div class="col">
+                        <a href="{{ $card['route'] }}" class="text-decoration-none">
+                            <div class="card shadow-sm border-0 rounded-4 h-100 transition riwayat-card border-top border-{{ $card['color'] }}">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3"
+                                            style="width: 50px; height: 50px;">
                                             <i class="bi bi-{{ $card['icon'] }} fs-4 text-{{ $card['color'] }}"></i>
                                         </div>
                                         <h6 class="mb-0 fw-bold text-dark">{{ $card['title'] }}</h6>
