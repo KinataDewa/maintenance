@@ -33,6 +33,7 @@ use App\Http\Controllers\PerawatanAcController;
 use App\Http\Controllers\PengecekanAcController;
 use App\Http\Controllers\PerbaikanController;
 use App\Http\Controllers\PengaduanController;
+use App\Http\Controllers\PengaduanHistoryController;
 
     // Halaman landing bebas login (opsional)
     Route::get('/', function () {
@@ -265,6 +266,11 @@ Route::middleware(['auth'])->group(function () {
     // Edit & Update (hanya staff/admin)
     Route::get('/pengaduan/{pengaduan}/edit', [PengaduanController::class, 'edit'])->name('pengaduan.edit');
     Route::put('/pengaduan/{pengaduan}', [PengaduanController::class, 'update'])->name('pengaduan.update');
+});
+
+Route::middleware(['auth'])->group(function () {
+    Route::get('/pengaduan/history', [PengaduanHistoryController::class, 'index'])
+        ->name('pengaduan.history');
 });
 
 require __DIR__.'/auth.php';

@@ -46,8 +46,6 @@
         </div>
     </form>
 
-
-    <!-- Data -->
     @if($pengaduans->isEmpty())
         <div class="alert alert-info">Belum ada data pengaduan.</div>
     @else
@@ -59,13 +57,13 @@
         @endphp
 
         <div class="accordion" id="riwayatAccordion">
-            @foreach ($grouped as $tanggal => $items)
+            @foreach($grouped as $tanggal => $items)
                 @php $accordionId = 'collapse-' . \Str::slug($tanggal); @endphp
                 <div class="accordion-item mb-3 shadow-sm border-0">
                     <h2 class="accordion-header" id="heading-{{ $loop->index }}">
                         <button class="accordion-button collapsed bg-dark text-white fw-bold rounded-top" type="button"
-                            data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false"
-                            aria-controls="{{ $accordionId }}">
+                                data-bs-toggle="collapse" data-bs-target="#{{ $accordionId }}" aria-expanded="false"
+                                aria-controls="{{ $accordionId }}">
                             {{ \Carbon\Carbon::parse($tanggal)->translatedFormat('l, d F Y') }}
                         </button>
                     </h2>
@@ -82,31 +80,24 @@
                                             <th>Ruangan</th>
                                             <th>PIC</th>
                                             <th>Status</th>
-                                            <th>Deskripsi</th>
                                             <th>Progres</th>
                                             <th>Foto</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text-secondary">
-                                        @foreach ($items as $i => $p)
+                                        @foreach($items as $i => $p)
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $p->jenis_kendala }}</td>
                                                 <td>{{ $p->perangkat_tipe ?? '-' }}</td>
                                                 <td>{{ $p->room->nama ?? '-' }}</td>
-                                                <td>
-                                                    {{ $p->pic_nama }}
-                                                    @if($p->pic_telp)
-                                                        <br><small class="text-muted">{{ $p->pic_telp }}</small>
-                                                    @endif
-                                                </td>
+                                                <td>{{ $p->pic_nama }}<br><small>{{ $p->pic_telp ?? '-' }}</small></td>
                                                 <td>
                                                     <span class="badge rounded-pill bg-{{ $p->status == 'Selesai' ? 'success' : 'warning' }} bg-opacity-10 text-{{ $p->status == 'Selesai' ? 'success' : 'warning' }} px-3 py-2 fw-semibold">
-                                                        {{ $p->status ?? 'Menunggu' }}
+                                                        {{ $p->status ?? '-' }}
                                                     </span>
                                                 </td>
-                                                <td>{{ $p->deskripsi ?? '-' }}</td>
                                                 <td>
                                                     <span class="badge rounded-pill bg-primary bg-opacity-10 text-primary px-3 py-2 fw-semibold">
                                                         {{ $p->progres ?? '-' }}
@@ -114,7 +105,7 @@
                                                 </td>
                                                 <td>
                                                     @if($p->foto)
-                                                        <a href="{{ asset('storage/' . $p->foto) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                                        <a href="{{ asset('storage/'.$p->foto) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
                                                             <i class="bi bi-image"></i> Lihat
                                                         </a>
                                                     @else
@@ -122,13 +113,51 @@
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if(in_array(auth()->user()->role, ['admin', 'staff']))
-                                                        <a href="{{ route('pengaduan.edit', $p->id) }}" class="btn btn-sm btn-outline-primary">
-                                                            <i class="bi bi-pencil"></i> Edit
-                                                        </a>
-                                                    @endif
-                                                </td>
+                                                @if(in_array(auth()->user()->role, ['admin','staff']))
+                                                    <!-- Tombol Edit -->
+                                                    <a href="{{ route('pengaduan.edit', $p->id) }}" class="btn btn-sm btn-outline-primary mb-1">
+                                                        <i class="bi bi-pencil"></i> Edit
+                                                    </a>
+
+                                                    <!-- Tombol History -->
+                                                    <a href="{{ route('pengaduan.history', ['pengaduan_id' => $p->id]) }}" 
+                                                    class="btn btn-sm btn-outline-info mb-1">
+                                                        <i class="bi bi-clock-history"></i> History
+                                                    </a>
+                                                @endif
+                                            </td>
+
                                             </tr>
+
+                                            {{-- Riwayat perubahan per pengaduan
+                                            @if($p->histories && $p->histories->count())
+                                                <tr>
+                                                    <td colspan="9" class="p-0 bg-light">
+                                                        <table class="table table-sm mb-0">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>#</th>
+                                                                    <th>Waktu</th>
+                                                                    <th>Status Lama → Baru</th>
+                                                                    <th>Progres Lama → Baru</th>
+                                                                    <th>Diubah Oleh</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                @foreach($p->histories as $h)
+                                                                    <tr>
+                                                                        <td>{{ $loop->iteration }}</td>
+                                                                        <td>{{ $h->created_at->format('d/m/Y H:i') }}</td>
+                                                                        <td>{{ $h->status_lama }} → {{ $h->status_baru }}</td>
+                                                                        <td>{{ $h->progres_lama }} → {{ $h->progres_baru }}</td>
+                                                                        <td>{{ $h->user->name ?? 'Unknown' }}</td>
+                                                                    </tr>
+                                                                @endforeach
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            @endif --}}
                                         @endforeach
                                     </tbody>
                                 </table>
@@ -144,7 +173,6 @@
 
 @section('styles')
 <style>
-    /* Modern look for badges and tables */
     .badge {
         border-radius: 50px;
         font-weight: 600;

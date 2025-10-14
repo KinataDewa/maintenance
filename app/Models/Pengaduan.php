@@ -30,4 +30,10 @@ class Pengaduan extends Model
     {
         return $this->belongsTo(Room::class);
     }
+
+    public function histories()
+    {
+        return $this->hasMany(PengaduanHistory::class)->latest();
+    }
+
 }

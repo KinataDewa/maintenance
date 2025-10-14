@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Pengaduan;
 use App\Models\Room;
+use App\Models\PengaduanHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class PengaduanController extends Controller
 {
@@ -108,11 +110,12 @@ class PengaduanController extends Controller
         return view('pengaduan.edit', compact('pengaduan', 'statusOptions'));
     }
 
-    // Update data
+    // Update data pengaduan + simpan riwayat
     public function update(Request $request, Pengaduan $pengaduan)
     {
         $user = auth()->user();
 
+        // Role check: hanya admin/staff
         if (!in_array($user->role, ['admin', 'staff'])) {
             abort(403, 'Akses ditolak');
         }
@@ -122,13 +125,23 @@ class PengaduanController extends Controller
             'progres' => 'nullable|string|max:500',
         ]);
 
+        // Simpan riwayat perubahan sebelum update
+        PengaduanHistory::create([
+            'pengaduan_id' => $pengaduan->id,
+            'updated_by' => $user->id,
+            'status_lama' => $pengaduan->status,
+            'status_baru' => $request->status,
+            'progres_lama' => $pengaduan->progres,
+            'progres_baru' => $request->progres,
+        ]);
+
+        // Update pengaduan
         $pengaduan->update([
             'status' => $request->status,
             'progres' => $request->progres,
         ]);
 
         return redirect()->route('pengaduan.riwayat')
-                        ->with('success', 'Pengaduan berhasil diperbarui!');
+                        ->with('success', 'Pengaduan berhasil diperbarui dan riwayat disimpan!');
     }
-
 }
