@@ -45,6 +45,18 @@
             <label class="form-label fw-semibold">Perangkat Lainnya</label>
             <input type="text" name="perangkat_lainnya" class="form-control" placeholder="Masukkan nama perangkat lainnya">
         </div>
+        
+        {{-- Ruangan --}}
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Pilih Ruangan</label>
+            <select name="room_id" class="form-select" required>
+                <option value="">-- Pilih Ruangan --</option>
+                @foreach ($rooms as $room)
+                    <option value="{{ $room->id }}">{{ $room->nama ?? $room->name }}</option>
+                @endforeach
+            </select>
+            @error('room_id') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
 
         {{-- Jenis Kendala --}}
         <div class="mb-3">
@@ -58,18 +70,6 @@
             <label class="form-label fw-semibold">Deskripsi / Penjelasan Lengkap</label>
             <textarea name="deskripsi" class="form-control" rows="3" placeholder="Jelaskan kondisi kerusakan atau kendala">{{ old('deskripsi') }}</textarea>
             @error('deskripsi') <small class="text-danger">{{ $message }}</small> @enderror
-        </div>
-
-        {{-- Ruangan --}}
-        <div class="mb-3">
-            <label class="form-label fw-semibold">Pilih Ruangan</label>
-            <select name="room_id" class="form-select" required>
-                <option value="">-- Pilih Ruangan --</option>
-                @foreach ($rooms as $room)
-                    <option value="{{ $room->id }}">{{ $room->nama ?? $room->name }}</option>
-                @endforeach
-            </select>
-            @error('room_id') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         {{-- PIC --}}
