@@ -49,13 +49,26 @@ class DashboardController extends Controller
         // 🔽 Dropdown tenant
         $tenants = Tenant::orderBy('nama')->get();
 
-        return view('dashboard.admin', compact(
-            'pengaduanBaru',
-            'jumlahPengaduanBaru',
-            'labels',
-            'values',
-            'tenants',
-            'tenantId'
-        ));
+        // 🧭 Pilih view sesuai role
+        if ($user->role === 'admin') {
+            return view('dashboard.admin', compact(
+                'pengaduanBaru',
+                'jumlahPengaduanBaru',
+                'labels',
+                'values',
+                'tenants',
+                'tenantId'
+            ));
+        } else {
+            // staff
+            return view('dashboard.staff', compact(
+                'pengaduanBaru',
+                'jumlahPengaduanBaru',
+                'labels',
+                'values',
+                'tenants',
+                'tenantId'
+            ));
+        }
     }
 }

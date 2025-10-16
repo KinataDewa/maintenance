@@ -27,7 +27,7 @@
     @endif
 
     {{-- ⚡ Grafik Pemakaian Listrik --}}
-    <div class="card shadow-sm mb-4 border-0 rounded-4 overflow-hidden">
+    <div class="card shadow-sm mb-5 border-0 rounded-4 overflow-hidden">
         <div class="card-header bg-gradient fw-bold text-dark d-flex justify-content-between align-items-center"
              style="background: linear-gradient(90deg, #ffbd38, #ffc857);">
             <div class="text-dark">
@@ -54,24 +54,23 @@
         </div>
     </div>
 
-    {{-- 🔹 Grid Card Menu --}}
+    {{-- 🔹 Aksi Cepat --}}
+    <h5 class="fw-bold mb-3 text-uppercase text-muted">Aksi Cepat</h5>
     <div class="row g-4">
         @php
-            $cards = [
-                ['title' => 'Daftar Perangkat', 'icon' => 'cpu', 'desc' => 'Lihat dan kelola daftar perangkat.', 'route' => route('perangkat.index'), 'btn_text' => 'Lihat Perangkat', 'btn_color' => 'success', 'icon_color' => 'text-success'],
-                ['title' => 'Daftar Tenant', 'icon' => 'building', 'desc' => 'Lihat dan kelola data tenant.', 'route' => route('tenants.index'), 'btn_text' => 'Lihat Tenant', 'btn_color' => 'primary', 'icon_color' => 'text-primary'],
-                ['title' => 'Daftar Pompa', 'icon' => 'water', 'desc' => 'Lihat daftar pompa dan kelola data.', 'route' => route('pompa.index'), 'btn_text' => 'Lihat Pompa', 'btn_color' => 'info', 'icon_color' => 'text-info'],
-                ['title' => 'Daftar Exhaust Fan', 'icon' => 'fan', 'desc' => 'Kelola daftar exhaust fan di gedung.', 'route' => route('exhaustfan.index'), 'btn_text' => 'Lihat Exhaust Fan', 'btn_color' => 'success', 'icon_color' => 'text-success'],
-                ['title' => 'Daftar Panel', 'icon' => 'diagram-3', 'desc' => 'Lihat dan kelola daftar panel gedung.', 'route' => route('panel.index'), 'btn_text' => 'Lihat Panel', 'btn_color' => 'danger', 'icon_color' => 'text-danger'],
-                ['title' => 'Daftar Staff', 'icon' => 'person-badge', 'desc' => 'Lihat dan kelola data staff.', 'route' => route('staff.index'), 'btn_text' => 'Lihat Staff', 'btn_color' => 'info', 'icon_color' => 'text-info'],
-                ['title' => 'Daftar AC', 'icon' => 'snow', 'desc' => 'Kelola daftar AC (Indoor & Outdoor).', 'route' => route('acs.index'), 'btn_text' => 'Lihat AC', 'btn_color' => 'primary', 'icon_color' => 'text-primary'],
-                ['title' => 'Riwayat Pekerjaan', 'icon' => 'clock-history', 'desc' => 'Lihat semua catatan pekerjaan staff.', 'route' => route('riwayat.index'), 'btn_text' => 'Lihat Riwayat', 'btn_color' => 'secondary', 'icon_color' => 'text-secondary'],
+            $cardsUtama = [
+                ['title' => 'Pengaduan', 'icon' => 'exclamation-triangle', 'desc' => 'Laporkan kendala atau keluhan dari ruangan.', 'route' => route('pengaduan.create'), 'btn_color' => 'info', 'icon_color' => 'text-info'],
+                ['title' => 'Tenant', 'icon' => 'building', 'desc' => 'Lihat dan kelola data tenant.', 'route' => route('tenants.index'), 'btn_color' => 'primary', 'icon_color' => 'text-primary'],
+                ['title' => 'Staff', 'icon' => 'person-badge', 'desc' => 'Lihat dan kelola data staff.', 'route' => route('staff.index'), 'btn_color' => 'success', 'icon_color' => 'text-success'],
+                ['title' => 'Perangkat', 'icon' => 'cpu', 'desc' => 'Lihat dan kelola daftar perangkat.', 'route' => route('perangkat.index'), 'btn_color' => 'warning', 'icon_color' => 'text-warning'],
+                ['title' => 'Riwayat Pekerjaan', 'icon' => 'clock-history', 'desc' => 'Lihat semua catatan pekerjaan staff.', 'route' => route('riwayat.index'), 'btn_color' => 'secondary', 'icon_color' => 'text-secondary'],
             ];
         @endphp
 
-        @foreach ($cards as $card)
+        {{-- Tampilkan 5 menu utama --}}
+        @foreach ($cardsUtama as $card)
             <div class="col-md-6 col-xl-4">
-                <div class="card custom-card border-0 shadow-sm rounded-4 h-100 d-flex flex-column transition border-top border-4 border-{{ $card['btn_color'] }}">
+                <div class="card border-0 shadow-sm rounded-4 h-100 transition border-top border-4 border-{{ $card['btn_color'] }}">
                     <div class="card-body d-flex flex-column justify-content-between">
                         <div class="mb-3">
                             <div class="d-flex align-items-center mb-2">
@@ -83,16 +82,57 @@
                             </div>
                             <small class="text-muted">{{ $card['desc'] }}</small>
                         </div>
-
-                        <a href="{{ $card['route'] }}"
-                           class="btn btn-{{ $card['btn_color'] }} w-100 mt-auto rounded-pill">
-                            <i class="bi bi-arrow-right-circle me-1"></i> {{ $card['btn_text'] }}
+                        <a href="{{ $card['route'] }}" class="btn btn-{{ $card['btn_color'] }} w-100 mt-auto rounded-pill">
+                            <i class="bi bi-arrow-right-circle me-1"></i> Buka
                         </a>
                     </div>
                 </div>
             </div>
         @endforeach
+
+        {{-- Card Menu Lainnya --}}
+        <div class="col-md-6 col-xl-4">
+            <div class="card border-0 shadow-sm rounded-4 h-100 text-center d-flex justify-content-center align-items-center transition" 
+                 style="cursor:pointer" data-bs-toggle="modal" data-bs-target="#menuLainnyaModal">
+                <i class="bi bi-grid fs-1 text-secondary mb-2"></i>
+                <h6 class="fw-bold mb-0 text-dark">Menu Lainnya</h6>
+            </div>
+        </div>
     </div>
+</div>
+
+{{-- Modal Menu Lainnya --}}
+<div class="modal fade" id="menuLainnyaModal" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content rounded-4 shadow-lg">
+      <div class="modal-header border-0">
+        <h5 class="modal-title fw-bold">Menu Lainnya</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3">
+          @php
+            $menuLainnya = [
+                ['title' => 'Pompa Air', 'icon' => 'water', 'route' => route('pompa.index')],
+                ['title' => 'Exhaust Fan', 'icon' => 'fan', 'route' => route('exhaustfan.index')],
+                ['title' => 'Panel Listrik', 'icon' => 'diagram-3', 'route' => route('panel.index')],
+                ['title' => 'AC (Indoor & Outdoor)', 'icon' => 'snow', 'route' => route('acs.index')],
+            ];
+          @endphp
+          @foreach($menuLainnya as $m)
+          <div class="col-6 col-md-4">
+            <a href="{{ $m['route'] }}" class="text-decoration-none">
+              <div class="border rounded-4 p-3 text-center h-100 shadow-sm hover-scale bg-light">
+                <i class="bi bi-{{ $m['icon'] }} fs-3 text-dark mb-2"></i>
+                <div class="fw-bold text-dark">{{ $m['title'] }}</div>
+              </div>
+            </a>
+          </div>
+          @endforeach
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 {{-- Hover Effect --}}
@@ -102,6 +142,10 @@
     transform: translateY(-3px);
     transition: all 0.25s ease-in-out;
 }
+.hover-scale:hover {
+    transform: scale(1.03);
+    transition: 0.25s;
+}
 </style>
 
 @push('scripts')
@@ -109,8 +153,6 @@
 <script>
 @if(count($values) > 0)
 const ctx = document.getElementById('meteranChart').getContext('2d');
-
-// 🌈 Gradient Background
 const gradient = ctx.createLinearGradient(0, 0, 0, 400);
 gradient.addColorStop(0, 'rgba(255, 189, 56, 0.5)');
 gradient.addColorStop(1, 'rgba(255, 189, 56, 0.05)');
@@ -130,49 +172,17 @@ new Chart(ctx, {
             pointRadius: 5,
             pointHoverRadius: 7,
             pointBackgroundColor: '#ffbd38',
-            pointBorderColor: '#fff',
-            pointHoverBackgroundColor: '#fff',
-            pointHoverBorderColor: '#ffbd38'
+            pointBorderColor: '#fff'
         }]
     },
     options: {
         responsive: true,
-        maintainAspectRatio: false,
-        interaction: {
-            mode: 'index',
-            intersect: false
-        },
         plugins: {
-            legend: {
-                display: true,
-                position: 'top',
-                labels: { color: '#555', font: { weight: 'bold' } }
-            },
-            tooltip: {
-                backgroundColor: '#333',
-                titleColor: '#fff',
-                bodyColor: '#fff',
-                padding: 12,
-                borderColor: '#ffbd38',
-                borderWidth: 1,
-                displayColors: false
-            }
+            legend: { display: true, position: 'top' },
         },
         scales: {
-            x: {
-                grid: { display: false },
-                ticks: { color: '#666', font: { weight: '500' } }
-            },
-            y: {
-                beginAtZero: true,
-                grid: { color: 'rgba(0,0,0,0.05)' },
-                ticks: { color: '#666', font: { weight: '500' } },
-                title: { display: true, text: 'KWh', color: '#555', font: { weight: 'bold' } }
-            }
-        },
-        animation: {
-            duration: 1200,
-            easing: 'easeInOutQuart'
+            x: { grid: { display: false } },
+            y: { beginAtZero: true }
         }
     }
 });
