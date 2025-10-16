@@ -90,8 +90,22 @@
                                             <tr>
                                                 <td>{{ $i + 1 }}</td>
                                                 <td>{{ $p->jenis_kendala }}</td>
-                                                <td>{{ $p->perangkat_tipe ?? '-' }}</td>
-                                                <td>{{ $p->room->nama ?? '-' }}</td>
+                                                <td>
+                                                    @if($p->perangkat_tipe === 'Lainnya' && $p->perangkat_lainnya)
+                                                        <span class="text-dark fw-semibold">{{ $p->perangkat_lainnya }}</span>
+                                                    @else
+                                                        {{ $p->perangkat_tipe ?? '-' }}
+                                                    @endif
+                                                </td>
+                                                <td>
+                                                    @if(!$p->room_id && $p->lokasi_lainnya)
+                                                        <span class="text-dark fw-semibold">{{ $p->lokasi_lainnya }}</span>
+                                                    @elseif($p->room)
+                                                        {{ $p->room->nama ?? $p->room->name }}
+                                                    @else
+                                                        <small class="text-muted">-</small>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $p->pic_nama }}<br><small>{{ $p->pic_telp ?? '-' }}</small></td>
                                                 <td>
                                                     <span class="badge rounded-pill bg-{{ $p->status == 'Selesai' ? 'success' : 'warning' }} bg-opacity-10 text-{{ $p->status == 'Selesai' ? 'success' : 'warning' }} px-3 py-2 fw-semibold">
@@ -105,9 +119,39 @@
                                                 </td>
                                                 <td>
                                                     @if($p->foto)
-                                                        <a href="{{ asset('storage/'.$p->foto) }}" target="_blank" class="btn btn-sm btn-outline-secondary">
+                                                        <!-- Tombol trigger -->
+                                                        <button type="button" class="btn btn-sm btn-outline-secondary" 
+                                                                data-bs-toggle="modal" data-bs-target="#fotoModal-{{ $p->id }}">
                                                             <i class="bi bi-image"></i> Lihat
-                                                        </a>
+                                                        </button>
+
+                                                        <!-- Modal Bootstrap -->
+                                                        <div class="modal fade" id="fotoModal-{{ $p->id }}" tabindex="-1" aria-labelledby="fotoModalLabel-{{ $p->id }}" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered modal-lg">
+                                                                <div class="modal-content border-0 shadow-lg rounded-4 overflow-hidden">
+                                                                    <div class="modal-header bg-dark text-white">
+                                                                        <h5 class="modal-title" id="fotoModalLabel-{{ $p->id }}">
+                                                                            Foto Pengaduan #{{ $p->id }}
+                                                                        </h5>
+                                                                        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                    </div>
+                                                                    <div class="modal-body text-center bg-light">
+                                                                        <img src="{{ asset('storage/'.$p->foto) }}" 
+                                                                            alt="Foto Pengaduan" 
+                                                                            class="img-fluid rounded-3 shadow-sm" 
+                                                                            style="max-height: 70vh; object-fit: contain;">
+                                                                    </div>
+                                                                    <div class="modal-footer bg-light">
+                                                                        <button type="button" class="btn btn-secondary rounded-pill" data-bs-dismiss="modal">
+                                                                            <i class="bi bi-x-circle me-1"></i> Tutup
+                                                                        </button>
+                                                                        <a href="{{ asset('storage/'.$p->foto) }}" target="_blank" class="btn btn-primary rounded-pill">
+                                                                            <i class="bi bi-box-arrow-up-right me-1"></i> Buka di Tab Baru
+                                                                        </a>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     @else
                                                         <small class="text-muted">Tidak ada</small>
                                                     @endif
@@ -126,39 +170,8 @@
                                                     </a>
                                                 @endif
                                             </td>
-
                                             </tr>
-
-                                            {{-- Riwayat perubahan per pengaduan
-                                            @if($p->histories && $p->histories->count())
-                                                <tr>
-                                                    <td colspan="9" class="p-0 bg-light">
-                                                        <table class="table table-sm mb-0">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>#</th>
-                                                                    <th>Waktu</th>
-                                                                    <th>Status Lama → Baru</th>
-                                                                    <th>Progres Lama → Baru</th>
-                                                                    <th>Diubah Oleh</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                @foreach($p->histories as $h)
-                                                                    <tr>
-                                                                        <td>{{ $loop->iteration }}</td>
-                                                                        <td>{{ $h->created_at->format('d/m/Y H:i') }}</td>
-                                                                        <td>{{ $h->status_lama }} → {{ $h->status_baru }}</td>
-                                                                        <td>{{ $h->progres_lama }} → {{ $h->progres_baru }}</td>
-                                                                        <td>{{ $h->user->name ?? 'Unknown' }}</td>
-                                                                    </tr>
-                                                                @endforeach
-                                                            </tbody>
-                                                        </table>
-                                                    </td>
-                                                </tr>
-                                            @endif --}}
-                                        @endforeach
+                                         @endforeach
                                     </tbody>
                                 </table>
                             </div>

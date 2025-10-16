@@ -16,7 +16,7 @@ class PengaduanController extends Controller
      */
     public function create()
     {
-        $rooms = Room::all(); // ambil semua data ruangan
+        $rooms = Room::all();
         return view('pengaduan.create', compact('rooms'));
     }
 
@@ -31,7 +31,8 @@ class PengaduanController extends Controller
             'perangkat_tipe' => 'nullable|string',
             'perangkat_id' => 'nullable|integer',
             'perangkat_lainnya' => 'nullable|string|max:255',
-            'room_id' => 'required|integer',
+            'room_id' => 'required',
+            'lokasi_lainnya' => 'nullable|string|max:255',
             'pic_nama' => 'required|string|max:255',
             'pic_telp' => 'required|string|max:20',
             'foto' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
@@ -43,6 +44,10 @@ class PengaduanController extends Controller
             $fotoPath = $request->file('foto')->store('pengaduan', 'public');
         }
 
+        // Tentukan nilai room_id dan lokasi_lainnya
+        $room_id = $request->room_id === 'lainnya' ? null : $request->room_id;
+        $lokasi_lainnya = $request->room_id === 'lainnya' ? $request->lokasi_lainnya : null;
+
         // Simpan data ke database
         Pengaduan::create([
             'jenis_kendala' => $request->jenis_kendala,
@@ -50,12 +55,13 @@ class PengaduanController extends Controller
             'perangkat_tipe' => $request->perangkat_tipe,
             'perangkat_id' => $request->perangkat_id,
             'perangkat_lainnya' => $request->perangkat_lainnya,
-            'room_id' => $request->room_id,
+            'room_id' => $room_id,
+            'lokasi_lainnya' => $lokasi_lainnya, // ✅ tersimpan
             'pic_nama' => $request->pic_nama,
             'pic_telp' => $request->pic_telp,
             'foto' => $fotoPath,
             'status' => 'Diproses',
-            'progres' => 'Diproses', // set awal
+            'progres' => 'Diproses',
         ]);
 
         return redirect()->back()->with('success', 'Pengaduan berhasil dikirim!');

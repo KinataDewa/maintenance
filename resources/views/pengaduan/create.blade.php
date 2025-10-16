@@ -40,22 +40,30 @@
             @error('perangkat_tipe') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
-        {{-- Input Lainnya --}}
+        {{-- Input Perangkat Lainnya --}}
         <div class="mb-3 d-none" id="lainnyaField">
             <label class="form-label fw-semibold">Perangkat Lainnya</label>
             <input type="text" name="perangkat_lainnya" class="form-control" placeholder="Masukkan nama perangkat lainnya">
         </div>
-        
+
         {{-- Ruangan --}}
         <div class="mb-3">
-            <label class="form-label fw-semibold">Pilih Ruangan</label>
-            <select name="room_id" class="form-select" required>
-                <option value="">-- Pilih Ruangan --</option>
+            <label class="form-label fw-semibold">Pilih Ruangan / Lokasi</label>
+            <select name="room_id" class="form-select" id="room_id" required>
+                <option value="">-- Pilih Lokasi --</option>
                 @foreach ($rooms as $room)
                     <option value="{{ $room->id }}">{{ $room->nama ?? $room->name }}</option>
                 @endforeach
+                <option value="lainnya">Lainnya</option>
             </select>
             @error('room_id') <small class="text-danger">{{ $message }}</small> @enderror
+        </div>
+
+        {{-- Input Lokasi Lainnya --}}
+        <div class="mb-3 d-none" id="lokasiLainnyaField">
+            <label class="form-label fw-semibold">Lokasi Lainnya</label>
+            <input type="text" name="lokasi_lainnya" class="form-control" placeholder="Masukkan lokasi lainnya">
+            @error('lokasi_lainnya') <small class="text-danger">{{ $message }}</small> @enderror
         </div>
 
         {{-- Jenis Kendala --}}
@@ -105,14 +113,24 @@
 {{-- Script: tampilkan field Lainnya --}}
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    const select = document.getElementById('perangkat_tipe');
-    const field = document.getElementById('lainnyaField');
+    const perangkatSelect = document.getElementById('perangkat_tipe');
+    const perangkatLainnya = document.getElementById('lainnyaField');
+    const roomSelect = document.getElementById('room_id');
+    const lokasiLainnya = document.getElementById('lokasiLainnyaField');
 
-    select.addEventListener('change', function() {
+    perangkatSelect.addEventListener('change', function() {
         if (this.value === 'Lainnya') {
-            field.classList.remove('d-none');
+            perangkatLainnya.classList.remove('d-none');
         } else {
-            field.classList.add('d-none');
+            perangkatLainnya.classList.add('d-none');
+        }
+    });
+
+    roomSelect.addEventListener('change', function() {
+        if (this.value === 'lainnya') {
+            lokasiLainnya.classList.remove('d-none');
+        } else {
+            lokasiLainnya.classList.add('d-none');
         }
     });
 });

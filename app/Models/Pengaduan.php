@@ -18,6 +18,7 @@ class Pengaduan extends Model
         'perangkat_id',
         'perangkat_lainnya',
         'room_id',
+        'lokasi_lainnya',
         'pic_nama',
         'pic_telp',
         'foto',
