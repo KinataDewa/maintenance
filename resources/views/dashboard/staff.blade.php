@@ -4,11 +4,44 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title mb-4 fw-bold">Dashboard Staff</h1>
+
+    {{-- Header --}}
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1">Halo, {{ auth()->user()->name ?? 'Staff' }} 👋</h2>
+        <p class="text-muted mb-0">Selamat datang di dashboard staff maintenance.</p>
+    </div>
+
+    {{-- Notifikasi Pengaduan Baru (Opsi A) --}}
+    @if($jumlahPengaduanBaru > 0)
+    <div class="alert alert-warning d-flex justify-content-between align-items-center rounded-4 shadow-sm px-4 py-3 mb-4">
+        <div class="d-flex align-items-center">
+            <i class="bi bi-bell-fill me-2 fs-5 text-dark"></i>
+            <span>
+                <strong>{{ $jumlahPengaduanBaru }}</strong> pengaduan baru hari ini menunggu ditindaklanjuti.
+            </span>
+        </div>
+        <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+            Lihat
+        </a>
+    </div>
+@endif
+
 
     <div class="row g-4">
         @php
             $cards = [
+                [
+                    'title' => 'Pengaduan Baru',
+                    'icon' => 'exclamation-triangle-fill',
+                    'desc' => $jumlahPengaduanBaru > 0
+                        ? "Ada {$jumlahPengaduanBaru} pengaduan baru yang belum ditangani."
+                        : "Tidak ada pengaduan baru saat ini.",
+                    'route' => route('pengaduan.riwayat'),
+                    'btn_text' => 'Lihat Pengaduan',
+                    'btn_color' => $jumlahPengaduanBaru > 0 ? 'danger' : 'secondary',
+                    'icon_color' => $jumlahPengaduanBaru > 0 ? 'text-danger' : 'text-secondary',
+                    'btn_icon' => 'arrow-right-circle',
+                ],
                 [
                     'title' => 'Form Harian',
                     'icon' => 'pencil-square',

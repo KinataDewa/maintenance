@@ -4,8 +4,29 @@
 
 @section('content')
 <div class="container py-4">
-    <h1 class="page-title mb-4 fw-bold">Dashboard Admin</h1>
 
+    {{-- Header --}}
+    <div class="mb-4">
+        <h2 class="fw-bold mb-1">Halo, {{ auth()->user()->name ?? 'Admin' }} 👋</h2>
+        <p class="text-muted mb-0">Selamat datang di dashboard admin maintenance.</p>
+    </div>
+
+    {{-- Notifikasi Pengaduan Baru --}}
+    @if($jumlahPengaduanBaru > 0)
+        <div class="alert alert-warning d-flex justify-content-between align-items-center rounded-4 shadow-sm px-4 py-3 mb-4">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-bell-fill me-2 fs-5 text-dark"></i>
+                <span>
+                    <strong>{{ $jumlahPengaduanBaru }}</strong> pengaduan baru hari ini menunggu ditindaklanjuti.
+                </span>
+            </div>
+            <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                Lihat
+            </a>
+        </div>
+    @endif
+
+    {{-- Grid Card --}}
     <div class="row g-4">
         @php
             $cards = [
@@ -14,118 +35,94 @@
                     'icon' => 'cpu',
                     'desc' => 'Lihat dan kelola daftar perangkat.',
                     'route' => route('perangkat.index'),
-                    'btn_text' => 'Daftar Perangkat',
+                    'btn_text' => 'Lihat Perangkat',
                     'btn_color' => 'success',
-                    'btn_icon' => 'list-ul',
-                    'count' => 15,
+                    'icon_color' => 'text-success',
                 ],
                 [
                     'title' => 'Daftar Tenant',
                     'icon' => 'building',
                     'desc' => 'Lihat dan kelola data tenant.',
                     'route' => route('tenants.index'),
-                    'btn_text' => 'Daftar Tenant',
+                    'btn_text' => 'Lihat Tenant',
                     'btn_color' => 'primary',
-                    'btn_icon' => 'people-fill',
-                    'count' => 12,
+                    'icon_color' => 'text-primary',
                 ],
                 [
                     'title' => 'Daftar Pompa',
                     'icon' => 'water',
                     'desc' => 'Lihat daftar pompa dan kelola data.',
                     'route' => route('pompa.index'),
-                    'btn_text' => 'Daftar Pompa',
+                    'btn_text' => 'Lihat Pompa',
                     'btn_color' => 'info',
-                    'btn_icon' => 'list-ul',
-                    'count' => 6,
+                    'icon_color' => 'text-info',
                 ],
-                // [
-                //     'title' => 'Daftar Ruangan',
-                //     'icon' => 'door-closed',
-                //     'desc' => 'Pantau daftar ruangan, suhu & kelembapan.',
-                //     'route' => route('rooms.index'),
-                //     'btn_text' => 'Daftar Ruangan',
-                //     'btn_color' => 'warning',
-                //     'btn_icon' => 'list-ul',
-                //     'count' => 20,
-                // ],
                 [
                     'title' => 'Daftar Exhaust Fan',
                     'icon' => 'fan',
                     'desc' => 'Kelola daftar exhaust fan di gedung.',
                     'route' => route('exhaustfan.index'),
-                    'btn_text' => 'Daftar Exhaust Fan',
+                    'btn_text' => 'Lihat Exhaust Fan',
                     'btn_color' => 'success',
-                    'btn_icon' => 'list-ul',
-                    'count' => 10,
+                    'icon_color' => 'text-success',
                 ],
                 [
                     'title' => 'Daftar Panel',
                     'icon' => 'diagram-3',
                     'desc' => 'Lihat dan kelola daftar panel gedung.',
                     'route' => route('panel.index'),
-                    'btn_text' => 'Daftar Panel',
+                    'btn_text' => 'Lihat Panel',
                     'btn_color' => 'danger',
-                    'btn_icon' => 'list-ul',
-                    'count' => 8,
+                    'icon_color' => 'text-danger',
                 ],
                 [
                     'title' => 'Daftar Staff',
                     'icon' => 'person-badge',
                     'desc' => 'Lihat dan kelola data staff.',
                     'route' => route('staff.index'),
-                    'btn_text' => 'Daftar Staff',
+                    'btn_text' => 'Lihat Staff',
                     'btn_color' => 'info',
-                    'btn_icon' => 'list-ul',
-                    'count' => 9,
+                    'icon_color' => 'text-info',
                 ],
                 [
                     'title' => 'Daftar AC',
                     'icon' => 'snow',
                     'desc' => 'Kelola daftar AC (Indoor & Outdoor).',
                     'route' => route('acs.index'),
-                    'btn_text' => 'Daftar AC',
+                    'btn_text' => 'Lihat AC',
                     'btn_color' => 'primary',
-                    'btn_icon' => 'list-ul',
-                    'count' => 3, // bisa ganti nanti dengan count dynamic
+                    'icon_color' => 'text-primary',
                 ],
                 [
-                    'title' => 'Riwayat Pekerjaan Staff',
+                    'title' => 'Riwayat Pekerjaan',
                     'icon' => 'clock-history',
-                    'desc' => 'Lihat data semua pekerjaan Anda.',
+                    'desc' => 'Lihat semua catatan pekerjaan staff.',
                     'route' => route('riwayat.index'),
                     'btn_text' => 'Lihat Riwayat',
                     'btn_color' => 'secondary',
-                    'btn_icon' => 'journal-text',
-                    'count' => null,
+                    'icon_color' => 'text-secondary',
                 ],
             ];
         @endphp
 
         @foreach ($cards as $card)
             <div class="col-md-6 col-xl-4">
-                <div class="card custom-card border-0 shadow-sm rounded-4 h-100 d-flex flex-column transition">
-                    
-                    <div class="card-top-line bg-{{ $card['btn_color'] }}"></div>
-                    
-                    <div class="card-body d-flex flex-column justify-content-between position-relative">
-                                                
-
+                <div class="card custom-card border-0 shadow-sm rounded-4 h-100 d-flex flex-column transition border-top border-4 border-{{ $card['btn_color'] }}">
+                    <div class="card-body d-flex flex-column justify-content-between">
                         <div class="mb-3">
                             <div class="d-flex align-items-center mb-2">
-                                <div class="rounded-circle d-flex align-items-center justify-content-center me-3 bg-{{ $card['btn_color'] }} bg-opacity-10" 
-                                     style="width: 50px; height: 50px;">
-                                    <i class="bi bi-{{ $card['icon'] }} fs-3 text-{{ $card['btn_color'] }}"></i>
+                                <div class="rounded-circle bg-light d-flex align-items-center justify-content-center me-3" 
+                                     style="width: 48px; height: 48px;">
+                                    <i class="bi bi-{{ $card['icon'] }} fs-4 {{ $card['icon_color'] }}"></i>
                                 </div>
-                                <h5 class="mb-0 fw-bold text-dark">{{ $card['title'] }}</h5>
+                                <h6 class="mb-0 fw-bold text-dark">{{ $card['title'] }}</h6>
                             </div>
-                            <small class="text-muted d-block">{{ $card['desc'] }}</small>
+                            <small class="text-muted">{{ $card['desc'] }}</small>
                         </div>
 
-                        <a href="{{ $card['route'] ?? '#' }}"
-                            class="btn btn-outline-{{ $card['btn_color'] }} w-100 mt-auto">
-                            <i class="bi bi-{{ $card['btn_icon'] ?? 'arrow-right' }} me-1"></i>
-                            {{ $card['btn_text'] ?? 'Lanjut' }}
+                        <a href="{{ $card['route'] }}"
+                           class="btn btn-{{ $card['btn_color'] }} w-100 mt-auto rounded-pill">
+                            <i class="bi bi-arrow-right-circle me-1"></i> {{ $card['btn_text'] }}
                         </a>
                     </div>
                 </div>
@@ -134,22 +131,12 @@
     </div>
 </div>
 
-{{-- Style Hover + garis atas --}}
+{{-- Hover Effect --}}
 <style>
-    .custom-card {
-        position: relative;
-        overflow: hidden;
-    }
-    .custom-card .card-top-line {
-        height: 4px;
-        width: 100%;
-    }
-    .custom-card.transition {
-        transition: all 0.25s ease-in-out;
-    }
-    .custom-card.transition:hover {
-        transform: scale(1.02);
+    .card.transition:hover {
         box-shadow: 0 6px 18px rgba(0,0,0,0.15) !important;
+        transform: scale(1.02);
+        transition: all 0.25s ease-in-out;
     }
 </style>
 @endsection
