@@ -26,33 +26,58 @@
         </div>
     @endif
 
-    {{-- ⚡ Grafik Pemakaian Listrik --}}
-    <div class="card shadow-sm mb-5 border-0 rounded-4 overflow-hidden">
-        <div class="card-header bg-gradient fw-bold text-dark d-flex justify-content-between align-items-center"
-             style="background: linear-gradient(90deg, #ffbd38, #ffc857);">
-            <div class="text-dark">
-                <i class="bi bi-lightning-charge-fill me-2"></i> Grafik Pemakaian Listrik
+    {{-- ⚡ Grafik Pemakaian Listrik & Induk PLN (side-by-side + animasi) --}}
+    <div class="row g-4 mb-5">
+
+        {{-- Grafik Pemakaian Listrik --}}
+        <div class="col-12 col-lg-6" data-aos="fade-up" data-aos-duration="700">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+                <div class="card-header bg-gradient fw-bold text-dark d-flex justify-content-between align-items-center"
+                    style="background: linear-gradient(90deg, #ffbd38, #ffc857);">
+                    <div class="text-dark">
+                        <i class="bi bi-lightning-charge-fill me-2"></i> Grafik Pemakaian Listrik
+                    </div>
+                    <form method="GET" action="{{ route('dashboard') }}" class="d-flex align-items-center">
+                        <select name="tenant_id" class="form-select form-select-sm me-2" onchange="this.form.submit()">
+                            <option value="">Semua Tenant</option>
+                            @foreach($tenants as $tenant)
+                                <option value="{{ $tenant->id }}" {{ $tenantId == $tenant->id ? 'selected' : '' }}>
+                                    {{ $tenant->nama }}
+                                </option>
+                            @endforeach
+                        </select>
+                        <noscript><button class="btn btn-sm btn-dark">Filter</button></noscript>
+                    </form>
+                </div>
+                <div class="card-body p-4">
+                    @if(count($values) > 0)
+                        <canvas id="meteranChart" height="200"></canvas>
+                    @else
+                        <div class="text-center text-muted py-4">Belum ada data meteran listrik untuk tenant ini.</div>
+                    @endif
+                </div>
             </div>
-            <form method="GET" action="{{ route('dashboard') }}" class="d-flex align-items-center">
-                <select name="tenant_id" class="form-select form-select-sm me-2" onchange="this.form.submit()">
-                    <option value="">Semua Tenant</option>
-                    @foreach($tenants as $tenant)
-                        <option value="{{ $tenant->id }}" {{ $tenantId == $tenant->id ? 'selected' : '' }}>
-                            {{ $tenant->nama }}
-                        </option>
-                    @endforeach
-                </select>
-                <noscript><button class="btn btn-sm btn-dark">Filter</button></noscript>
-            </form>
         </div>
-        <div class="card-body p-4">
-            @if(count($values) > 0)
-                <canvas id="meteranChart" height="120"></canvas>
-            @else
-                <div class="text-center text-muted py-4">Belum ada data meteran listrik untuk tenant ini.</div>
-            @endif
+
+        {{-- Grafik Induk PLN --}}
+        <div class="col-12 col-lg-6" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
+            <div class="card shadow-sm border-0 rounded-4 overflow-hidden h-100">
+                <div class="card-header bg-gradient fw-bold text-dark"
+                    style="background: linear-gradient(90deg, #38b6ff, #7ed6ff);">
+                    <i class="bi bi-bar-chart-line-fill me-2"></i> Grafik Induk PLN
+                </div>
+                <div class="card-body p-4">
+                    @if(count($labelsInduk) > 0)
+                        <canvas id="indukChart" height="200"></canvas>
+                    @else
+                        <div class="text-center text-muted py-4">Belum ada data meteran induk PLN.</div>
+                    @endif
+                </div>
+            </div>
         </div>
+
     </div>
+
 
     {{-- 🔹 Aksi Cepat --}}
     <h5 class="fw-bold mb-3 text-uppercase text-muted">Aksi Cepat</h5>
@@ -174,6 +199,74 @@ new Chart(ctx, {
             pointBackgroundColor: '#ffbd38',
             pointBorderColor: '#fff'
         }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true, position: 'top' },
+        },
+        scales: {
+            x: { grid: { display: false } },
+            y: { beginAtZero: true }
+        }
+    }
+});
+@endif
+
+@if(count($labelsInduk) > 0)
+const ctx2 = document.getElementById('indukChart').getContext('2d');
+
+new Chart(ctx2, {
+    type: 'line',
+    data: {
+        labels: @json($labelsInduk),
+        datasets: [
+            {
+                label: 'KWh',
+                data: @json($kwhData),
+                borderColor: '#ffbd38',
+                backgroundColor: 'rgba(255,189,56,0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3
+            },
+            {
+                label: 'KVAR',
+                data: @json($kvarData),
+                borderColor: '#36a2eb',
+                backgroundColor: 'rgba(54,162,235,0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3
+            },
+            {
+                label: 'Cosφ',
+                data: @json($cosphiData),
+                borderColor: '#28a745',
+                backgroundColor: 'rgba(40,167,69,0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3
+            },
+            {
+                label: 'WBP',
+                data: @json($wbpData),
+                borderColor: '#e83e8c',
+                backgroundColor: 'rgba(232,62,140,0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3
+            },
+            {
+                label: 'LWBP',
+                data: @json($lwbpData),
+                borderColor: '#6c757d',
+                backgroundColor: 'rgba(108,117,125,0.1)',
+                fill: false,
+                tension: 0.3,
+                borderWidth: 3
+            }
+        ]
     },
     options: {
         responsive: true,

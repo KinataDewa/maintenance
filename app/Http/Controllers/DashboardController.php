@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Pengaduan;
 use App\Models\MeteranListrik;
+use App\Models\MeteranListrikInduk;
 use App\Models\Tenant;
 use Carbon\Carbon;
 
@@ -28,7 +29,7 @@ class DashboardController extends Controller
         // 🧩 Filter Tenant
         $tenantId = $request->input('tenant_id');
 
-        // 🔌 Data Meteran Listrik (Grafik)
+        // ⚡ Grafik Pemakaian Listrik (Per Tenant)
         $meteranData = MeteranListrik::select(
                 DB::raw('DATE(waktu_input) as tanggal'),
                 DB::raw('SUM(kwh) as total_kwh')
@@ -40,11 +41,18 @@ class DashboardController extends Controller
             ->orderBy('tanggal', 'asc')
             ->get();
 
-        $labels = $meteranData->pluck('tanggal')->map(function ($t) {
-            return Carbon::parse($t)->format('d M');
-        });
-
+        $labels = $meteranData->pluck('tanggal')->map(fn($t) => Carbon::parse($t)->format('d M'));
         $values = $meteranData->pluck('total_kwh');
+
+        // ⚙️ Grafik Induk PLN (MeteranListrikInduk)
+        $indukData = MeteranListrikInduk::orderBy('tanggal', 'asc')->get();
+
+        $labelsInduk = $indukData->pluck('tanggal')->map(fn($t) => Carbon::parse($t)->format('d M'));
+        $kwhData = $indukData->pluck('kwh');
+        $kvarData = $indukData->pluck('kvar');
+        $cosphiData = $indukData->pluck('cosphi');
+        $wbpData = $indukData->pluck('wbp');
+        $lwbpData = $indukData->pluck('lwbp');
 
         // 🔽 Dropdown tenant
         $tenants = Tenant::orderBy('nama')->get();
@@ -56,16 +64,27 @@ class DashboardController extends Controller
                 'jumlahPengaduanBaru',
                 'labels',
                 'values',
+                'labelsInduk',
+                'kwhData',
+                'kvarData',
+                'cosphiData',
+                'wbpData',
+                'lwbpData',
                 'tenants',
                 'tenantId'
             ));
         } else {
-            // staff
             return view('dashboard.staff', compact(
                 'pengaduanBaru',
                 'jumlahPengaduanBaru',
                 'labels',
                 'values',
+                'labelsInduk',
+                'kwhData',
+                'kvarData',
+                'cosphiData',
+                'wbpData',
+                'lwbpData',
                 'tenants',
                 'tenantId'
             ));
