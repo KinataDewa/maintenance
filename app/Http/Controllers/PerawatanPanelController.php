@@ -27,6 +27,10 @@ class PerawatanPanelController extends Controller
         $request->validate([
             'panel_id' => 'required|exists:panels,id',
             'foto.*' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'tegangan' => 'nullable|numeric',
+            'arus' => 'nullable|numeric',
+            'suhu' => 'nullable|numeric',
+            'thermal_imaging' => 'nullable|numeric',
         ]);
 
         // Simpan foto jika ada
@@ -56,6 +60,10 @@ class PerawatanPanelController extends Controller
                 'foto' => $fotoPaths,
                 'catatan' => $request->catatan,
                 'user_id' => Auth::id(),
+                'tegangan' => $request->tegangan,
+            'arus' => $request->arus,
+            'suhu' => $request->suhu,
+            'thermal_imaging' => $request->thermal_imaging,
             ]);
 
         return redirect()->back()->with('success', 'Data perawatan panel berhasil disimpan.');

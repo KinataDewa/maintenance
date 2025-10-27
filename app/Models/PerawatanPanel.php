@@ -18,7 +18,11 @@ class PerawatanPanel extends Model
         'foto',
         'catatan',
         'status',
-        'user_id'
+        'user_id',
+        'tegangan',
+        'arus',
+        'suhu',
+        'thermal_imaging',
     ];
 
     protected $casts = [

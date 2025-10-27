@@ -65,24 +65,6 @@
             </div>
         </div>
 
-        <!-- Pengujian & Pengukuran -->
-        <div class="mb-3">
-            <label class="form-label">Pengujian & Pengukuran</label>
-            <div class="row">
-                @php
-                    $pengujianOptions = ['Tegangan', 'Arus', 'Suhu', 'Thermal Imaging'];
-                @endphp
-                @foreach($pengujianOptions as $item)
-                <div class="col-md-4">
-                    <div class="form-check">
-                        <input class="form-check-input" type="checkbox" name="pengecekan[pengujian][]" value="{{ strtolower($item) }}" id="{{ strtolower(str_replace(' ', '_', $item)) }}">
-                        <label class="form-check-label" for="{{ strtolower(str_replace(' ', '_', $item)) }}">{{ $item }}</label>
-                    </div>
-                </div>
-                @endforeach
-            </div>
-        </div>
-
         <!-- Pemeriksaan Lingkungan -->
         <div class="mb-3">
             <label class="form-label">Pemeriksaan Kondisi Lingkungan</label>
@@ -101,8 +83,30 @@
             </div>
         </div>
 
-        <hr class="my-4">
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Pengujian & Pengukuran</label>
 
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label for="tegangan" class="form-label">Tegangan (V)</label>
+                    <input type="number" step="any" name="tegangan" id="tegangan" value="{{ old('tegangan') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="arus" class="form-label">Arus (A)</label>
+                    <input type="number" step="any" name="arus" id="arus" value="{{ old('arus') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="suhu" class="form-label">Suhu (°C)</label>
+                    <input type="number" step="any" name="suhu" id="suhu" value="{{ old('suhu') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="thermal_imaging" class="form-label">Thermal Imaging (°C)</label>
+                    <input type="number" step="any" name="thermal_imaging" id="thermal_imaging" value="{{ old('thermal_imaging') }}" class="form-control">
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4">
         <!-- PERAWATAN PANEL (disembunyikan saat BEFORE) -->
         <div id="perawatan-section" style="display: none;">
             <h5 class="fw-bold mb-3">Perawatan Panel</h5>
