@@ -41,15 +41,12 @@
             </select>
         </div>
 
-        <hr class="my-4">
-
         {{-- Checklist Pengecekan --}}
         <div class="mb-3">
             <label class="form-label fw-semibold">Checklist Pengecekan</label>
             @php
                 $items = [
                     'Pemeriksaan Visual' => ['Karat', 'Noda Bekas Panas', 'Bau Hangus', 'Kabel Longgar', 'Isolasi Rusak'],
-                    'Pengujian & Pengukuran' => ['Tegangan', 'Arus', 'Suhu', 'Thermal Imaging'],
                     'Pemeriksaan Kondisi Lingkungan' => ['Lingkungan Aman', 'Tidak Ada Sumber Masalah'],
                 ];
                 $oldChecks = old('pengecekan', []);
@@ -67,6 +64,30 @@
                     @endforeach
                 </div>
             @endforeach
+        </div>
+
+        {{-- Pengujian & Pengukuran --}}
+        <div class="mb-3">
+            <label class="form-label fw-semibold">Pengujian & Pengukuran</label>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label for="tegangan" class="form-label">Tegangan (V)</label>
+                    <input type="number" step="any" name="tegangan" id="tegangan" value="{{ old('tegangan') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="arus" class="form-label">Arus (A)</label>
+                    <input type="number" step="any" name="arus" id="arus" value="{{ old('arus') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="suhu" class="form-label">Suhu (°C)</label>
+                    <input type="number" step="any" name="suhu" id="suhu" value="{{ old('suhu') }}" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <label for="thermal_imaging" class="form-label">Thermal Imaging (°C)</label>
+                    <input type="number" step="any" name="thermal_imaging" id="thermal_imaging" value="{{ old('thermal_imaging') }}" class="form-control">
+                </div>
+            </div>
         </div>
 
         {{-- Catatan --}}

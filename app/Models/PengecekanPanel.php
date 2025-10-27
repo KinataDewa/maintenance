@@ -10,7 +10,15 @@ class PengecekanPanel extends Model
     use HasFactory;
 
     protected $fillable = [
-        'panel_id', 'pengecekan', 'foto', 'catatan', 'user_id'
+        'panel_id',
+        'pengecekan',
+        'foto',
+        'catatan',
+        'user_id',
+        'tegangan',
+        'arus',
+        'suhu',
+        'thermal_imaging',
     ];
 
     protected $casts = [
