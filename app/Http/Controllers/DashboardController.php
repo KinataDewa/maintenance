@@ -18,10 +18,17 @@ class DashboardController extends Controller
         $user = Auth::user();
         $today = Carbon::today();
 
-        // 🔔 Pengaduan baru hari ini
-        $pengaduanBaru = Pengaduan::whereDate('created_at', $today)
-            ->where('status', 'Diproses')
-            ->latest()
+        // 🔔 Notifikasi Pengaduan Belum Selesai
+        $statusProses = [
+            'Diproses',
+            'Proses PO Barang',
+            'Proses Order Barang',
+            'Proses Barang Diterima',
+            'Proses Pengerjaan',
+        ];
+
+        $pengaduanBaru = Pengaduan::whereIn('status', $statusProses)
+            ->orderBy('created_at', 'desc')
             ->get();
 
         $jumlahPengaduanBaru = $pengaduanBaru->count();

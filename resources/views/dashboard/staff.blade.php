@@ -13,19 +13,18 @@
 
     {{-- Notifikasi Pengaduan Baru (Opsi A) --}}
     @if($jumlahPengaduanBaru > 0)
-    <div class="alert alert-warning d-flex justify-content-between align-items-center rounded-4 shadow-sm px-4 py-3 mb-4">
-        <div class="d-flex align-items-center">
-            <i class="bi bi-bell-fill me-2 fs-5 text-dark"></i>
-            <span>
-                <strong>{{ $jumlahPengaduanBaru }}</strong> pengaduan baru hari ini menunggu ditindaklanjuti.
-            </span>
+        <div class="alert alert-warning d-flex justify-content-between align-items-center rounded-4 shadow-sm px-4 py-3 mb-4">
+            <div class="d-flex align-items-center">
+                <i class="bi bi-bell-fill me-2 fs-5 text-dark"></i>
+                <span>
+                    <strong>{{ $jumlahPengaduanBaru }}</strong> pengaduan menunggu ditindaklanjuti.
+                </span>
+            </div>
+            <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-sm btn-outline-dark rounded-pill px-3">
+                Lihat
+            </a>
         </div>
-        <a href="{{ route('pengaduan.riwayat') }}" class="btn btn-sm btn-outline-dark rounded-pill px-3">
-            Lihat
-        </a>
-    </div>
-@endif
-
+    @endif
 
     <div class="row g-4">
         @php
