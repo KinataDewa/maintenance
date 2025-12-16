@@ -74,18 +74,30 @@
                 <div class="col-md-3">
                     <label for="tegangan" class="form-label">Tegangan (V)</label>
                     <input type="number" step="any" name="tegangan" id="tegangan" value="{{ old('tegangan') }}" class="form-control">
+                        <small class="text-danger d-none" id="teganganWarning">
+                            ⚠ Tegangan di luar batas normal (210–240 V)
+                        </small>                   
                 </div>
                 <div class="col-md-3">
                     <label for="arus" class="form-label">Arus (A)</label>
                     <input type="number" step="any" name="arus" id="arus" value="{{ old('arus') }}" class="form-control">
+                        <small class="text-danger d-none" id="arusWarning">
+                            ⚠ Arus di luar batas normal (≤ 100 A)
+                        </small>  
                 </div>
                 <div class="col-md-3">
                     <label for="suhu" class="form-label">Suhu (°C)</label>
                     <input type="number" step="any" name="suhu" id="suhu" value="{{ old('suhu') }}" class="form-control">
+                        <small class="text-danger d-none" id="suhuWarning">
+                            ⚠ Suhu di luar batas normal (≤ 60 °C)
+                        </small>  
                 </div>
                 <div class="col-md-3">
                     <label for="thermal_imaging" class="form-label">Thermal Imaging (°C)</label>
                     <input type="number" step="any" name="thermal_imaging" id="thermal_imaging" value="{{ old('thermal_imaging') }}" class="form-control">
+                        <small class="text-danger d-none" id="thermal_imagingWarning">
+                            ⚠ Thermal Imaging di luar batas normal (≤ 70 °C)
+                        </small>  
                 </div>
             </div>
         </div>
@@ -127,6 +139,36 @@ document.getElementById('foto')?.addEventListener('change', function() {
         container.appendChild(img);
     });
 });
+
+function checkValue(inputId, min = null, max = null) {
+    const input = document.getElementById(inputId);
+    const warning = document.getElementById(inputId + 'Warning');
+
+    if (!input) return;
+
+    input.addEventListener('input', () => {
+        const val = parseFloat(input.value);
+        let isWarning = false;
+
+        if (min !== null && val < min) isWarning = true;
+        if (max !== null && val > max) isWarning = true;
+
+        if (isWarning && input.value !== '') {
+            input.classList.add('border-danger');
+            warning.classList.remove('d-none');
+        } else {
+            input.classList.remove('border-danger');
+            warning.classList.add('d-none');
+        }
+    });
+}
+
+// Panggil
+checkValue('tegangan', 210, 240);
+checkValue('arus', null, 100);
+checkValue('suhu', null, 60);
+checkValue('thermal_imaging', null, 70);
+
 </script>
 @endpush
 @endsection
