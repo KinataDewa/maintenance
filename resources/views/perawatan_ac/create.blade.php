@@ -34,9 +34,9 @@
 
         <!-- Lokasi -->
         <div class="mb-3">
-            <label for="lokasi" class="form-label fw-semibold">Lokasi</label>
+            <label for="lokasi" class="form-label fw-semibold">Perangkat</label>
             <select id="lokasi" name="lokasi" class="form-select" required>
-                <option value="">-- Pilih Lokasi --</option>
+                <option value="">-- Pilih Perangkat --</option>
                 <option value="Indoor">Indoor</option>
                 <option value="Outdoor">Outdoor</option>
             </select>

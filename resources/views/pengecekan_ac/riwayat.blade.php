@@ -36,7 +36,7 @@
                                         <tr>
                                             <th style="width: 50px;">No</th>
                                             <th>AC</th>
-                                            <th>Lokasi</th>                                            <th>Catatan</th>
+                                            <th>Perangkat</th>                                            <th>Catatan</th>
                                             <th>Staff</th>
                                             <th>Foto</th>
                                             <th>Aksi</th>
@@ -85,7 +85,7 @@
                                                         <div class="modal-body">
                                                             <p><strong>Petugas:</strong> {{ $data->user->name ?? '-' }}</p>
                                                             <p><strong>Tanggal:</strong> {{ $data->created_at->format('d M Y H:i') }}</p>
-                                                            <p><strong>Lokasi:</strong> {{ $data->lokasi }}</p>
+                                                            <p><strong>Perangkat:</strong> {{ $data->lokasi }}</p>
                                                             <hr>
 
                                                             <h6 class="fw-bold">Pengecekan</h6>
