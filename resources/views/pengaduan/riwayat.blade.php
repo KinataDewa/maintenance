@@ -78,7 +78,7 @@
                                             <th>Jenis Kendala</th>
                                             <th>Perangkat</th>
                                             <th>Ruangan</th>
-                                            <th>PIC</th>
+                                            <th>Pelapor</th>
                                             <th>Status</th>
                                             <th>Progres</th>
                                             <th>Foto</th>

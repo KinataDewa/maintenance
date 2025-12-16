@@ -83,12 +83,12 @@
         {{-- PIC --}}
         <div class="row">
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-semibold">Nama PIC Ruangan</label>
+                <label class="form-label fw-semibold">Nama Pelapor</label>
                 <input type="text" name="pic_nama" class="form-control" placeholder="Nama penanggung jawab" value="{{ old('pic_nama') }}" required>
                 @error('pic_nama') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
             <div class="col-md-6 mb-3">
-                <label class="form-label fw-semibold">Nomor Telepon PIC</label>
+                <label class="form-label fw-semibold">Nomor Telepon Pelapor</label>
                 <input type="text" name="pic_telp" class="form-control" placeholder="Contoh: 08123456789" value="{{ old('pic_telp') }}" required>
                 @error('pic_telp') <small class="text-danger">{{ $message }}</small> @enderror
             </div>
