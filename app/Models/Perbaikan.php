@@ -10,6 +10,7 @@ class Perbaikan extends Model
     use HasFactory;
 
     protected $fillable = [
+        'np',
         'jenis_perangkat',
         'perangkat_id',
         'nama_perangkat',

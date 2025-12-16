@@ -26,6 +26,7 @@ class PerbaikanController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'np' => 'required|integer',
             'jenis_perangkat' => 'required',
             'perangkat_id' => 'required',
             'nama_perangkat' => 'required',
@@ -33,6 +34,7 @@ class PerbaikanController extends Controller
         ]);
 
         Perbaikan::create([
+            'np' => $request->np,
             'jenis_perangkat' => $request->jenis_perangkat,
             'perangkat_id' => $request->perangkat_id,
             'nama_perangkat' => $request->nama_perangkat,

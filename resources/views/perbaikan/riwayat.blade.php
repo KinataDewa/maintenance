@@ -77,12 +77,12 @@
                                     <thead class="bg-dark text-white">
                                         <tr class="text-center">
                                             <th style="width: 40px;">No</th>
+                                            <th>Nomer Pengaduan</th>
                                             <th>Jenis Perangkat</th>
                                             <th>Nama</th>
                                             <th>Kerusakan</th>
                                             <th>Tindakan</th>
                                             <th>Status</th>
-                                            <th>Biaya (Rp)</th>
                                             <th>Aksi</th>
                                         </tr>
                                     </thead>
@@ -90,6 +90,7 @@
                                         @foreach ($logs as $i => $item)
                                             <tr>
                                                 <td class="text-center">{{ $i + 1 }}</td>
+                                                <td class="text-center">{{ $item->np }}</td>
                                                 <td class="text-capitalize">{{ str_replace('_', ' ', $item->jenis_perangkat) }}</td>
                                                 <td>{{ $item->nama_perangkat ?? '-' }}</td>
                                                 <td>{{ $item->jenis_kerusakan }}</td>
@@ -102,7 +103,6 @@
                                                         {{ ucfirst($item->status) }}
                                                     </span>
                                                 </td>
-                                                <td class="text-end">{{ $item->biaya ? number_format($item->biaya, 0, ',', '.') : '-' }}</td>
                                                 <td class="text-center">
                                                     <button class="btn btn-sm btn-outline-primary"
                                                             data-bs-toggle="modal"
@@ -117,7 +117,7 @@
                                                 <div class="modal-dialog">
                                                     <div class="modal-content rounded-4">
                                                         <div class="modal-header bg-dark text-white">
-                                                            <h5 class="modal-title">Edit Status & Biaya</h5>
+                                                            <h5 class="modal-title">Edit Status</h5>
                                                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                         </div>
                                                         <form action="{{ route('perbaikan.updateStatus', $item->id) }}" method="POST">
@@ -130,12 +130,6 @@
                                                                         <option value="proses" {{ $item->status == 'proses' ? 'selected' : '' }}>Proses</option>
                                                                         <option value="sudah" {{ $item->status == 'sudah' ? 'selected' : '' }}>Sudah</option>
                                                                     </select>
-                                                                </div>
-
-                                                                <div class="mb-3">
-                                                                    <label class="form-label">Biaya (Rp)</label>
-                                                                    <input type="number" name="biaya" step="100" class="form-control"
-                                                                        value="{{ $item->biaya }}">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">

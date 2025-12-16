@@ -24,6 +24,11 @@
         @csrf
 
         <div class="mb-3">
+            <label class="form-label">Nomor Pengaduan</label>
+             <input type="number" name="np"class="form-control"value="{{ old('np') }}"placeholder="Masukkan NP"required>
+            </div>
+
+        <div class="mb-3">
             <label class="form-label">Jenis Perangkat</label>
             <select class="form-select" name="jenis_perangkat" id="jenis_perangkat" required>
                 <option value="">-- Pilih Jenis --</option>
